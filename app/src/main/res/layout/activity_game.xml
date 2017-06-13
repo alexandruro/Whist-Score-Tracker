@@ -3,29 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.alexandruro.whistscoretracker.GameActivity"
-    tools:layout_editor_absoluteY="81dp"
-    tools:layout_editor_absoluteX="0dp">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
-        android:text="Current game"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_alignParentBottom="true"
         android:layout_marginRight="8dp"
         android:layout_marginLeft="8dp"
-        android:id="@+id/tableLayout"
-        android:layout_above="@+id/floatingActionButton">
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="70dp"
+        android:id="@+id/tableLayout">
 
         <TableRow>
 
@@ -33,14 +31,14 @@
                 android:layout_width="40dp"
                 android:layout_column="0"
                 android:text="#"
-                android:textSize="18sp" />
+                android:textSize="25sp" />
 
             <TextView
                 android:layout_column="1"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="Alex"
-                android:textSize="18sp" />
+                android:textSize="25sp" />
 
             <TextView
                 android:layout_width="30dp"
@@ -48,7 +46,7 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="Ana"
-                android:textSize="18sp" />
+                android:textSize="25sp" />
 
         </TableRow>
 
@@ -66,7 +64,7 @@
                         android:layout_width="40dp"
                         android:layout_column="0"
                         android:text="1"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -74,7 +72,7 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -82,7 +80,7 @@
                         android:layout_weight="2"
                         android:gravity="center_horizontal"
                         android:text="5"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -90,7 +88,7 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -98,7 +96,7 @@
                         android:layout_weight="2"
                         android:gravity="center_horizontal"
                         android:text="-1"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                 </TableRow>
 
@@ -108,7 +106,7 @@
                         android:layout_width="40dp"
                         android:layout_column="0"
                         android:text="1"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -116,7 +114,7 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -124,7 +122,7 @@
                         android:layout_weight="2"
                         android:gravity="center_horizontal"
                         android:text="5"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -132,7 +130,7 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -140,7 +138,7 @@
                         android:layout_weight="2"
                         android:gravity="center_horizontal"
                         android:text="-1"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                 </TableRow>
 
@@ -150,7 +148,7 @@
                         android:layout_width="40dp"
                         android:layout_column="0"
                         android:text="1"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -158,7 +156,7 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -166,7 +164,7 @@
                         android:layout_weight="2"
                         android:gravity="center_horizontal"
                         android:text="5"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -174,7 +172,7 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -182,7 +180,7 @@
                         android:layout_weight="2"
                         android:gravity="center_horizontal"
                         android:text="-1"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                 </TableRow>
 
@@ -192,7 +190,7 @@
                         android:layout_width="40dp"
                         android:layout_column="0"
                         android:text="1"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -200,7 +198,7 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -208,7 +206,7 @@
                         android:layout_weight="2"
                         android:gravity="center_horizontal"
                         android:text="5"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -216,7 +214,7 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -224,7 +222,7 @@
                         android:layout_weight="2"
                         android:gravity="center_horizontal"
                         android:text="-1"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                 </TableRow>
 
@@ -234,7 +232,7 @@
                         android:layout_width="40dp"
                         android:layout_column="0"
                         android:text="1"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -242,7 +240,7 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -250,7 +248,7 @@
                         android:layout_weight="2"
                         android:gravity="center_horizontal"
                         android:text="5"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -258,7 +256,7 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -266,7 +264,7 @@
                         android:layout_weight="2"
                         android:gravity="center_horizontal"
                         android:text="-1"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                 </TableRow>
 
@@ -276,7 +274,7 @@
                         android:layout_width="40dp"
                         android:layout_column="0"
                         android:text="1"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -284,7 +282,7 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -292,7 +290,7 @@
                         android:layout_weight="2"
                         android:gravity="center_horizontal"
                         android:text="5"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -300,7 +298,7 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -308,7 +306,7 @@
                         android:layout_weight="2"
                         android:gravity="center_horizontal"
                         android:text="-1"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                 </TableRow>
 
@@ -318,7 +316,7 @@
                         android:layout_width="40dp"
                         android:layout_column="0"
                         android:text="1"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -326,7 +324,7 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -334,7 +332,7 @@
                         android:layout_weight="2"
                         android:gravity="center_horizontal"
                         android:text="5"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -342,7 +340,7 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -350,7 +348,7 @@
                         android:layout_weight="2"
                         android:gravity="center_horizontal"
                         android:text="-1"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                 </TableRow>
 
@@ -360,7 +358,7 @@
                         android:layout_width="40dp"
                         android:layout_column="0"
                         android:text="1"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -368,7 +366,7 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -376,7 +374,7 @@
                         android:layout_weight="2"
                         android:gravity="center_horizontal"
                         android:text="5"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -384,7 +382,7 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -392,7 +390,7 @@
                         android:layout_weight="2"
                         android:gravity="center_horizontal"
                         android:text="-1"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                 </TableRow>
 
@@ -402,7 +400,7 @@
                         android:layout_width="40dp"
                         android:layout_column="0"
                         android:text="1"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -410,7 +408,7 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -418,7 +416,7 @@
                         android:layout_weight="2"
                         android:gravity="center_horizontal"
                         android:text="5"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -426,7 +424,7 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -434,7 +432,7 @@
                         android:layout_weight="2"
                         android:gravity="center_horizontal"
                         android:text="-1"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                 </TableRow>
 
@@ -444,7 +442,7 @@
                         android:layout_width="40dp"
                         android:layout_column="0"
                         android:text="1"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -452,7 +450,7 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -460,7 +458,7 @@
                         android:layout_weight="2"
                         android:gravity="center_horizontal"
                         android:text="5"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -468,7 +466,7 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -476,7 +474,7 @@
                         android:layout_weight="2"
                         android:gravity="center_horizontal"
                         android:text="-1"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                 </TableRow>
 
@@ -486,7 +484,7 @@
                         android:layout_width="40dp"
                         android:layout_column="0"
                         android:text="1"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -494,7 +492,7 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -502,7 +500,7 @@
                         android:layout_weight="2"
                         android:gravity="center_horizontal"
                         android:text="5"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -510,7 +508,7 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -518,7 +516,7 @@
                         android:layout_weight="2"
                         android:gravity="center_horizontal"
                         android:text="-1"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                 </TableRow>
 
@@ -528,7 +526,7 @@
                         android:layout_width="40dp"
                         android:layout_column="0"
                         android:text="1"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -536,7 +534,7 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -544,7 +542,7 @@
                         android:layout_weight="2"
                         android:gravity="center_horizontal"
                         android:text="5"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -552,7 +550,7 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="30dp"
@@ -560,7 +558,7 @@
                         android:layout_weight="2"
                         android:gravity="center_horizontal"
                         android:text="-1"
-                        android:textSize="18sp" />
+                        android:textSize="25sp" />
 
                 </TableRow>
             </TableLayout>
