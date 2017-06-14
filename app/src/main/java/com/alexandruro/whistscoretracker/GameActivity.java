@@ -5,14 +5,26 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.zip.Inflater;
+
 public class GameActivity extends AppCompatActivity {
+
+    public static boolean isRunning = false;
+
+    private ArrayList<String> names;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +36,23 @@ public class GameActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setTitle("Game Table");
 
+        isRunning = true;
+
+        Intent intent = getIntent();
+        names = intent.getStringArrayListExtra("names");
+        TableRow header = (TableRow) findViewById(R.id.header);
+        for(int i=0; i<names.size(); i++) {
+            LayoutInflater.from(this).inflate(R.layout.name_header_item, header, true);
+            ((TextView)header.getChildAt(i+1)).setText(names.get(i));
+        }
+
+        addRow();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        isRunning = false;
     }
 
     @Override
@@ -60,5 +89,22 @@ public class GameActivity extends AppCompatActivity {
     void addScore(View view) {
         Intent intent = new Intent(this, AddRowActivity.class);
         startActivity(intent);
+    }
+
+    void addRow() {
+        TableLayout body = (TableLayout) findViewById(R.id.tableBody);
+        TableRow newRow = new TableRow(this);
+        LayoutInflater.from(this).inflate(R.layout.score_number, newRow, true);
+        ((TextView)newRow.getChildAt(0)).setText("i");
+
+        for(int i=0; i<names.size(); i++) {
+            LayoutInflater.from(this).inflate(R.layout.score_item_short, newRow, true);
+            LayoutInflater.from(this).inflate(R.layout.score_item_long, newRow, true);
+            ((TextView)newRow.getChildAt(2*i+1)).setText("1");
+            ((TextView)newRow.getChildAt(2*i+2)).setText("5");
+        }
+
+
+        body.addView(newRow);
     }
 }

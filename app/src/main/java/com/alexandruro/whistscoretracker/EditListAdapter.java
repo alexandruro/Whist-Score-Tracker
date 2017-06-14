@@ -35,8 +35,12 @@ public class EditListAdapter extends ArrayAdapter<String> {
 
         if(position==getCount()-1)
             listItemView.findViewById(R.id.remove).setVisibility(View.VISIBLE);
+        else
+            listItemView.findViewById(R.id.remove).setVisibility(View.GONE);
 
         return listItemView;
 
     }
+
+
 }

@@ -7,10 +7,16 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class NewGameActivity extends AppCompatActivity {
+
+    private ArrayList<String> names;
+    EditListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,11 +28,11 @@ public class NewGameActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setTitle("New Game options");
 
-        ArrayList<String> names = new ArrayList<>();
+        names = new ArrayList<>();
         names.add("Alex");
         names.add("Ana");
 
-        EditListAdapter adapter = new EditListAdapter(this, names);
+        adapter = new EditListAdapter(this, names);
 
         ListView listView = (ListView)findViewById(R.id.nameListView);
         listView.setAdapter(adapter);
@@ -34,7 +40,35 @@ public class NewGameActivity extends AppCompatActivity {
     }
 
     void startGame(View view){
+
+        RadioButton gameType1 = (RadioButton) findViewById(R.id.radioGameType1);
+        RadioButton gameType2 = (RadioButton) findViewById(R.id.radioGameType2);
+
+        RadioButton prize0 = (RadioButton) findViewById(R.id.radioPrizeNone);
+        RadioButton prize5 = (RadioButton) findViewById(R.id.radioPrize5);
+        RadioButton prize10 = (RadioButton) findViewById(R.id.radioPrize10);
+        String prize;
+
+        if(prize0.isChecked())
+            prize = "none";
+        else if(prize5.isChecked())
+            prize = "5";
+        else prize="10";
+
+
         Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra("gameType1", gameType1.isChecked());
+        intent.putExtra("prize", prize);
+        intent.putStringArrayListExtra("names", names);
         startActivity(intent);
+    }
+
+    void removeLastName(View view){
+        names.remove(names.size()-1);
+        adapter.notifyDataSetChanged();
+    }
+
+    void addName(View view) {
+        adapter.add("");
     }
 }

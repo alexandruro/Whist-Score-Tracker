@@ -10,6 +10,7 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
+        android:hint="Name"
         />
 
     <ImageButton
@@ -17,6 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:srcCompat="@drawable/ic_clear_black_24dp"/>
+        app:srcCompat="@drawable/ic_clear_black_24dp"
+        android:onClick="removeLastName"/>
 
 </LinearLayout>

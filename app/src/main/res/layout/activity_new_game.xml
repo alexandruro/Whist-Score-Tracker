@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.alexandruro.whistscoretracker.NewGameActivity">
+    tools:context="com.alexandruro.whistscoretracker.NewGameActivity"
+    android:overScrollMode="ifContentScrolls">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -19,7 +25,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Game mode"
+        android:text="Game type"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="66dp"
         android:layout_marginTop="88dp"
@@ -36,18 +42,19 @@
         android:id="@+id/radioGroup">
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/radioGameType1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/radioGroup"
             android:layout_toEndOf="@+id/radioGroup"
             android:layout_weight="1"
+            android:checked="true"
             android:text="1..8..1"
             tools:layout_editor_absoluteX="125dp"
             tools:layout_editor_absoluteY="123dp" />
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/radioGameType2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -75,26 +82,28 @@
         android:id="@+id/radioGroup2">
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/radioPrizeNone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="None" />
 
         <RadioButton
-            android:id="@+id/radioButton4"
+            android:id="@+id/radioPrize5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/radioGroup2"
             android:layout_toEndOf="@+id/radioGroup2"
             android:layout_weight="1"
+            android:checked="true"
             android:text="+/- 5" />
 
         <RadioButton
-            android:id="@+id/radioButton5"
+            android:id="@+id/radioPrize10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:checked="false"
             android:text="+/- 10" />
     </RadioGroup>
 
@@ -109,12 +118,23 @@
         android:text="Players"
         android:textSize="24sp" />
 
-    <ListView
+    <com.alexandruro.whistscoretracker.MyListView
         android:id="@+id/nameListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/textView3"
-        android:layout_alignParentEnd="true" />
+        />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start game"
+        android:layout_below="@id/nameListView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:onClick="startGame"
+        />
 
     <ImageButton
         android:id="@+id/buttonAdd"
@@ -123,17 +143,10 @@
         android:layout_above="@+id/nameListView"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="8dp"
+        android:onClick="addName"
         app:srcCompat="@drawable/ic_add_black_24dp" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start game"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:onClick="startGame"
-        />
+
 
 </RelativeLayout>
+</ScrollView>

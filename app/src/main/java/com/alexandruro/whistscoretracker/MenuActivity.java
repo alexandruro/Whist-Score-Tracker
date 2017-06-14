@@ -18,10 +18,16 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (GameActivity.isRunning)
+            findViewById(R.id.buttonContinue).setVisibility(View.VISIBLE);
+    }
+
     void newGame(View view) {
         Intent intent = new Intent(this, NewGameActivity.class);
         startActivity(intent);
-        findViewById(R.id.buttonContinue).setVisibility(View.VISIBLE);
     }
 
     void continueGame(View view) {
