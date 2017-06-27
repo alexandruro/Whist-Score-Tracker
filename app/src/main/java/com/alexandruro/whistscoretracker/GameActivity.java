@@ -25,6 +25,8 @@ public class GameActivity extends AppCompatActivity {
     public static boolean isRunning = false;
 
     private ArrayList<String> names;
+    private boolean betsPlaced;
+    private int roundCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,10 @@ public class GameActivity extends AppCompatActivity {
 
         isRunning = true;
 
+        // TODO: Check whether we got here from new game or from continue
+        roundCount = 0;
+        betsPlaced = false;
+
         Intent intent = getIntent();
         names = intent.getStringArrayListExtra("names");
         TableRow header = (TableRow) findViewById(R.id.header);
@@ -46,7 +52,6 @@ public class GameActivity extends AppCompatActivity {
             ((TextView)header.getChildAt(i+1)).setText(names.get(i));
         }
 
-        addRow();
     }
 
     @Override
@@ -88,23 +93,29 @@ public class GameActivity extends AppCompatActivity {
 
     void addScore(View view) {
         Intent intent = new Intent(this, AddRowActivity.class);
+        intent.putExtra("betsPlaced", betsPlaced);
+        intent.putStringArrayListExtra("names", names);
         startActivity(intent);
     }
 
-    void addRow() {
+    void addBets(ArrayList<Integer> bets) {
         TableLayout body = (TableLayout) findViewById(R.id.tableBody);
         TableRow newRow = new TableRow(this);
         LayoutInflater.from(this).inflate(R.layout.score_number, newRow, true);
-        ((TextView)newRow.getChildAt(0)).setText("i");
+        ((TextView)newRow.getChildAt(0)).setText(++roundCount);
 
         for(int i=0; i<names.size(); i++) {
             LayoutInflater.from(this).inflate(R.layout.score_item_short, newRow, true);
             LayoutInflater.from(this).inflate(R.layout.score_item_long, newRow, true);
-            ((TextView)newRow.getChildAt(2*i+1)).setText("1");
-            ((TextView)newRow.getChildAt(2*i+2)).setText("5");
+            ((TextView)newRow.getChildAt(2*i+1)).setText(bets.get(i));
+            ((TextView)newRow.getChildAt(2*i+2)).setText("");
         }
 
 
         body.addView(newRow);
+    }
+
+    void addResults(ArrayList<Integer> results) {
+
     }
 }

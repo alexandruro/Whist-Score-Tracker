@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class NewGameActivity extends AppCompatActivity {
 
-    private ArrayList<String> names;
+    private ArrayList<EditListItem> names;
     EditListAdapter adapter;
 
     @Override
@@ -29,12 +29,12 @@ public class NewGameActivity extends AppCompatActivity {
         ab.setTitle("New Game options");
 
         names = new ArrayList<>();
-        names.add("Alex");
-        names.add("Ana");
+//        names.add(new EditListItem("Alex"));
+//        names.add(new EditListItem("Ana"));
 
         adapter = new EditListAdapter(this, names);
 
-        ListView listView = (ListView)findViewById(R.id.nameListView);
+        MyListView listView = (MyListView)findViewById(R.id.nameListView);
         listView.setAdapter(adapter);
 
     }
@@ -55,11 +55,16 @@ public class NewGameActivity extends AppCompatActivity {
             prize = "5";
         else prize="10";
 
+        adapter.notifyDataSetChanged();
 
         Intent intent = new Intent(this, GameActivity.class);
         intent.putExtra("gameType1", gameType1.isChecked());
         intent.putExtra("prize", prize);
-        intent.putStringArrayListExtra("names", names);
+        ArrayList<String> stringNames = new ArrayList<>();
+        for(EditListItem item: names) {
+            stringNames.add(item.toString());
+        }
+        intent.putStringArrayListExtra("names", stringNames);
         startActivity(intent);
     }
 
@@ -69,6 +74,6 @@ public class NewGameActivity extends AppCompatActivity {
     }
 
     void addName(View view) {
-        adapter.add("");
+        adapter.add(new EditListItem(""));
     }
 }

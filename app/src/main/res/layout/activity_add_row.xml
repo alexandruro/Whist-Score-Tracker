@@ -10,11 +10,20 @@
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/prompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Player 1, place your bet!"
+        android:text="Place your bets!"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/playerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Alex"
+        android:layout_below="@id/prompt"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"/>
 
