@@ -27,6 +27,8 @@ public class GameActivity extends AppCompatActivity {
     private ArrayList<String> names;
     private boolean betsPlaced;
     private int roundCount;
+    ArrayList<PlayerRecord> scoreTable;
+    int nrOfPlayers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +45,14 @@ public class GameActivity extends AppCompatActivity {
         // TODO: Check whether we got here from new game or from continue
         roundCount = 0;
         betsPlaced = false;
+        scoreTable = new ArrayList<>();
 
         Intent intent = getIntent();
         names = intent.getStringArrayListExtra("names");
+        nrOfPlayers = names.size();
         TableRow header = (TableRow) findViewById(R.id.header);
         for(int i=0; i<names.size(); i++) {
+            scoreTable.add(new PlayerRecord());
             LayoutInflater.from(this).inflate(R.layout.name_header_item, header, true);
             ((TextView)header.getChildAt(i+1)).setText(names.get(i));
         }
@@ -91,31 +96,57 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                addBets(data.getIntegerArrayListExtra("inputs"));
+            }
+        }
+        else if(requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                addResults(data.getIntegerArrayListExtra("inputs"));
+            }
+        }
+    }
+
     void addScore(View view) {
         Intent intent = new Intent(this, AddRowActivity.class);
         intent.putExtra("betsPlaced", betsPlaced);
         intent.putStringArrayListExtra("names", names);
-        startActivity(intent);
+        if (betsPlaced)
+            startActivityForResult(intent, 2);
+        else startActivityForResult(intent, 1);
     }
 
     void addBets(ArrayList<Integer> bets) {
         TableLayout body = (TableLayout) findViewById(R.id.tableBody);
         TableRow newRow = new TableRow(this);
         LayoutInflater.from(this).inflate(R.layout.score_number, newRow, true);
-        ((TextView)newRow.getChildAt(0)).setText(++roundCount);
+        ((TextView)newRow.getChildAt(0)).setText(String.valueOf(++roundCount));
 
         for(int i=0; i<names.size(); i++) {
+            scoreTable.get(i).addBet(bets.get(i));
             LayoutInflater.from(this).inflate(R.layout.score_item_short, newRow, true);
             LayoutInflater.from(this).inflate(R.layout.score_item_long, newRow, true);
-            ((TextView)newRow.getChildAt(2*i+1)).setText(bets.get(i));
+            ((TextView)newRow.getChildAt(2*i+1)).setText(String.valueOf(bets.get(i)));
             ((TextView)newRow.getChildAt(2*i+2)).setText("");
         }
 
-
         body.addView(newRow);
+
+        betsPlaced = true;
     }
 
     void addResults(ArrayList<Integer> results) {
+        TableLayout body = (TableLayout) findViewById(R.id.tableBody);
+        TableRow lastRow = (TableRow) body.getChildAt(body.getChildCount()-1);
 
+        for(int i=0; i<names.size(); i++) {
+            scoreTable.get(i).addResult(results.get(i));
+            ((TextView) lastRow.getChildAt(2 * i + 2)).setText(String.valueOf(scoreTable.get(i).getScore()));
+        }
+        betsPlaced = false;
     }
 }

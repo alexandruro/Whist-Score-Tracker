@@ -3,6 +3,7 @@ package com.alexandruro.whistscoretracker;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -16,6 +17,7 @@ public class AddRowActivity extends AppCompatActivity {
 
     String text;
     ArrayList<String> names;
+    ArrayList<Integer> inputs;
     int index;
     TextView playerName;
 
@@ -27,15 +29,17 @@ public class AddRowActivity extends AppCompatActivity {
         GridLayout grid = (GridLayout)findViewById(R.id.grid);
 
         for(int i=0;i<=8;i++){
-            Button button = new Button(this);
+            final Button button = new Button(this);
             button.setX(i/3);
             button.setY(i%3);
             button.setText(String.valueOf(i));
             GridLayout.LayoutParams params = new GridLayout.LayoutParams(spec(i/3),spec(i%3));
+            final int value = i;
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    advance();
+                    Log.d("", "onClick: should call with " + value);
+                    advance(value);
                 }
             });
             grid.addView(button, params);
@@ -53,16 +57,21 @@ public class AddRowActivity extends AppCompatActivity {
             prompt.setText("Choose your results!");
 
         playerName = (TextView) findViewById(R.id.playerName);
+        inputs = new ArrayList<>();
     }
 
-    private void advance() {
+    private void advance(int input) {
+        inputs.add(input);
+        Log.d("", "advance: input " + input);
         if(index<names.size()-1) {
             index++;
             playerName.setText(names.get(index));
         }
         else {
-            Intent intent = new Intent(this, GameActivity.class);
-            startActivity(intent);
+            Intent intent = new Intent();
+            intent.putIntegerArrayListExtra("inputs", inputs);
+            setResult(RESULT_OK, intent);
+            finish();
         }
     }
 }
