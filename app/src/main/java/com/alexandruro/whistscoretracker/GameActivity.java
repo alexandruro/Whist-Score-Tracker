@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -28,6 +30,7 @@ public class GameActivity extends AppCompatActivity {
     private int roundCount;
     private ArrayList<PlayerRecord> scoreTable;
     private int nrOfPlayers;
+    private boolean gameType1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,8 @@ public class GameActivity extends AppCompatActivity {
         Intent intent = getIntent();
         names = intent.getStringArrayListExtra("names");
         nrOfPlayers = names.size();
+        gameType1 = intent.getBooleanExtra("gameType1", true);
+
         TableRow header = (TableRow) findViewById(R.id.header);
         for(int i=0; i<names.size(); i++) {
             scoreTable.add(new PlayerRecord());
@@ -131,7 +136,8 @@ public class GameActivity extends AppCompatActivity {
         TableLayout body = (TableLayout) findViewById(R.id.tableBody);
         TableRow newRow = new TableRow(this);
         LayoutInflater.from(this).inflate(R.layout.score_number, newRow, true);
-        ((TextView)newRow.getChildAt(0)).setText(String.valueOf(++roundCount));
+        roundCount++;
+        ((TextView)newRow.getChildAt(0)).setText(String.valueOf(getNrOfHands()));
 
         for(int i=0; i<names.size(); i++) {
             scoreTable.get(i).addBet(bets.get(i));
@@ -159,5 +165,40 @@ public class GameActivity extends AppCompatActivity {
             ((TextView) lastRow.getChildAt(2 * i + 2)).setText(String.valueOf(scoreTable.get(i).getScore()));
         }
         betsPlaced = false;
+
+        if(roundCount>=3*nrOfPlayers+12) {
+            Toast.makeText(this, "Game ended!", Toast.LENGTH_SHORT).show();
+            findViewById(R.id.floatingActionButton).setVisibility(View.GONE);
+        }
+
+    }
+
+    /**
+     * Computes the number of hands in the current round
+     * @return The number of hands
+     */
+    private int getNrOfHands() {
+        if(roundCount>3*nrOfPlayers+12)
+            return -1;
+        if(gameType1)
+            if(roundCount<=nrOfPlayers)
+                return 1;
+            else if(roundCount<=nrOfPlayers+6)
+                return roundCount-nrOfPlayers+1;
+            else if(roundCount<=2*nrOfPlayers+6)
+                return 8;
+            else if(roundCount<=2*nrOfPlayers+12)
+                return 2*nrOfPlayers+14-roundCount;
+            else return 1;
+        else
+            if(roundCount<=nrOfPlayers)
+                return 8;
+            else if(roundCount<=nrOfPlayers+6)
+                return nrOfPlayers+8-roundCount;
+            else if(roundCount<=2*nrOfPlayers+6)
+                return 1;
+            else if(roundCount<=2*nrOfPlayers+12)
+                return roundCount-2*nrOfPlayers-5;
+            else return 8;
     }
 }
