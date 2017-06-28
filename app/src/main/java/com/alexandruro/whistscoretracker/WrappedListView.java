@@ -1,22 +1,19 @@
 package com.alexandruro.whistscoretracker;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
 /**
- * Created by Alex on 14/06/2017.
+ * Custom ListView that always wraps around its content without scrolling
  */
-
-public class MyListView extends ListView {
+class WrappedListView extends ListView {
 
     private ViewGroup.LayoutParams params;
     private int oldCount = 0;
 
-    public MyListView(Context context, AttributeSet attrs) {
+    public WrappedListView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

@@ -3,26 +3,25 @@ package com.alexandruro.whistscoretracker;
 import java.util.ArrayList;
 
 /**
- * Created by Alex on 27/06/2017.
+ * Keeps a record of a player's bets, results and score
  */
-
-public class PlayerRecord {
+class PlayerRecord {
 
     private ArrayList<Integer> bets;
     private ArrayList<Integer> results;
     private int score;
 
-    public PlayerRecord() {
+    PlayerRecord() {
         score = 0;
         bets = new ArrayList<>();
         results = new ArrayList<>();
     }
 
-    public void addBet(int bet) {
+    void addBet(int bet) {
         bets.add(bet);
     }
 
-    public void addResult(int result) {
+    void addResult(int result) {
         results.add(result);
         int bet = bets.get(bets.size()-1);
         if(bet==result)
@@ -31,7 +30,7 @@ public class PlayerRecord {
             score -= Math.abs(result-bet);
     }
 
-    public int getScore() {
+    int getScore() {
         return score;
     }
 }

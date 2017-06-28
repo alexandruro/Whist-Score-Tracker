@@ -1,7 +1,6 @@
 package com.alexandruro.whistscoretracker;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -9,19 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 /**
- * Created by Alex on 13/06/2017.
+ * Adapter for an EditList (a list of EditText items)
  */
+class EditListAdapter extends ArrayAdapter<EditListItem> {
 
-
-
-public class EditListAdapter extends ArrayAdapter<EditListItem> {
-
-    public EditListAdapter(Context con, ArrayList<EditListItem> list) {
+    EditListAdapter(Context con, ArrayList<EditListItem> list) {
         super(con, 0, list);
     }
 

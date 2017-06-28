@@ -1,25 +1,24 @@
 package com.alexandruro.whistscoretracker;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
+/**
+ * Main game activity, where the game table is displayed
+ */
 public class GameActivity extends AppCompatActivity {
 
     public static boolean isRunning = false;
@@ -27,8 +26,8 @@ public class GameActivity extends AppCompatActivity {
     private ArrayList<String> names;
     private boolean betsPlaced;
     private int roundCount;
-    ArrayList<PlayerRecord> scoreTable;
-    int nrOfPlayers;
+    private ArrayList<PlayerRecord> scoreTable;
+    private int nrOfPlayers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,8 +110,12 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method called by pressing the add button. Redirects the user to the AddToGameTableActivity
+     * @param view The view that calls the method
+     */
     void addScore(View view) {
-        Intent intent = new Intent(this, AddRowActivity.class);
+        Intent intent = new Intent(this, AddToGameTableActivity.class);
         intent.putExtra("betsPlaced", betsPlaced);
         intent.putStringArrayListExtra("names", names);
         if (betsPlaced)
@@ -120,7 +123,11 @@ public class GameActivity extends AppCompatActivity {
         else startActivityForResult(intent, 1);
     }
 
-    void addBets(ArrayList<Integer> bets) {
+    /**
+     * Adds the bets of the current round to the table
+     * @param bets The bets of the players
+     */
+    private void addBets(ArrayList<Integer> bets) {
         TableLayout body = (TableLayout) findViewById(R.id.tableBody);
         TableRow newRow = new TableRow(this);
         LayoutInflater.from(this).inflate(R.layout.score_number, newRow, true);
@@ -139,7 +146,11 @@ public class GameActivity extends AppCompatActivity {
         betsPlaced = true;
     }
 
-    void addResults(ArrayList<Integer> results) {
+    /**
+     * Adds the results of the current round to the table
+     * @param results The results of the players
+     */
+    private void addResults(ArrayList<Integer> results) {
         TableLayout body = (TableLayout) findViewById(R.id.tableBody);
         TableRow lastRow = (TableRow) body.getChildAt(body.getChildCount()-1);
 

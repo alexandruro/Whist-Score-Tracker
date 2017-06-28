@@ -1,14 +1,13 @@
 package com.alexandruro.whistscoretracker;
 
 /**
- * Created by Alex on 16/06/2017.
+ * An element in an EditList, represented by its corresponding string input by the user
  */
-
-public class EditListItem {
+class EditListItem {
 
     private String string;
 
-    public EditListItem(String string) {
+    EditListItem(String string) {
         this.string = string;
     }
 
@@ -17,7 +16,7 @@ public class EditListItem {
         return string;
     }
 
-    public void setString(String string) {
+    void setString(String string) {
         this.string = string;
     }
 }

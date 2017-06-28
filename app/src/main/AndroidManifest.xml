@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".MenuActivity"
+            android:name=".MainMenuActivity"
             android:label="@string/title_activity_menu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,22 +21,22 @@
         <activity
             android:name=".GameActivity"
             android:launchMode="singleTask"
-            android:parentActivityName=".MenuActivity">
+            android:parentActivityName=".MainMenuActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.alexandruro.whistscoretracker.MenuActivity" />
+                android:value="com.alexandruro.whistscoretracker.MainMenuActivity" />
         </activity>
         <activity
             android:name=".NewGameActivity"
-            android:parentActivityName=".MenuActivity">
+            android:parentActivityName=".MainMenuActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.alexandruro.whistscoretracker.MenuActivity" />
+                android:value="com.alexandruro.whistscoretracker.MainMenuActivity" />
         </activity>
         <activity
-            android:name=".AddRowActivity"
+            android:name=".AddToGameTableActivity"
             android:parentActivityName=".GameActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

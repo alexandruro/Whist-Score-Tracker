@@ -1,22 +1,22 @@
 package com.alexandruro.whistscoretracker;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
+/**
+ * Activity used for configuring a new game
+ */
 public class NewGameActivity extends AppCompatActivity {
 
     private ArrayList<EditListItem> names;
-    EditListAdapter adapter;
+    private EditListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +34,15 @@ public class NewGameActivity extends AppCompatActivity {
 
         adapter = new EditListAdapter(this, names);
 
-        MyListView listView = (MyListView)findViewById(R.id.nameListView);
+        WrappedListView listView = (WrappedListView)findViewById(R.id.nameListView);
         listView.setAdapter(adapter);
 
     }
 
+    /**
+     * Starts the game with the current settings
+     * @param view The view that calls the method
+     */
     void startGame(View view){
 
         RadioButton gameType1 = (RadioButton) findViewById(R.id.radioGameType1);
@@ -68,11 +72,19 @@ public class NewGameActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Removes the last EditText element in the list of names
+     * @param view The view that calls the method
+     */
     void removeLastName(View view){
         names.remove(names.size()-1);
         adapter.notifyDataSetChanged();
     }
 
+    /**
+     * Adds an empty EditText element in the list of names
+     * @param view The view that calls the method
+     */
     void addName(View view) {
         adapter.add(new EditListItem(""));
     }

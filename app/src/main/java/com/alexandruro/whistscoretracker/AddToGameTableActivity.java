@@ -1,8 +1,8 @@
 package com.alexandruro.whistscoretracker;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,13 +13,16 @@ import java.util.ArrayList;
 
 import static android.widget.GridLayout.spec;
 
-public class AddRowActivity extends AppCompatActivity {
+/**
+ * Activity used for adding bets and results to the game table
+ */
+public class AddToGameTableActivity extends AppCompatActivity {
 
-    String text;
-    ArrayList<String> names;
-    ArrayList<Integer> inputs;
-    int index;
-    TextView playerName;
+    private String text;
+    private ArrayList<String> names;
+    private ArrayList<Integer> inputs;
+    private int index;
+    private TextView playerName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,10 @@ public class AddRowActivity extends AppCompatActivity {
         inputs = new ArrayList<>();
     }
 
+    /**
+     * Confirms an input by the user and either goes to the next player or back to the table
+     * @param input The number of hands in the bet/result
+     */
     private void advance(int input) {
         inputs.add(input);
         Log.d("", "advance: input " + input);
