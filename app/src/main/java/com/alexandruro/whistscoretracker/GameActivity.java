@@ -53,10 +53,11 @@ public class GameActivity extends AppCompatActivity {
         names = intent.getStringArrayListExtra("names");
         nrOfPlayers = names.size();
         gameType1 = intent.getBooleanExtra("gameType1", true);
+        int prize = intent.getIntExtra("prize", 0);
 
         TableRow header = (TableRow) findViewById(R.id.header);
         for(int i=0; i<names.size(); i++) {
-            scoreTable.add(new PlayerRecord());
+            scoreTable.add(new PlayerRecord(prize));
             LayoutInflater.from(this).inflate(R.layout.name_header_item, header, true);
             ((TextView)header.getChildAt(i+1)).setText(names.get(i));
         }

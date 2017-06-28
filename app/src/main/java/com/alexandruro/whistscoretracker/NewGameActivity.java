@@ -51,13 +51,13 @@ public class NewGameActivity extends AppCompatActivity {
         RadioButton prize0 = (RadioButton) findViewById(R.id.radioPrizeNone);
         RadioButton prize5 = (RadioButton) findViewById(R.id.radioPrize5);
         RadioButton prize10 = (RadioButton) findViewById(R.id.radioPrize10);
-        String prize;
+        int prize;
 
         if(prize0.isChecked())
-            prize = "none";
+            prize = 0;
         else if(prize5.isChecked())
-            prize = "5";
-        else prize="10";
+            prize = 5;
+        else prize= 10;
 
         adapter.notifyDataSetChanged();
 
