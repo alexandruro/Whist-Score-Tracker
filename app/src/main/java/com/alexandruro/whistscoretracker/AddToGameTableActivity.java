@@ -60,6 +60,7 @@ public class AddToGameTableActivity extends AppCompatActivity {
             prompt.setText("Choose your results!");
 
         playerName = (TextView) findViewById(R.id.playerName);
+        playerName.setText(names.get(0));
         inputs = new ArrayList<>();
     }
 
