@@ -8,7 +8,7 @@ import android.widget.ListView;
 /**
  * Custom ListView that always wraps around its content without scrolling
  */
-class WrappedListView extends ListView {
+public class WrappedListView extends ListView {
 
     private ViewGroup.LayoutParams params;
     private int oldCount = 0;
