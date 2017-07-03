@@ -1,16 +1,17 @@
 package com.alexandruro.whistscoretracker;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -81,7 +82,38 @@ public class GameActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_undo:
-                Toast.makeText(getApplicationContext(), "Not implemented yet \uD83D\uDE1E", Toast.LENGTH_SHORT).show();
+                if(roundCount==0) {
+                    Toast.makeText(this, "No rounds were played to undo!", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Undo last input?");
+                builder.setPositiveButton("Undo", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        TableLayout body = (TableLayout) findViewById(R.id.tableBody);
+                        TableRow lastRow = (TableRow) body.getChildAt(body.getChildCount()-1);
+                        if(betsPlaced) {
+                            for(int i=0; i<names.size(); i++) {
+                                scoreTable.get(i).undoBet();
+                                ((TextView) lastRow.getChildAt(2 * i + 1)).setText("");
+                            }
+                            roundCount--;
+                            body.removeView(lastRow);
+                        }
+                        else {
+                            for(int i=0; i<names.size(); i++) {
+                                scoreTable.get(i).undoResult();
+                                ((TextView) lastRow.getChildAt(2 * i + 2)).setText("");
+                            }
+                        }
+                        betsPlaced = !betsPlaced;
+                        Snackbar.make(findViewById(R.id.game_coord_layout), "Results undone", Snackbar.LENGTH_SHORT).show();
+                    }
+                });
+                builder.setNegativeButton("Cancel", null);
+                AlertDialog dialog = builder.create();
+                dialog.show();
                 return true;
 
             case R.id.action_settings:

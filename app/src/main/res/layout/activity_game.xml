@@ -1,66 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/game_coord_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        android:layout_height="match_parent">
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="70dp"
-        android:id="@+id/tableLayout">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-        <TableRow
-            android:id="@+id/header">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="70dp"
+            android:id="@+id/tableLayout">
 
-            <TextView
-                android:layout_width="40dp"
-                android:layout_column="0"
-                android:text="#"
-                android:textSize="25sp" />
+            <TableRow
+                android:id="@+id/header">
 
-        </TableRow>
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_column="0"
+                    android:text="#"
+                    android:textSize="25sp" />
 
-        <ScrollView android:layout_height="match_parent"
-                    android:layout_width="match_parent">
+            </TableRow>
 
-            <TableLayout
-                android:id="@+id/tableBody"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-            </TableLayout>
+            <ScrollView android:layout_height="match_parent"
+                        android:layout_width="match_parent">
 
-        </ScrollView>
+                <TableLayout
+                    android:id="@+id/tableBody"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                </TableLayout>
+
+            </ScrollView>
+
+        </TableLayout>
 
 
-    </TableLayout>
+    </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/tableLayout"
-        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|right"
         android:layout_marginBottom="13dp"
-        android:clickable="true"
+        android:layout_marginRight="13dp"
         android:onClick="addScore"
-        app:elevation="0dp"
         app:fabSize="normal"
         app:srcCompat="@drawable/ic_add_white_24px" />
 
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

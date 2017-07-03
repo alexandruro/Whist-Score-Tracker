@@ -41,6 +41,15 @@ class PlayerRecord {
     void addResult(int result) {
         results.add(result);
         int bet = bets.get(bets.size()-1);
+        updateScore(bet, result);
+    }
+
+    /**
+     * Updates the score, given a new pair of bet and result
+     * @param bet The bet
+     * @param result The result
+     */
+    private void updateScore(int bet, int result) {
         if(bet==result) {
             score += 5 + result;
             if(consecWin)
@@ -69,5 +78,24 @@ class PlayerRecord {
      */
     int getScore() {
         return score;
+    }
+
+    /**
+     * Undoes the last result in the record
+     */
+    void undoResult() {
+        results.remove(results.size()-1);
+        score = 0;
+        consecResult = 0;
+        for(int i=0;i<results.size();i++) {
+            updateScore(bets.get(i), results.get(i));
+        }
+    }
+
+    /**
+     * Undoes the last bet in the record
+     */
+    void undoBet() {
+        bets.remove(bets.size()-1);
     }
 }
