@@ -109,6 +109,8 @@ public class GameActivity extends AppCompatActivity {
                                 scoreTable.get(i).undoResult();
                                 ((TextView) lastRow.getChildAt(2 * i + 2)).setText("");
                             }
+                            if(roundCount>=3*nrOfPlayers+12) // if game was ended, undo that
+                                findViewById(R.id.floatingActionButton).setVisibility(View.VISIBLE);
                         }
                         betsPlaced = !betsPlaced;
                         Snackbar.make(findViewById(R.id.game_coord_layout), "Results undone", Snackbar.LENGTH_SHORT).show();
