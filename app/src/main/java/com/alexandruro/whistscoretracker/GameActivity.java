@@ -24,6 +24,9 @@ import java.util.ArrayList;
  */
 public class GameActivity extends AppCompatActivity {
 
+    static final int RESULT_REQUEST = 1;
+    static final int BET_REQUEST = 2;
+
     public static boolean isRunning = false;
 
     private ArrayList<String> names;
@@ -136,12 +139,12 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
+        if (requestCode == BET_REQUEST) {
             if (resultCode == RESULT_OK) {
                 addBets(data.getIntegerArrayListExtra("inputs"));
             }
         }
-        else if(requestCode == 2) {
+        else if(requestCode == RESULT_REQUEST) {
             if (resultCode == RESULT_OK) {
                 addResults(data.getIntegerArrayListExtra("inputs"));
             }
@@ -153,12 +156,25 @@ public class GameActivity extends AppCompatActivity {
      * @param view The view that calls the method
      */
     void addScore(View view) {
+        int nrOfHands;
+        if(betsPlaced)
+            nrOfHands = getNrOfHands();
+        else
+            nrOfHands = getNrOfHands(roundCount+1);
+
+        int requestCode;
+        if (betsPlaced) {
+            requestCode = RESULT_REQUEST;
+        }
+        else requestCode = BET_REQUEST;
+
         Intent intent = new Intent(this, AddToGameTableActivity.class);
         intent.putExtra("betsPlaced", betsPlaced);
+        intent.putExtra("nrOfHands", nrOfHands);
         intent.putStringArrayListExtra("names", names);
-        if (betsPlaced)
-            startActivityForResult(intent, 2);
-        else startActivityForResult(intent, 1);
+        intent.putExtra("requestCode", requestCode);
+
+        startActivityForResult(intent, requestCode);
     }
 
     /**
@@ -200,6 +216,7 @@ public class GameActivity extends AppCompatActivity {
         betsPlaced = false;
 
         if(roundCount>=3*nrOfPlayers+12) {
+            // TODO: say who the winner is, etc, maybe in a popup
             Toast.makeText(this, "Game ended!", Toast.LENGTH_SHORT).show();
             findViewById(R.id.floatingActionButton).setVisibility(View.GONE);
         }
@@ -207,10 +224,11 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     * Computes the number of hands in the current round
+     * Computes the number of hands in a certain round
+     * @param roundCount The round number
      * @return The number of hands
      */
-    private int getNrOfHands() {
+    private int getNrOfHands(int roundCount) {
         if(roundCount>3*nrOfPlayers+12)
             return -1;
         if(gameType1)
@@ -234,4 +252,14 @@ public class GameActivity extends AppCompatActivity {
                 return roundCount-2*nrOfPlayers-5;
             else return 8;
     }
+
+    /**
+     * Computes the number of hands in the current round
+     * @return The number of hands
+     */
+    private int getNrOfHands() {
+        return getNrOfHands(roundCount);
+    }
+
+
 }
