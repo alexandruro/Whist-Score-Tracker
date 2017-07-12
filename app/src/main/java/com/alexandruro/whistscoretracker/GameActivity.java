@@ -157,7 +157,7 @@ public class GameActivity extends AppCompatActivity {
      * Method called by pressing the add button. Redirects the user to the AddToGameTableActivity
      * @param view The view that calls the method
      */
-    void addScore(View view) {
+    public void addScore(View view) {
         int nrOfHands;
         if(betsPlaced)
             nrOfHands = getNrOfHands();

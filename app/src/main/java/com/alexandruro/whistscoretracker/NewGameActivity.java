@@ -43,7 +43,7 @@ public class NewGameActivity extends AppCompatActivity {
      * Starts the game with the current settings
      * @param view The view that calls the method
      */
-    void startGame(View view){
+    public void startGame(View view){
 
         RadioButton gameType1 = (RadioButton) findViewById(R.id.radioGameType1);
         RadioButton gameType2 = (RadioButton) findViewById(R.id.radioGameType2);
@@ -76,7 +76,7 @@ public class NewGameActivity extends AppCompatActivity {
      * Removes the last EditText element in the list of names
      * @param view The view that calls the method
      */
-    void removeLastName(View view){
+    public void removeLastName(View view){
         names.remove(names.size()-1);
         adapter.notifyDataSetChanged();
     }
@@ -85,7 +85,7 @@ public class NewGameActivity extends AppCompatActivity {
      * Adds an empty EditText element in the list of names
      * @param view The view that calls the method
      */
-    void addName(View view) {
+    public void addName(View view) {
         adapter.add(new EditListItem(""));
     }
 }

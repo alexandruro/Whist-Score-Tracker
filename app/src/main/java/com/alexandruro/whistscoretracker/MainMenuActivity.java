@@ -28,7 +28,7 @@ public class MainMenuActivity extends AppCompatActivity {
      * Initiates a new game, going to the NewGameActivity
      * @param view The view that calls the method
      */
-    void newGame(View view) {
+    public void newGame(View view) {
         Intent intent = new Intent(this, NewGameActivity.class);
         startActivity(intent);
     }
@@ -37,7 +37,7 @@ public class MainMenuActivity extends AppCompatActivity {
      * Continues a previously initiated game
      * @param view The view that calls the method
      */
-    void continueGame(View view) {
+    public void continueGame(View view) {
         Intent intent = new Intent(this, GameActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
@@ -47,7 +47,7 @@ public class MainMenuActivity extends AppCompatActivity {
      * Redirects the user to the settings
      * @param view The view that calls the method
      */
-    void settings(View view) {
+    public void settings(View view) {
         Toast.makeText(getApplicationContext(), "Not implemented yet \uD83D\uDE1E", Toast.LENGTH_SHORT).show();
     }
 
@@ -55,7 +55,7 @@ public class MainMenuActivity extends AppCompatActivity {
      * Exits the app
      * @param view The view that calls the method
      */
-    void quit(View view) {
+    public void quit(View view) {
         finish();
         System.exit(0);
     }
