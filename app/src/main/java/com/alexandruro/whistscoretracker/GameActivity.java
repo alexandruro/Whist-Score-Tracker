@@ -143,12 +143,12 @@ public class GameActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == BET_REQUEST) {
             if (resultCode == RESULT_OK) {
-                addBets(data.getIntegerArrayListExtra("inputs"));
+                addBets(data.getIntArrayExtra("inputs"));
             }
         }
         else if(requestCode == RESULT_REQUEST) {
             if (resultCode == RESULT_OK) {
-                addResults(data.getIntegerArrayListExtra("inputs"));
+                addResults(data.getIntArrayExtra("inputs"));
             }
         }
     }
@@ -159,10 +159,15 @@ public class GameActivity extends AppCompatActivity {
      */
     public void addScore(View view) {
         int nrOfHands;
-        if(betsPlaced)
+        int firstPlayerDelay;
+        if(betsPlaced) {
             nrOfHands = getNrOfHands();
-        else
-            nrOfHands = getNrOfHands(roundCount+1);
+            firstPlayerDelay = (roundCount-1) % nrOfPlayers;
+        }
+        else {
+            nrOfHands = getNrOfHands(roundCount + 1);
+            firstPlayerDelay = roundCount % nrOfPlayers;
+        }
 
         int requestCode;
         if (betsPlaced) {
@@ -175,6 +180,7 @@ public class GameActivity extends AppCompatActivity {
         intent.putExtra("nrOfHands", nrOfHands);
         intent.putStringArrayListExtra("names", names);
         intent.putExtra("requestCode", requestCode);
+        intent.putExtra("firstPlayerDelay", firstPlayerDelay);
 
         startActivityForResult(intent, requestCode);
     }
@@ -183,7 +189,7 @@ public class GameActivity extends AppCompatActivity {
      * Adds the bets of the current round to the table
      * @param bets The bets of the players
      */
-    private void addBets(ArrayList<Integer> bets) {
+    private void addBets(int[] bets) {
         TableLayout body = (TableLayout) findViewById(R.id.tableBody);
         TableRow newRow = new TableRow(this);
         LayoutInflater.from(this).inflate(R.layout.score_number, newRow, true);
@@ -191,10 +197,10 @@ public class GameActivity extends AppCompatActivity {
         ((TextView)newRow.getChildAt(0)).setText(String.valueOf(getNrOfHands()));
 
         for(int i=0; i<names.size(); i++) {
-            scoreTable.get(i).addBet(bets.get(i));
+            scoreTable.get(i).addBet(bets[i]);
             LayoutInflater.from(this).inflate(R.layout.score_item_short, newRow, true);
             LayoutInflater.from(this).inflate(R.layout.score_item_long, newRow, true);
-            ((TextView)newRow.getChildAt(2*i+1)).setText(String.valueOf(bets.get(i)));
+            ((TextView)newRow.getChildAt(2*i+1)).setText(String.valueOf(bets[i]));
             ((TextView)newRow.getChildAt(2*i+2)).setText("");
         }
 
@@ -207,12 +213,12 @@ public class GameActivity extends AppCompatActivity {
      * Adds the results of the current round to the table
      * @param results The results of the players
      */
-    private void addResults(ArrayList<Integer> results) {
+    private void addResults(int[] results) {
         TableLayout body = (TableLayout) findViewById(R.id.tableBody);
         TableRow lastRow = (TableRow) body.getChildAt(body.getChildCount()-1);
 
         for(int i=0; i<names.size(); i++) {
-            scoreTable.get(i).addResult(results.get(i));
+            scoreTable.get(i).addResult(results[i]);
             ((TextView) lastRow.getChildAt(2 * i + 2)).setText(String.valueOf(scoreTable.get(i).getScore()));
         }
         betsPlaced = false;

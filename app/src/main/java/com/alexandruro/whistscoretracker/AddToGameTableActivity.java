@@ -19,12 +19,14 @@ public class AddToGameTableActivity extends AppCompatActivity {
 
     private String text;
     private ArrayList<String> names;
-    private ArrayList<Integer> inputs;
+    private int[] inputs;
     private int index;
     private TextView playerName;
     private int nrOfHands;
     private int handsLeft;
     private int requestCode;
+    private int firstPlayerDelay;
+    private int nrOfPlayers;
 
     private GridLayout grid;
 
@@ -38,6 +40,7 @@ public class AddToGameTableActivity extends AppCompatActivity {
         nrOfHands = intent.getIntExtra("nrOfHands", 8);
         requestCode = intent.getIntExtra("requestCode", -1);
         names = intent.getStringArrayListExtra("names");
+        firstPlayerDelay = intent.getIntExtra("firstPlayerDelay", 0);
 
 
         // Initialise layout elements
@@ -64,9 +67,11 @@ public class AddToGameTableActivity extends AppCompatActivity {
             grid.addView(button, params);
         }
 
+        // Initialise the rest
         index = -1;
         handsLeft = nrOfHands;
-        inputs = new ArrayList<>();
+        nrOfPlayers = names.size();
+        inputs = new int[nrOfPlayers];
         advance(-1);
     }
 
@@ -76,12 +81,12 @@ public class AddToGameTableActivity extends AppCompatActivity {
      */
     private void advance(int input) {
         if(input!=-1) {
-            inputs.add(input);
+            inputs[(index+firstPlayerDelay)%nrOfPlayers] = input;
             handsLeft -= input;
         }
         if(index<names.size()-1) {
             index++;
-            playerName.setText(names.get(index));
+            playerName.setText(names.get((index+firstPlayerDelay)%nrOfPlayers));
             for(int i=0;i<=8;i++) {
                 if(i>nrOfHands
                         || (requestCode==GameActivity.BET_REQUEST && i==handsLeft && index==names.size()-1)
@@ -94,7 +99,7 @@ public class AddToGameTableActivity extends AppCompatActivity {
         }
         else {
             Intent intent = getIntent();
-            intent.putIntegerArrayListExtra("inputs", inputs);
+            intent.putExtra("inputs", inputs);
             setResult(RESULT_OK, intent);
             finish();
         }
