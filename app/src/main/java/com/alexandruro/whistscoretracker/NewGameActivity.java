@@ -1,10 +1,13 @@
 package com.alexandruro.whistscoretracker;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
 
@@ -70,6 +73,7 @@ public class NewGameActivity extends AppCompatActivity {
         }
         intent.putStringArrayListExtra("names", stringNames);
         startActivity(intent);
+        finish();
     }
 
     /**
@@ -87,5 +91,32 @@ public class NewGameActivity extends AppCompatActivity {
      */
     public void addName(View view) {
         adapter.add(new EditListItem(""));
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Discard?");
+        builder.setPositiveButton("Discard", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                NewGameActivity.super.onBackPressed();
+            }
+        });
+        builder.setNegativeButton("Cancel", null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
