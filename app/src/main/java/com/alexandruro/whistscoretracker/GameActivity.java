@@ -12,12 +12,14 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Main game activity, where the game table is displayed
@@ -61,7 +63,7 @@ public class GameActivity extends AppCompatActivity {
 
         TableRow header = (TableRow) findViewById(R.id.header);
         for(int i=0; i<names.size(); i++) {
-            scoreTable.add(new PlayerRecord(prize));
+            scoreTable.add(new PlayerRecord(names.get(i), prize));
             LayoutInflater.from(this).inflate(R.layout.name_header_item, header, true);
             ((TextView)header.getChildAt(i+1)).setText(names.get(i));
         }
@@ -162,6 +164,7 @@ public class GameActivity extends AppCompatActivity {
      * @param view The view that calls the method
      */
     public void addScore(View view) {
+
         int nrOfHands;
         int firstPlayerDelay;
         if(betsPlaced) {
@@ -211,6 +214,7 @@ public class GameActivity extends AppCompatActivity {
         body.addView(newRow);
 
         betsPlaced = true;
+
     }
 
     /**
@@ -228,10 +232,39 @@ public class GameActivity extends AppCompatActivity {
         betsPlaced = false;
 
         if(roundCount>=3*nrOfPlayers+12) {
-            // TODO: say who the winner is, etc, maybe in a popup
-            Toast.makeText(this, "Game ended!", Toast.LENGTH_SHORT).show();
-            findViewById(R.id.floatingActionButton).setVisibility(View.GONE);
+            endGame();
         }
+    }
+
+    /**
+     * Ends the current game
+     */
+    private void endGame() {
+        findViewById(R.id.floatingActionButton).setVisibility(View.GONE);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Game over!");
+
+        Collections.sort(scoreTable);
+
+        ListView playerScores = new ListView(this);
+
+        float scale = getResources().getDisplayMetrics().density;
+        int dpAsPixels = (int) (16*scale + 0.5f);
+        playerScores.setPadding(dpAsPixels, dpAsPixels, dpAsPixels, dpAsPixels);
+
+        EndPlayerListAdapter adapter = new EndPlayerListAdapter(this, scoreTable);
+        playerScores.setAdapter(adapter);
+
+        builder.setView(playerScores);
+        builder.setPositiveButton("Return to menu", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        builder.setNegativeButton("Dismiss", null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
 
     }
 

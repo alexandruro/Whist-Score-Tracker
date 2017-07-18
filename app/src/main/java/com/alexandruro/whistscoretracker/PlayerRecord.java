@@ -1,12 +1,15 @@
 package com.alexandruro.whistscoretracker;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 
 /**
  * Keeps a record of a player's bets, results and score
  */
-class PlayerRecord {
+class PlayerRecord implements Comparable {
 
+    private String name;
     private ArrayList<Integer> bets;
     private ArrayList<Integer> results;
     private int score;
@@ -15,10 +18,20 @@ class PlayerRecord {
     private boolean consecWin;
 
     /**
+     * Gets the name of the player
+     * @return The name of the player
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
      * Creates a blank record
      * @param prize The prize applied when winning/losing in a row
      */
-    PlayerRecord(int prize) {
+    PlayerRecord(String name, int prize) {
+        this.name = name;
+
         this.prize = prize;
         consecResult = 0;
         score = 0;
@@ -97,5 +110,10 @@ class PlayerRecord {
      */
     void undoBet() {
         bets.remove(bets.size()-1);
+    }
+
+    @Override
+    public int compareTo(@NonNull Object o) {
+        return ((PlayerRecord)o).getScore()-getScore();
     }
 }
