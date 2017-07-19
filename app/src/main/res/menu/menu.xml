@@ -8,13 +8,19 @@
         android:icon="@drawable/ic_action_undo"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/action_restart"
+        android:title="Restart game"
+        android:icon="@drawable/ic_action_restart"
+        app:showAsAction="never" />
+
     <item android:id="@+id/action_settings"
         android:title="Settings"
         android:icon="@drawable/ic_action_settings"
         app:showAsAction="never" />
 
     <item android:id="@+id/action_quit"
-        android:title="Quit"
+        android:title="Return to menu"
         app:showAsAction="never"/>
 
 </menu>

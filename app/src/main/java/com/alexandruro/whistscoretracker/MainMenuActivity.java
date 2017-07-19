@@ -20,8 +20,6 @@ public class MainMenuActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (GameActivity.isRunning)
-            findViewById(R.id.buttonContinue).setVisibility(View.VISIBLE);
     }
 
     /**

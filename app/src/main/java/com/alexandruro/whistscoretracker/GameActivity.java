@@ -29,14 +29,13 @@ public class GameActivity extends AppCompatActivity {
     static final int RESULT_REQUEST = 1;
     static final int BET_REQUEST = 2;
 
-    public static boolean isRunning = false;
-
     private ArrayList<String> names;
     private boolean betsPlaced;
     private int roundCount;
     private ArrayList<PlayerRecord> scoreTable;
     private int nrOfPlayers;
     private boolean gameType1;
+    private boolean gameOver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +47,7 @@ public class GameActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setTitle("Game Table");
 
-        isRunning = true;
-
-        // TODO: Check whether we got here from new game or from continue
-        roundCount = 0;
-        betsPlaced = false;
-        scoreTable = new ArrayList<>();
+        initialiseGameVariables();
 
         Intent intent = getIntent();
         names = intent.getStringArrayListExtra("names");
@@ -70,10 +64,25 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        isRunning = false;
+    /**
+     * Initialises the game variables like the round and the table
+     */
+    private void initialiseGameVariables() {
+        gameOver = false;
+        roundCount = 0;
+        betsPlaced = false;
+        scoreTable = new ArrayList<>();
+    }
+
+    /**
+     * Resets the game to the beginning
+     */
+    private void restartGame() {
+        initialiseGameVariables();
+        ((TableLayout) findViewById(R.id.tableBody)).removeAllViews();
+        int prize = getIntent().getIntExtra("prize", 0);
+        for(int i=0; i<names.size(); i++)
+            scoreTable.add(new PlayerRecord(names.get(i), prize));
     }
 
     @Override
@@ -123,13 +132,40 @@ public class GameActivity extends AppCompatActivity {
                 dialog.show();
                 return true;
 
+            case R.id.action_restart:
+                if(roundCount==0) {
+                    Toast.makeText(this, "No rounds were played yet!", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                builder = new AlertDialog.Builder(this);
+                builder.setTitle("Restart game?");
+                if(!gameOver)
+                    builder.setMessage("The game is not over, so the current scores will be discarded.");
+                builder.setPositiveButton("Restart", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        restartGame();
+                    }
+                });
+                builder.setNegativeButton("Cancel", null);
+                builder.show();
+                return true;
+
             case R.id.action_settings:
                 Toast.makeText(getApplicationContext(), "Not implemented yet \uD83D\uDE1E", Toast.LENGTH_SHORT).show();
                 return true;
 
             case R.id.action_quit:
-                finish();
-                System.exit(0);
+                builder = new AlertDialog.Builder(this);
+                builder.setMessage("Quit to main menu?");
+                builder.setPositiveButton("Quit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                        .setNegativeButton("Cancel", null)
+                        .show();
                 return true;
 
             case android.R.id.home:
@@ -240,6 +276,8 @@ public class GameActivity extends AppCompatActivity {
      * Ends the current game
      */
     private void endGame() {
+        gameOver = true;
+
         findViewById(R.id.floatingActionButton).setVisibility(View.GONE);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Game over!");
