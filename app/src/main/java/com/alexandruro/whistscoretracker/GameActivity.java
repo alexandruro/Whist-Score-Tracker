@@ -2,17 +2,25 @@ package com.alexandruro.whistscoretracker;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -58,10 +66,43 @@ public class GameActivity extends AppCompatActivity {
         TableRow header = (TableRow) findViewById(R.id.header);
         for(int i=0; i<names.size(); i++) {
             scoreTable.add(new PlayerRecord(names.get(i), prize));
+            LayoutInflater.from(this).inflate(R.layout.divider, header, true);
             LayoutInflater.from(this).inflate(R.layout.name_header_item, header, true);
-            ((TextView)header.getChildAt(i+1)).setText(names.get(i));
+            ((TextView)header.getChildAt(2*i+2)).setText(names.get(i));
         }
 
+//        LinearLayoutManager manager = new LinearLayoutManager(this);
+//        manager.setOrientation(LinearLayoutManager.VERTICAL);
+//        ((RecyclerView)findViewById(R.id.recycler)).setLayoutManager(manager);
+//
+//        ((RecyclerView)findViewById(R.id.recycler))
+//                .addOnScrollListener(new RecyclerView.OnScrollListener(){
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy){
+//                if (dy > 0)
+//                    ((FloatingActionButton)findViewById(R.id.floatingActionButton)).hide();
+//                else if (dy < 0)
+//                    ((FloatingActionButton)findViewById(R.id.floatingActionButton)).show();
+//            }
+//        });
+
+        View bottomSheet = findViewById(R.id.bottom_sheet);
+        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        bottomSheetBehavior.setHideable(false);
+        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                findViewById(R.id.floatingActionButton).animate().scaleX(1 - slideOffset).scaleY(1 - slideOffset).setDuration(0).start();
+            }
+        });
+
+        //S/crollView view;
+        //view.setOverScrollMode(Scro);
     }
 
     /**
@@ -241,10 +282,11 @@ public class GameActivity extends AppCompatActivity {
 
         for(int i=0; i<names.size(); i++) {
             scoreTable.get(i).addBet(bets[i]);
+            LayoutInflater.from(this).inflate(R.layout.divider, newRow, true);
             LayoutInflater.from(this).inflate(R.layout.score_item_short, newRow, true);
             LayoutInflater.from(this).inflate(R.layout.score_item_long, newRow, true);
-            ((TextView)newRow.getChildAt(2*i+1)).setText(String.valueOf(bets[i]));
-            ((TextView)newRow.getChildAt(2*i+2)).setText("");
+            ((TextView)newRow.getChildAt(3*i+2)).setText(String.valueOf(bets[i]));
+            ((TextView)newRow.getChildAt(3*i+3)).setText("");
         }
 
         body.addView(newRow);
@@ -263,7 +305,14 @@ public class GameActivity extends AppCompatActivity {
 
         for(int i=0; i<names.size(); i++) {
             scoreTable.get(i).addResult(results[i]);
-            ((TextView) lastRow.getChildAt(2 * i + 2)).setText(String.valueOf(scoreTable.get(i).getScore()));
+            ((TextView) lastRow.getChildAt(3 * i + 3)).setText(String.valueOf(scoreTable.get(i).getScore()));
+            if(scoreTable.get(i).lastResult())
+                ((TextView) lastRow.getChildAt(3 * i + 2)).setTextColor(ContextCompat.getColor(this, R.color.colorPositiveResult));
+            else {
+                TextView textView = (TextView) lastRow.getChildAt(3 * i + 2);
+                textView.setTextColor(ContextCompat.getColor(this, R.color.colorNegativeResult));
+                textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            }
         }
         betsPlaced = false;
 

@@ -116,4 +116,12 @@ class PlayerRecord implements Comparable {
     public int compareTo(@NonNull Object o) {
         return ((PlayerRecord)o).getScore()-getScore();
     }
+
+    /**
+     * Checks whether the last result was positive or not
+     * @return True, if the last result was positive, false if not
+     */
+    public boolean lastResult() {
+        return consecWin;
+    }
 }
