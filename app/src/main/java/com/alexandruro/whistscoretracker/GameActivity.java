@@ -6,21 +6,17 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -62,32 +58,19 @@ public class GameActivity extends AppCompatActivity {
         nrOfPlayers = names.size();
         gameType1 = intent.getBooleanExtra("gameType1", true);
         int prize = intent.getIntExtra("prize", 0);
+        initRoundInfo();
 
         TableRow header = (TableRow) findViewById(R.id.header);
         for(int i=0; i<names.size(); i++) {
             scoreTable.add(new PlayerRecord(names.get(i), prize));
             LayoutInflater.from(this).inflate(R.layout.divider, header, true);
             LayoutInflater.from(this).inflate(R.layout.name_header_item, header, true);
-            ((TextView)header.getChildAt(2*i+2)).setText(names.get(i));
+            ((TextView)header.getChildAt(getViewIndexOfName(i))).setText(names.get(i));
         }
 
-//        LinearLayoutManager manager = new LinearLayoutManager(this);
-//        manager.setOrientation(LinearLayoutManager.VERTICAL);
-//        ((RecyclerView)findViewById(R.id.recycler)).setLayoutManager(manager);
-//
-//        ((RecyclerView)findViewById(R.id.recycler))
-//                .addOnScrollListener(new RecyclerView.OnScrollListener(){
-//            @Override
-//            public void onScrolled(RecyclerView recyclerView, int dx, int dy){
-//                if (dy > 0)
-//                    ((FloatingActionButton)findViewById(R.id.floatingActionButton)).hide();
-//                else if (dy < 0)
-//                    ((FloatingActionButton)findViewById(R.id.floatingActionButton)).show();
-//            }
-//        });
 
         View bottomSheet = findViewById(R.id.bottom_sheet);
-        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        final BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         bottomSheetBehavior.setHideable(false);
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
@@ -97,12 +80,11 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-                findViewById(R.id.floatingActionButton).animate().scaleX(1 - slideOffset).scaleY(1 - slideOffset).setDuration(0).start();
+                if(!bottomSheetBehavior.isHideable())
+                    findViewById(R.id.floatingActionButton).animate().scaleX(1 - slideOffset).scaleY(1 - slideOffset).setDuration(0).start();
             }
         });
 
-        //S/crollView view;
-        //view.setOverScrollMode(Scro);
     }
 
     /**
@@ -110,7 +92,7 @@ public class GameActivity extends AppCompatActivity {
      */
     private void initialiseGameVariables() {
         gameOver = false;
-        roundCount = 0;
+        roundCount = 1;
         betsPlaced = false;
         scoreTable = new ArrayList<>();
     }
@@ -151,18 +133,28 @@ public class GameActivity extends AppCompatActivity {
                         if(betsPlaced) {
                             for(int i=0; i<names.size(); i++) {
                                 scoreTable.get(i).undoBet();
-                                ((TextView) lastRow.getChildAt(2 * i + 1)).setText("");
+                                ((TextView) lastRow.getChildAt(getViewIndexOfBet(i))).setText("");
                             }
                             roundCount--;
+                            initRoundInfo();
                             body.removeView(lastRow);
                         }
                         else {
                             for(int i=0; i<names.size(); i++) {
                                 scoreTable.get(i).undoResult();
-                                ((TextView) lastRow.getChildAt(2 * i + 2)).setText("");
+                                ((TextView) lastRow.getChildAt(getViewIndexOfScore(i))).setText("");
+                                TextView bet = (TextView) lastRow.getChildAt(getViewIndexOfBet(i));
+                                bet.setTextColor(ContextCompat.getColor(GameActivity.this, android.R.color.primary_text_light));
+                                bet.setPaintFlags(bet.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
                             }
-                            if(roundCount>=3*nrOfPlayers+12) // if game was ended, undo that
+                            if(roundCount>=3*nrOfPlayers+12) { // if game was ended, undo that
                                 findViewById(R.id.floatingActionButton).setVisibility(View.VISIBLE);
+                                View bottomSheet = findViewById(R.id.bottom_sheet);
+                                BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+                                bottomSheetBehavior.setHideable(false);
+                                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                                initRoundInfo();
+                            }
                         }
                         betsPlaced = !betsPlaced;
                         Snackbar.make(findViewById(R.id.game_coord_layout), "Results undone", Snackbar.LENGTH_SHORT).show();
@@ -285,14 +277,26 @@ public class GameActivity extends AppCompatActivity {
             LayoutInflater.from(this).inflate(R.layout.divider, newRow, true);
             LayoutInflater.from(this).inflate(R.layout.score_item_short, newRow, true);
             LayoutInflater.from(this).inflate(R.layout.score_item_long, newRow, true);
-            ((TextView)newRow.getChildAt(3*i+2)).setText(String.valueOf(bets[i]));
-            ((TextView)newRow.getChildAt(3*i+3)).setText("");
+            ((TextView)newRow.getChildAt(getViewIndexOfBet(i))).setText(String.valueOf(bets[i]));
+            ((TextView)newRow.getChildAt(getViewIndexOfScore(i))).setText("");
         }
 
         body.addView(newRow);
 
         betsPlaced = true;
 
+    }
+
+    private int getViewIndexOfName(int playerIndex) {
+        return 2*playerIndex+2;
+    }
+
+    private int getViewIndexOfBet(int playerIndex) {
+        return 3*playerIndex+2;
+    }
+
+    private int getViewIndexOfScore(int playerIndex) {
+        return 3*playerIndex+3;
     }
 
     /**
@@ -305,9 +309,9 @@ public class GameActivity extends AppCompatActivity {
 
         for(int i=0; i<names.size(); i++) {
             scoreTable.get(i).addResult(results[i]);
-            ((TextView) lastRow.getChildAt(3 * i + 3)).setText(String.valueOf(scoreTable.get(i).getScore()));
+            ((TextView) lastRow.getChildAt(getViewIndexOfScore(i))).setText(String.valueOf(scoreTable.get(i).getScore()));
             if(scoreTable.get(i).lastResult())
-                ((TextView) lastRow.getChildAt(3 * i + 2)).setTextColor(ContextCompat.getColor(this, R.color.colorPositiveResult));
+                ((TextView) lastRow.getChildAt(getViewIndexOfBet(i))).setTextColor(ContextCompat.getColor(this, R.color.colorPositiveResult));
             else {
                 TextView textView = (TextView) lastRow.getChildAt(3 * i + 2);
                 textView.setTextColor(ContextCompat.getColor(this, R.color.colorNegativeResult));
@@ -316,9 +320,19 @@ public class GameActivity extends AppCompatActivity {
         }
         betsPlaced = false;
 
-        if(roundCount>=3*nrOfPlayers+12) {
+        if(roundCount>=3*nrOfPlayers+12)
             endGame();
-        }
+        else
+            initRoundInfo();
+    }
+
+    private void initRoundInfo() {
+        int nrOfHands = getNrOfHands(roundCount+1);
+        String currentRoundText = "Current round: " + getResources().getQuantityString(R.plurals.numberOfHands, nrOfHands, nrOfHands);
+        TextView currentRound = (TextView) findViewById(R.id.currentRound);
+        currentRound.setText(currentRoundText);
+        ((TextView)findViewById(R.id.firstPlayer)).setText("First player: " + names.get((roundCount-1) % nrOfPlayers));
+        ((TextView)findViewById(R.id.dealer)).setText("Dealer: " + names.get((roundCount+nrOfPlayers-2) % nrOfPlayers));
     }
 
     /**
@@ -327,7 +341,12 @@ public class GameActivity extends AppCompatActivity {
     private void endGame() {
         gameOver = true;
 
-        findViewById(R.id.floatingActionButton).setVisibility(View.GONE);
+        View bottomSheet = findViewById(R.id.bottom_sheet);
+        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        bottomSheetBehavior.setHideable(true);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        findViewById(R.id.floatingActionButton).setVisibility(View.INVISIBLE);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Game over!");
 

@@ -74,6 +74,7 @@
         >
 
         <TextView
+            android:id="@+id/currentRound"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
@@ -82,7 +83,7 @@
             android:textSize="22sp" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/firstPlayer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
@@ -91,7 +92,7 @@
             android:textSize="22sp" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/dealer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"

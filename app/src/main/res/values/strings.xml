@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Whist Score Tracker</string>
     <string name="title_activity_menu">Whist Score Tracker</string>
+
+    <plurals
+        name="numberOfHands">
+        <item quantity="one">%d hand</item>
+        <item quantity="other">%d hands</item>
+</plurals>
 </resources>
