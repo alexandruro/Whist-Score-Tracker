@@ -30,20 +30,29 @@ import java.util.Collections;
  */
 public class GameActivity extends AppCompatActivity {
 
+    // request codes
     static final int RESULT_REQUEST = 1;
     static final int BET_REQUEST = 2;
 
-    private ArrayList<String> names;
-    private boolean betsPlaced;
-    private int roundCount;
+    // game status
+    private static final int WAITING_FOR_BET = 0;
+    private static final int WAITING_FOR_RESULT = 1;
+    private static final int GAME_OVER = 2;
+
+    // game state
+    private ArrayList<String> playerNames;
     private ArrayList<PlayerRecord> scoreTable;
+    private int gameStatus;
+    private int currentRound; // starting with 1. if current round ended then it's the next one
     private int nrOfPlayers;
     private boolean gameType1;
-    private boolean gameOver;
+    private int prize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Initialise the base UI
         setContentView(R.layout.activity_game);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -51,24 +60,18 @@ public class GameActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setTitle("Game Table");
 
-        initialiseGameVariables();
+        initialiseGameState();
 
-        Intent intent = getIntent();
-        names = intent.getStringArrayListExtra("names");
-        nrOfPlayers = names.size();
-        gameType1 = intent.getBooleanExtra("gameType1", true);
-        int prize = intent.getIntExtra("prize", 0);
-        initRoundInfo();
-
+        // Initialise the table header
         TableRow header = (TableRow) findViewById(R.id.header);
-        for(int i=0; i<names.size(); i++) {
-            scoreTable.add(new PlayerRecord(names.get(i), prize));
+        for(int i = 0; i< playerNames.size(); i++) {
+            scoreTable.add(new PlayerRecord(playerNames.get(i), prize));
             LayoutInflater.from(this).inflate(R.layout.divider, header, true);
             LayoutInflater.from(this).inflate(R.layout.name_header_item, header, true);
-            ((TextView)header.getChildAt(getViewIndexOfName(i))).setText(names.get(i));
+            ((TextView)header.getChildAt(getViewIndexOfName(i))).setText(playerNames.get(i));
         }
 
-
+        // Initialise the bottom sheet
         View bottomSheet = findViewById(R.id.bottom_sheet);
         final BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
@@ -88,24 +91,41 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     * Initialises the game variables like the round and the table
+     * Initialises the game state, getting the players and the options from the intent
      */
-    private void initialiseGameVariables() {
-        gameOver = false;
-        roundCount = 1;
-        betsPlaced = false;
+    private void initialiseGameState() {
+        Intent intent = getIntent();
+        playerNames = intent.getStringArrayListExtra("playerNames");
+        nrOfPlayers = playerNames.size();
+        gameType1 = intent.getBooleanExtra("gameType1", true);
+        prize = intent.getIntExtra("prize", 0);
+
         scoreTable = new ArrayList<>();
+        gameStatus = WAITING_FOR_BET;
+        currentRound = 1;
+
+        updateRoundInfo();
+    }
+
+    /**
+     * Updates the information in the bottom sheet
+     */
+    private void updateRoundInfo() {
+        int nrOfHands = getNrOfHands();
+        String currentRoundText = getResources().getQuantityString(R.plurals.numberOfHands, nrOfHands, nrOfHands);
+        ((TextView)findViewById(R.id.currentRound)).setText(currentRoundText);
+        ((TextView)findViewById(R.id.firstPlayer)).setText(getResources().getString(R.string.first_player, playerNames.get((this.currentRound -1) % nrOfPlayers)));
+        ((TextView)findViewById(R.id.dealer)).setText(getResources().getString(R.string.dealer, playerNames.get((this.currentRound +nrOfPlayers-2) % nrOfPlayers)));
     }
 
     /**
      * Resets the game to the beginning
      */
     private void restartGame() {
-        initialiseGameVariables();
+        initialiseGameState();
         ((TableLayout) findViewById(R.id.tableBody)).removeAllViews();
-        int prize = getIntent().getIntExtra("prize", 0);
-        for(int i=0; i<names.size(); i++)
-            scoreTable.add(new PlayerRecord(names.get(i), prize));
+        for(int i = 0; i< playerNames.size(); i++)
+            scoreTable.add(new PlayerRecord(playerNames.get(i), prize));
     }
 
     @Override
@@ -119,7 +139,7 @@ public class GameActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_undo:
-                if(roundCount==0) {
+                if(currentRound==1 && gameStatus==WAITING_FOR_BET) {
                     Toast.makeText(this, "No rounds were played to undo!", Toast.LENGTH_SHORT).show();
                     return true;
                 }
@@ -130,33 +150,33 @@ public class GameActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         TableLayout body = (TableLayout) findViewById(R.id.tableBody);
                         TableRow lastRow = (TableRow) body.getChildAt(body.getChildCount()-1);
-                        if(betsPlaced) {
-                            for(int i=0; i<names.size(); i++) {
+                        if(gameStatus==WAITING_FOR_RESULT) {
+                            for(int i = 0; i< playerNames.size(); i++) {
                                 scoreTable.get(i).undoBet();
                                 ((TextView) lastRow.getChildAt(getViewIndexOfBet(i))).setText("");
                             }
-                            roundCount--;
-                            initRoundInfo();
                             body.removeView(lastRow);
+                            gameStatus=WAITING_FOR_BET;
                         }
                         else {
-                            for(int i=0; i<names.size(); i++) {
+                            for(int i = 0; i< playerNames.size(); i++) {
                                 scoreTable.get(i).undoResult();
                                 ((TextView) lastRow.getChildAt(getViewIndexOfScore(i))).setText("");
                                 TextView bet = (TextView) lastRow.getChildAt(getViewIndexOfBet(i));
                                 bet.setTextColor(ContextCompat.getColor(GameActivity.this, android.R.color.primary_text_light));
                                 bet.setPaintFlags(bet.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
                             }
-                            if(roundCount>=3*nrOfPlayers+12) { // if game was ended, undo that
-                                findViewById(R.id.floatingActionButton).setVisibility(View.VISIBLE);
+                            if(gameStatus==GAME_OVER) { // if game was ended, undo that
                                 View bottomSheet = findViewById(R.id.bottom_sheet);
                                 BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
                                 bottomSheetBehavior.setHideable(false);
                                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                                initRoundInfo();
+                                findViewById(R.id.floatingActionButton).setVisibility(View.VISIBLE);
                             }
+                            currentRound--;
+                            updateRoundInfo();
+                            gameStatus=WAITING_FOR_RESULT;
                         }
-                        betsPlaced = !betsPlaced;
                         Snackbar.make(findViewById(R.id.game_coord_layout), "Results undone", Snackbar.LENGTH_SHORT).show();
                     }
                 });
@@ -166,13 +186,13 @@ public class GameActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_restart:
-                if(roundCount==0) {
+                if(currentRound ==0) {
                     Toast.makeText(this, "No rounds were played yet!", Toast.LENGTH_SHORT).show();
                     return true;
                 }
                 builder = new AlertDialog.Builder(this);
                 builder.setTitle("Restart game?");
-                if(!gameOver)
+                if(gameStatus!=GAME_OVER)
                     builder.setMessage("The game is not over, so the current scores will be discarded.");
                 builder.setPositiveButton("Restart", new DialogInterface.OnClickListener() {
                     @Override
@@ -234,29 +254,17 @@ public class GameActivity extends AppCompatActivity {
      */
     public void addScore(View view) {
 
-        int nrOfHands;
-        int firstPlayerDelay;
-        if(betsPlaced) {
-            nrOfHands = getNrOfHands();
-            firstPlayerDelay = (roundCount-1) % nrOfPlayers;
-        }
-        else {
-            nrOfHands = getNrOfHands(roundCount + 1);
-            firstPlayerDelay = roundCount % nrOfPlayers;
-        }
-
         int requestCode;
-        if (betsPlaced) {
+        if (gameStatus==WAITING_FOR_RESULT) {
             requestCode = RESULT_REQUEST;
         }
         else requestCode = BET_REQUEST;
 
         Intent intent = new Intent(this, AddToGameTableActivity.class);
-        intent.putExtra("betsPlaced", betsPlaced);
-        intent.putExtra("nrOfHands", nrOfHands);
-        intent.putStringArrayListExtra("names", names);
+        intent.putExtra("nrOfHands", getNrOfHands());
+        intent.putStringArrayListExtra("playerNames", playerNames);
         intent.putExtra("requestCode", requestCode);
-        intent.putExtra("firstPlayerDelay", firstPlayerDelay);
+        intent.putExtra("firstPlayerDelay", (currentRound -1) % nrOfPlayers);
 
         startActivityForResult(intent, requestCode);
     }
@@ -269,10 +277,9 @@ public class GameActivity extends AppCompatActivity {
         TableLayout body = (TableLayout) findViewById(R.id.tableBody);
         TableRow newRow = new TableRow(this);
         LayoutInflater.from(this).inflate(R.layout.score_number, newRow, true);
-        roundCount++;
         ((TextView)newRow.getChildAt(0)).setText(String.valueOf(getNrOfHands()));
 
-        for(int i=0; i<names.size(); i++) {
+        for(int i = 0; i< playerNames.size(); i++) {
             scoreTable.get(i).addBet(bets[i]);
             LayoutInflater.from(this).inflate(R.layout.divider, newRow, true);
             LayoutInflater.from(this).inflate(R.layout.score_item_short, newRow, true);
@@ -283,20 +290,8 @@ public class GameActivity extends AppCompatActivity {
 
         body.addView(newRow);
 
-        betsPlaced = true;
+        gameStatus = WAITING_FOR_RESULT;
 
-    }
-
-    private int getViewIndexOfName(int playerIndex) {
-        return 2*playerIndex+2;
-    }
-
-    private int getViewIndexOfBet(int playerIndex) {
-        return 3*playerIndex+2;
-    }
-
-    private int getViewIndexOfScore(int playerIndex) {
-        return 3*playerIndex+3;
     }
 
     /**
@@ -307,7 +302,7 @@ public class GameActivity extends AppCompatActivity {
         TableLayout body = (TableLayout) findViewById(R.id.tableBody);
         TableRow lastRow = (TableRow) body.getChildAt(body.getChildCount()-1);
 
-        for(int i=0; i<names.size(); i++) {
+        for(int i = 0; i< playerNames.size(); i++) {
             scoreTable.get(i).addResult(results[i]);
             ((TextView) lastRow.getChildAt(getViewIndexOfScore(i))).setText(String.valueOf(scoreTable.get(i).getScore()));
             if(scoreTable.get(i).lastResult())
@@ -318,28 +313,21 @@ public class GameActivity extends AppCompatActivity {
                 textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             }
         }
-        betsPlaced = false;
 
-        if(roundCount>=3*nrOfPlayers+12)
+        currentRound++;
+        if(currentRound >3*nrOfPlayers+12)
             endGame();
-        else
-            initRoundInfo();
-    }
-
-    private void initRoundInfo() {
-        int nrOfHands = getNrOfHands(roundCount+1);
-        String currentRoundText = "Current round: " + getResources().getQuantityString(R.plurals.numberOfHands, nrOfHands, nrOfHands);
-        TextView currentRound = (TextView) findViewById(R.id.currentRound);
-        currentRound.setText(currentRoundText);
-        ((TextView)findViewById(R.id.firstPlayer)).setText("First player: " + names.get((roundCount-1) % nrOfPlayers));
-        ((TextView)findViewById(R.id.dealer)).setText("Dealer: " + names.get((roundCount+nrOfPlayers-2) % nrOfPlayers));
+        else {
+            updateRoundInfo();
+            gameStatus = WAITING_FOR_BET;
+        }
     }
 
     /**
      * Ends the current game
      */
     private void endGame() {
-        gameOver = true;
+        gameStatus = GAME_OVER;
 
         View bottomSheet = findViewById(R.id.bottom_sheet);
         BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
@@ -375,41 +363,32 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     * Computes the number of hands in a certain round
-     * @param roundCount The round number
-     * @return The number of hands
-     */
-    private int getNrOfHands(int roundCount) {
-        if(roundCount>3*nrOfPlayers+12)
-            return -1;
-        if(gameType1)
-            if(roundCount<=nrOfPlayers)
-                return 1;
-            else if(roundCount<=nrOfPlayers+6)
-                return roundCount-nrOfPlayers+1;
-            else if(roundCount<=2*nrOfPlayers+6)
-                return 8;
-            else if(roundCount<=2*nrOfPlayers+12)
-                return 2*nrOfPlayers+14-roundCount;
-            else return 1;
-        else
-            if(roundCount<=nrOfPlayers)
-                return 8;
-            else if(roundCount<=nrOfPlayers+6)
-                return nrOfPlayers+8-roundCount;
-            else if(roundCount<=2*nrOfPlayers+6)
-                return 1;
-            else if(roundCount<=2*nrOfPlayers+12)
-                return roundCount-2*nrOfPlayers-5;
-            else return 8;
-    }
-
-    /**
      * Computes the number of hands in the current round
      * @return The number of hands
      */
     private int getNrOfHands() {
-        return getNrOfHands(roundCount);
+        if(currentRound>3*nrOfPlayers+12)
+            return -1;
+        if(gameType1)
+            if(currentRound<=nrOfPlayers)
+                return 1;
+            else if(currentRound<=nrOfPlayers+6)
+                return currentRound-nrOfPlayers+1;
+            else if(currentRound<=2*nrOfPlayers+6)
+                return 8;
+            else if(currentRound<=2*nrOfPlayers+12)
+                return 2*nrOfPlayers+14-currentRound;
+            else return 1;
+        else
+        if(currentRound<=nrOfPlayers)
+            return 8;
+        else if(currentRound<=nrOfPlayers+6)
+            return nrOfPlayers+8-currentRound;
+        else if(currentRound<=2*nrOfPlayers+6)
+            return 1;
+        else if(currentRound<=2*nrOfPlayers+12)
+            return currentRound-2*nrOfPlayers-5;
+        else return 8;
     }
 
     @Override
@@ -425,5 +404,32 @@ public class GameActivity extends AppCompatActivity {
         builder.setNegativeButton("Cancel", null);
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    /**
+     * Gets the index of the child view that has the name of a player
+     * @param playerIndex The index of the player
+     * @return The index of the child view
+     */
+    private int getViewIndexOfName(int playerIndex) {
+        return 2*playerIndex+2;
+    }
+
+    /**
+     * Gets the index of the child view that has the bet of a player
+     * @param playerIndex The index of the player
+     * @return The index of the child view
+     */
+    private int getViewIndexOfBet(int playerIndex) {
+        return 3*playerIndex+2;
+    }
+
+    /**
+     * Gets the index of the child view that has the result of a player
+     * @param playerIndex The index of the player
+     * @return The index of the child view
+     */
+    private int getViewIndexOfScore(int playerIndex) {
+        return 3*playerIndex+3;
     }
 }

@@ -2,9 +2,12 @@
     <string name="app_name">Whist Score Tracker</string>
     <string name="title_activity_menu">Whist Score Tracker</string>
 
+    <string name="first_player">First player: %s</string>
+    <string name="dealer">Dealer: %s</string>
+
     <plurals
         name="numberOfHands">
-        <item quantity="one">%d hand</item>
-        <item quantity="other">%d hands</item>
-</plurals>
+        <item quantity="one">Current round: %d hand</item>
+        <item quantity="other">Current round: %d hands</item>
+    </plurals>
 </resources>

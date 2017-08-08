@@ -71,7 +71,7 @@ public class NewGameActivity extends AppCompatActivity {
         for(EditListItem item: names) {
             stringNames.add(item.toString());
         }
-        intent.putStringArrayListExtra("names", stringNames);
+        intent.putStringArrayListExtra("playerNames", stringNames);
         startActivity(intent);
         finish();
     }

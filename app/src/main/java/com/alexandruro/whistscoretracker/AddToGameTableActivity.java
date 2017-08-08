@@ -18,7 +18,7 @@ import static android.widget.GridLayout.spec;
 public class AddToGameTableActivity extends AppCompatActivity {
 
     private String text;
-    private ArrayList<String> names;
+    private ArrayList<String> playerNames;
     private int[] inputs;
     private int index;
     private TextView playerName;
@@ -39,7 +39,7 @@ public class AddToGameTableActivity extends AppCompatActivity {
         Intent intent = getIntent();
         nrOfHands = intent.getIntExtra("nrOfHands", 8);
         requestCode = intent.getIntExtra("requestCode", -1);
-        names = intent.getStringArrayListExtra("names");
+        playerNames = intent.getStringArrayListExtra("playerNames");
         firstPlayerDelay = intent.getIntExtra("firstPlayerDelay", 0);
 
 
@@ -70,7 +70,7 @@ public class AddToGameTableActivity extends AppCompatActivity {
         // Initialise the rest
         index = -1;
         handsLeft = nrOfHands;
-        nrOfPlayers = names.size();
+        nrOfPlayers = playerNames.size();
         inputs = new int[nrOfPlayers];
         advance(-1);
     }
@@ -84,14 +84,14 @@ public class AddToGameTableActivity extends AppCompatActivity {
             inputs[(index+firstPlayerDelay)%nrOfPlayers] = input;
             handsLeft -= input;
         }
-        if(index<names.size()-1) {
+        if(index< playerNames.size()-1) {
             index++;
-            playerName.setText(names.get((index+firstPlayerDelay)%nrOfPlayers));
+            playerName.setText(playerNames.get((index+firstPlayerDelay)%nrOfPlayers));
             for(int i=0;i<=8;i++) {
                 if(i>nrOfHands
-                        || (requestCode==GameActivity.BET_REQUEST && i==handsLeft && index==names.size()-1)
+                        || (requestCode==GameActivity.BET_REQUEST && i==handsLeft && index== playerNames.size()-1)
                         || (requestCode==GameActivity.RESULT_REQUEST &&
-                            ((i!=handsLeft && index==names.size()-1) || i>handsLeft)))
+                            ((i!=handsLeft && index== playerNames.size()-1) || i>handsLeft)))
                     ((Button)grid.getChildAt(i)).setEnabled(false);
                 else
                     ((Button)grid.getChildAt(i)).setEnabled(true);
