@@ -14,13 +14,8 @@
         android:icon="@drawable/ic_action_restart"
         app:showAsAction="never" />
 
-    <item android:id="@+id/action_settings"
-        android:title="@string/settings"
-        android:icon="@drawable/ic_action_settings"
-        app:showAsAction="never" />
-
-    <item android:id="@+id/action_quit"
-        android:title="@string/return_to_menu"
+    <item android:id="@+id/action_about"
+        android:title="@string/about"
         app:showAsAction="never"/>
 
 </menu>

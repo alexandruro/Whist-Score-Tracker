@@ -4,28 +4,6 @@
     <string name="title_activity_menu">Whist Score Tracker</string>
     <string name="title_new_game">New Game options</string>
 
-    <string name="first_player">First player: %s</string>
-    <string name="dealer">Dealer: %s</string>
-    <string name="choose_results">Choose your results!</string>
-    <string name="place_bets">Place your bets!</string>
-    <string name="game_table">Game Table</string>
-    <string name="undo_prompt">Undo last input?</string>
-    <string name="undo">Undo</string>
-    <string name="undo_result">Results undone</string>
-    <string name="cancel">Cancel</string>
-    <string name="no_rounds">No rounds were played yet!</string>
-    <string name="restart_prompt">Restart game?</string>
-    <string name="restart_discard">The game is not over, so the current scores will be discarded.</string>
-    <string name="restart">Restart</string>
-    <string name="not_implemented">Not implemented yet 😞</string>
-    <string name="quit_prompt">Quit to main menu?</string>
-    <string name="quit">Quit</string>
-    <string name="game_over">Game over!</string>
-    <string name="return_to_menu">Return to menu</string>
-    <string name="dismiss">Dismiss</string>
-    <string name="discard_prompt">Discard game?</string>
-    <string name="discard">Discard</string>
-    
     <string name="main_menu_load">Load Game</string>
     <string name="main_menu_new">New Game</string>
     <string name="settings">Settings</string>
@@ -41,8 +19,30 @@
     <string name="new_game_start">Start game</string>
     <string name="new_game_player_name">Name</string>
 
-    <plurals
-        name="numberOfHands">
+    <string name="first_player">First player: %s</string>
+    <string name="dealer">Dealer: %s</string>
+    <string name="choose_results">Choose your results!</string>
+    <string name="place_bets">Place your bets!</string>
+    <string name="game_table">Game Table</string>
+    <string name="undo_prompt">Undo last input?</string>
+    <string name="undo">Undo</string>
+    <string name="undo_result">Results undone</string>
+    <string name="cancel">Cancel</string>
+    <string name="no_rounds">No rounds were played yet!</string>
+    <string name="restart_prompt">Restart game?</string>
+    <string name="restart_discard">The game is not over, so the current scores will be discarded.</string>
+    <string name="restart">Restart</string>
+    <string name="quit">Quit</string>
+    <string name="game_over">Game over!</string>
+    <string name="return_to_menu">Return to menu</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="discard_prompt">Discard game?</string>
+    <string name="discard">Discard</string>
+
+    <string name="about">About</string>
+    <string name="about_text">Application developed by Alexandru Rosu.\n\nGraphics created by <a href="http://www.freepik.com/free-vector/flat-golden-and-silver-award-collection_844355.htm">Freepik</a>.\n\nCurrent version: alpha</string>
+
+    <plurals name="numberOfHands">
         <item quantity="one">Current round: %d hand</item>
         <item quantity="other">Current round: %d hands</item>
     </plurals>

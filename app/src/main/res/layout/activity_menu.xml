@@ -27,19 +27,19 @@
         android:text="@string/main_menu_new" />
 
     <Button
-        android:id="@+id/buttonSettings"
+        android:id="@+id/buttonAbout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/buttonNewGame"
         android:layout_centerHorizontal="true"
-        android:text="@string/settings"
-        android:onClick="settings"/>
+        android:text="@string/about"
+        android:onClick="about"/>
 
     <Button
         android:id="@+id/buttonQuit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonSettings"
+        android:layout_below="@+id/buttonAbout"
         android:layout_centerHorizontal="true"
         android:text="@string/quit"
         android:onClick="quit"/>

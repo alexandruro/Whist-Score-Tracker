@@ -206,22 +206,11 @@ public class GameActivity extends AppCompatActivity {
                 builder.show();
                 return true;
 
-            case R.id.action_settings:
-                Toast.makeText(getApplicationContext(), R.string.not_implemented, Toast.LENGTH_SHORT).show();
+            case R.id.action_about:
+                Intent intent = new Intent(this, AboutActivity.class);
+                startActivity(intent);
                 return true;
 
-            case R.id.action_quit:
-                builder = new AlertDialog.Builder(this);
-                builder.setMessage(R.string.quit_prompt);
-                builder.setPositiveButton(R.string.quit, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                })
-                        .setNegativeButton(R.string.cancel, null)
-                        .show();
-                return true;
 
             case android.R.id.home:
                 onBackPressed();

@@ -37,11 +37,12 @@ public class MainMenuActivity extends AppCompatActivity {
     }
 
     /**
-     * Redirects the user to the settings
+     * Redirects the user to the "About" screen
      * @param view The view that calls the method
      */
-    public void settings(View view) {
-        Toast.makeText(getApplicationContext(), R.string.not_implemented, Toast.LENGTH_SHORT).show();
+    public void about(View view) {
+        Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
     }
 
     /**
