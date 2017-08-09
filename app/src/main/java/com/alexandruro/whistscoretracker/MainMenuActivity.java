@@ -41,7 +41,7 @@ public class MainMenuActivity extends AppCompatActivity {
      * @param view The view that calls the method
      */
     public void settings(View view) {
-        Toast.makeText(getApplicationContext(), "Not implemented yet \uD83D\uDE1E", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), R.string.not_implemented, Toast.LENGTH_SHORT).show();
     }
 
     /**

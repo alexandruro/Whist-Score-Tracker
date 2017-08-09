@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
-        android:text="Continue"
+        android:text="@string/main_menu_load"
         android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true"
         android:onClick="continueGame"
@@ -24,7 +24,7 @@
         android:layout_below="@+id/buttonContinue"
         android:layout_centerHorizontal="true"
         android:onClick="newGame"
-        android:text="New Game" />
+        android:text="@string/main_menu_new" />
 
     <Button
         android:id="@+id/buttonSettings"
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/buttonNewGame"
         android:layout_centerHorizontal="true"
-        android:text="Settings"
+        android:text="@string/settings"
         android:onClick="settings"/>
 
     <Button
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/buttonSettings"
         android:layout_centerHorizontal="true"
-        android:text="Quit"
+        android:text="@string/quit"
         android:onClick="quit"/>
 
     <ImageView

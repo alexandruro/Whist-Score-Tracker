@@ -30,7 +30,7 @@ public class NewGameActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         if(ab!=null) {
             ab.setDisplayHomeAsUpEnabled(true);
-            ab.setTitle("New Game options");
+            ab.setTitle(R.string.title_new_game);
         }
 
         names = new ArrayList<>();
@@ -99,14 +99,14 @@ public class NewGameActivity extends AppCompatActivity {
     public void onBackPressed() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Discard?");
-        builder.setPositiveButton("Discard", new DialogInterface.OnClickListener() {
+        builder.setMessage(R.string.discard_prompt);
+        builder.setPositiveButton(R.string.discard, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 NewGameActivity.super.onBackPressed();
             }
         });
-        builder.setNegativeButton("Cancel", null);
+        builder.setNegativeButton(R.string.cancel, null);
         AlertDialog dialog = builder.create();
         dialog.show();
     }

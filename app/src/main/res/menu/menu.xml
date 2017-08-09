@@ -4,23 +4,23 @@
 
     <item
         android:id="@+id/action_undo"
-        android:title="Undo"
+        android:title="@string/undo"
         android:icon="@drawable/ic_action_undo"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_restart"
-        android:title="Restart game"
+        android:title="@string/restart"
         android:icon="@drawable/ic_action_restart"
         app:showAsAction="never" />
 
     <item android:id="@+id/action_settings"
-        android:title="Settings"
+        android:title="@string/settings"
         android:icon="@drawable/ic_action_settings"
         app:showAsAction="never" />
 
     <item android:id="@+id/action_quit"
-        android:title="Return to menu"
+        android:title="@string/return_to_menu"
         app:showAsAction="never"/>
 
 </menu>

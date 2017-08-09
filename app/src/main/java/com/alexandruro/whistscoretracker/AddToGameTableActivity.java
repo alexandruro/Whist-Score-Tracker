@@ -47,9 +47,9 @@ public class AddToGameTableActivity extends AppCompatActivity {
         playerName = (TextView) findViewById(R.id.playerName);
         TextView prompt = (TextView) findViewById(R.id.prompt);
         if (requestCode==GameActivity.RESULT_REQUEST)
-            prompt.setText("Choose your results!");
+            prompt.setText(R.string.choose_results);
         else
-            prompt.setText("Place your bets!");
+            prompt.setText(R.string.place_bets);
         for(int i=0;i<=8;i++){
             final Button button = new Button(this);
             button.setX(i/3);

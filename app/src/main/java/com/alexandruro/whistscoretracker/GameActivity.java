@@ -59,7 +59,7 @@ public class GameActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         if(ab!=null) {
             ab.setDisplayHomeAsUpEnabled(true);
-            ab.setTitle("Game Table");
+            ab.setTitle(R.string.game_table);
         }
 
         initialiseGameState();
@@ -142,12 +142,12 @@ public class GameActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_undo:
                 if(currentRound==1 && gameStatus==WAITING_FOR_BET) {
-                    Toast.makeText(this, "No rounds were played to undo!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.no_rounds, Toast.LENGTH_SHORT).show();
                     return true;
                 }
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage("Undo last input?");
-                builder.setPositiveButton("Undo", new DialogInterface.OnClickListener() {
+                builder.setMessage(R.string.undo_prompt);
+                builder.setPositiveButton(R.string.undo, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         TableLayout body = (TableLayout) findViewById(R.id.tableBody);
@@ -179,47 +179,47 @@ public class GameActivity extends AppCompatActivity {
                             updateRoundInfo();
                             gameStatus=WAITING_FOR_RESULT;
                         }
-                        Snackbar.make(findViewById(R.id.game_coord_layout), "Results undone", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(findViewById(R.id.game_coord_layout), R.string.undo_result, Snackbar.LENGTH_SHORT).show();
                     }
                 });
-                builder.setNegativeButton("Cancel", null);
+                builder.setNegativeButton(R.string.cancel, null);
                 AlertDialog dialog = builder.create();
                 dialog.show();
                 return true;
 
             case R.id.action_restart:
                 if(currentRound ==0) {
-                    Toast.makeText(this, "No rounds were played yet!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.no_rounds, Toast.LENGTH_SHORT).show();
                     return true;
                 }
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("Restart game?");
+                builder.setTitle(R.string.restart_prompt);
                 if(gameStatus!=GAME_OVER)
-                    builder.setMessage("The game is not over, so the current scores will be discarded.");
-                builder.setPositiveButton("Restart", new DialogInterface.OnClickListener() {
+                    builder.setMessage(R.string.restart_discard);
+                builder.setPositiveButton(R.string.restart, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         restartGame();
                     }
                 });
-                builder.setNegativeButton("Cancel", null);
+                builder.setNegativeButton(R.string.cancel, null);
                 builder.show();
                 return true;
 
             case R.id.action_settings:
-                Toast.makeText(getApplicationContext(), "Not implemented yet \uD83D\uDE1E", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.not_implemented, Toast.LENGTH_SHORT).show();
                 return true;
 
             case R.id.action_quit:
                 builder = new AlertDialog.Builder(this);
-                builder.setMessage("Quit to main menu?");
-                builder.setPositiveButton("Quit", new DialogInterface.OnClickListener() {
+                builder.setMessage(R.string.quit_prompt);
+                builder.setPositiveButton(R.string.quit, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
                     }
                 })
-                        .setNegativeButton("Cancel", null)
+                        .setNegativeButton(R.string.cancel, null)
                         .show();
                 return true;
 
@@ -338,7 +338,7 @@ public class GameActivity extends AppCompatActivity {
         findViewById(R.id.floatingActionButton).setVisibility(View.INVISIBLE);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Game over!");
+        builder.setTitle(R.string.game_over);
 
         Collections.sort(scoreTable);
 
@@ -352,13 +352,13 @@ public class GameActivity extends AppCompatActivity {
         playerScores.setAdapter(adapter);
 
         builder.setView(playerScores);
-        builder.setPositiveButton("Return to menu", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.return_to_menu, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
             }
         });
-        builder.setNegativeButton("Dismiss", null);
+        builder.setNegativeButton(R.string.dismiss, null);
         AlertDialog dialog = builder.create();
         dialog.show();
 
@@ -396,14 +396,14 @@ public class GameActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Discard game?");
-        builder.setPositiveButton("Discard", new DialogInterface.OnClickListener() {
+        builder.setMessage(R.string.discard_prompt);
+        builder.setPositiveButton(R.string.discard, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 GameActivity.super.onBackPressed();
             }
         });
-        builder.setNegativeButton("Cancel", null);
+        builder.setNegativeButton(R.string.cancel, null);
         AlertDialog dialog = builder.create();
         dialog.show();
     }

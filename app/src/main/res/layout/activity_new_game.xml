@@ -25,7 +25,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Game type"
+        android:text="@string/new_game_type"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="66dp"
         android:layout_marginTop="88dp"
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:checked="true"
-            android:text="1..8..1"
+            android:text="@string/new_game_type_181"
             tools:layout_editor_absoluteX="125dp"
             tools:layout_editor_absoluteY="123dp" />
 
@@ -56,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="8..1..8"
+            android:text="@string/new_game_type_818"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="83dp" />
 
@@ -69,7 +69,7 @@
         android:layout_alignStart="@+id/radioGroup"
         android:layout_below="@+id/radioGroup"
         android:layout_marginTop="22dp"
-        android:text="Prize" />
+        android:text="@string/new_game_prize" />
 
     <RadioGroup
         android:layout_width="wrap_content"
@@ -84,7 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="None" />
+            android:text="@string/new_game_prize_0" />
 
         <RadioButton
             android:id="@+id/radioPrize5"
@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:checked="true"
-            android:text="+/- 5" />
+            android:text="@string/new_game_prize_5" />
 
         <RadioButton
             android:id="@+id/radioPrize10"
@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:checked="false"
-            android:text="+/- 10" />
+            android:text="@string/new_game_prize_10" />
     </RadioGroup>
 
     <TextView
@@ -111,7 +111,7 @@
         android:layout_below="@+id/radioGroup2"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="26dp"
-        android:text="Players"
+        android:text="@string/new_game_players"
         android:textSize="24sp" />
 
     <com.alexandruro.whistscoretracker.WrappedListView
@@ -126,7 +126,7 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start game"
+        android:text="@string/new_game_start"
         android:layout_below="@id/nameListView"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
