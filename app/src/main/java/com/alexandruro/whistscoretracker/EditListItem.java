@@ -7,8 +7,8 @@ class EditListItem {
 
     private String string;
 
-    EditListItem(String string) {
-        this.string = string;
+    EditListItem() {
+        string = "";
     }
 
     @Override

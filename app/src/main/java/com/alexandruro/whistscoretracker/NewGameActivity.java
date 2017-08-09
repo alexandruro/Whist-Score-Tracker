@@ -28,8 +28,10 @@ public class NewGameActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
-        ab.setTitle("New Game options");
+        if(ab!=null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+            ab.setTitle("New Game options");
+        }
 
         names = new ArrayList<>();
 //        names.add(new EditListItem("Alex"));
@@ -49,11 +51,11 @@ public class NewGameActivity extends AppCompatActivity {
     public void startGame(View view){
 
         RadioButton gameType1 = (RadioButton) findViewById(R.id.radioGameType1);
-        RadioButton gameType2 = (RadioButton) findViewById(R.id.radioGameType2);
+        //RadioButton gameType2 = (RadioButton) findViewById(R.id.radioGameType2);
 
         RadioButton prize0 = (RadioButton) findViewById(R.id.radioPrizeNone);
         RadioButton prize5 = (RadioButton) findViewById(R.id.radioPrize5);
-        RadioButton prize10 = (RadioButton) findViewById(R.id.radioPrize10);
+        //RadioButton prize10 = (RadioButton) findViewById(R.id.radioPrize10);
         int prize;
 
         if(prize0.isChecked())
@@ -90,7 +92,7 @@ public class NewGameActivity extends AppCompatActivity {
      * @param view The view that calls the method
      */
     public void addName(View view) {
-        adapter.add(new EditListItem(""));
+        adapter.add(new EditListItem());
     }
 
     @Override

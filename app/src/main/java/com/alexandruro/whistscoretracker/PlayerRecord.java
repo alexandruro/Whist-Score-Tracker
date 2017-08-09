@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Keeps a record of a player's bets, results and score
  */
-class PlayerRecord implements Comparable {
+class PlayerRecord implements Comparable<PlayerRecord> {
 
     private String name;
     private ArrayList<Integer> bets;
@@ -113,8 +113,8 @@ class PlayerRecord implements Comparable {
     }
 
     @Override
-    public int compareTo(@NonNull Object o) {
-        return ((PlayerRecord)o).getScore()-getScore();
+    public int compareTo(@NonNull PlayerRecord o) {
+        return o.getScore()-getScore();
     }
 
     /**

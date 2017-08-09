@@ -1,6 +1,7 @@
 package com.alexandruro.whistscoretracker;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -20,8 +21,9 @@ class EditListAdapter extends ArrayAdapter<EditListItem> {
         super(con, 0, list);
     }
 
+    @NonNull
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
 
         // Check if the existing view is being reused, otherwise inflate a new view
         View listItemView = convertView;

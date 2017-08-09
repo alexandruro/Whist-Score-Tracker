@@ -2,7 +2,7 @@ package com.alexandruro.whistscoretracker;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.ViewGroup;
+//import android.view.ViewGroup;
 import android.widget.ListView;
 
 /**
@@ -10,8 +10,8 @@ import android.widget.ListView;
  */
 public class WrappedListView extends ListView {
 
-    private ViewGroup.LayoutParams params;
-    private int oldCount = 0;
+//    private ViewGroup.LayoutParams params;
+//    private int oldCount = 0;
 
     public WrappedListView(Context context, AttributeSet attrs) {
         super(context, attrs);

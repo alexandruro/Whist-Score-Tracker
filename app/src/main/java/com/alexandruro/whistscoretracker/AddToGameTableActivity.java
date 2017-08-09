@@ -17,7 +17,6 @@ import static android.widget.GridLayout.spec;
  */
 public class AddToGameTableActivity extends AppCompatActivity {
 
-    private String text;
     private ArrayList<String> playerNames;
     private int[] inputs;
     private int index;
@@ -92,9 +91,9 @@ public class AddToGameTableActivity extends AppCompatActivity {
                         || (requestCode==GameActivity.BET_REQUEST && i==handsLeft && index== playerNames.size()-1)
                         || (requestCode==GameActivity.RESULT_REQUEST &&
                             ((i!=handsLeft && index== playerNames.size()-1) || i>handsLeft)))
-                    ((Button)grid.getChildAt(i)).setEnabled(false);
+                    grid.getChildAt(i).setEnabled(false);
                 else
-                    ((Button)grid.getChildAt(i)).setEnabled(true);
+                    grid.getChildAt(i).setEnabled(true);
             }
         }
         else {

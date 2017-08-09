@@ -8,7 +8,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context="com.alexandruro.whistscoretracker.NewGameActivity"
     android:overScrollMode="ifContentScrolls">
 
@@ -45,8 +45,6 @@
             android:id="@+id/radioGameType1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/radioGroup"
-            android:layout_toEndOf="@+id/radioGroup"
             android:layout_weight="1"
             android:checked="true"
             android:text="1..8..1"
@@ -92,8 +90,6 @@
             android:id="@+id/radioPrize5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/radioGroup2"
-            android:layout_toEndOf="@+id/radioGroup2"
             android:layout_weight="1"
             android:checked="true"
             android:text="+/- 5" />

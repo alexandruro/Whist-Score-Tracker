@@ -57,8 +57,10 @@ public class GameActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
-        ab.setTitle("Game Table");
+        if(ab!=null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+            ab.setTitle("Game Table");
+        }
 
         initialiseGameState();
 

@@ -17,11 +17,6 @@ public class MainMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
     /**
      * Initiates a new game, going to the NewGameActivity
      * @param view The view that calls the method

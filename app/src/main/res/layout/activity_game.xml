@@ -14,11 +14,7 @@
         android:theme="@style/AppTheme.AppBarOverlay"
         app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        >
+
 
 
         <TableLayout
@@ -28,7 +24,7 @@
             android:layout_marginBottom="70dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="86dp"
             android:layout_alignParentTop="true">
 
             <TableRow android:id="@+id/header"
@@ -50,7 +46,7 @@
                 <TableLayout
                     android:id="@+id/tableBody"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="25dp">
 
                 </TableLayout>
@@ -59,7 +55,7 @@
 
         </TableLayout>
 
-    </RelativeLayout>
+
 
     <LinearLayout
         android:id="@+id/bottom_sheet"

@@ -14,14 +14,15 @@ import java.util.List;
 /**
  * Adapter for showing the scores at the end of the game
  */
-public class EndPlayerListAdapter extends ArrayAdapter<PlayerRecord> {
+class EndPlayerListAdapter extends ArrayAdapter<PlayerRecord> {
 
-    public EndPlayerListAdapter(@NonNull Context context, @NonNull List<PlayerRecord> objects) {
+    EndPlayerListAdapter(@NonNull Context context, @NonNull List<PlayerRecord> objects) {
         super(context, 0, objects);
     }
 
+    @NonNull
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
 
         // Check if the existing view is being reused, otherwise inflate a new view
         View listItemView = convertView;
