@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -50,6 +51,11 @@ public class NewGameActivity extends AppCompatActivity {
      */
     public void startGame(View view){
 
+        if(!BuildConfig.DEBUG && names.size()<4) {
+            Toast.makeText(this, "A game needs at least 4 players", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         RadioButton gameType1 = (RadioButton) findViewById(R.id.radioGameType1);
         //RadioButton gameType2 = (RadioButton) findViewById(R.id.radioGameType2);
 
@@ -72,6 +78,10 @@ public class NewGameActivity extends AppCompatActivity {
         ArrayList<String> stringNames = new ArrayList<>();
         for(EditListItem item: names) {
             stringNames.add(item.toString());
+            if(!BuildConfig.DEBUG && item.toString().isEmpty()) {
+                Toast.makeText(this, "Write names in all the fields or delete the empty ones", Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
         intent.putStringArrayListExtra("playerNames", stringNames);
         startActivity(intent);
