@@ -52,7 +52,7 @@ public class NewGameActivity extends AppCompatActivity {
     public void startGame(View view){
 
         if(!BuildConfig.DEBUG && names.size()<4) {
-            Toast.makeText(this, "A game needs at least 4 players", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.new_game_minimum, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -79,7 +79,7 @@ public class NewGameActivity extends AppCompatActivity {
         for(EditListItem item: names) {
             stringNames.add(item.toString());
             if(!BuildConfig.DEBUG && item.toString().isEmpty()) {
-                Toast.makeText(this, "Write names in all the fields or delete the empty ones", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.new_game_empty_fields, Toast.LENGTH_SHORT).show();
                 return;
             }
         }
