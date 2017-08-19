@@ -19,8 +19,14 @@
     <string name="new_game_start">Start game</string>
     <string name="new_game_player_name">Name</string>
 
+    <plurals name="numberOfHands">
+        <item quantity="one">%d hand</item>
+        <item quantity="other">%d hands</item>
+    </plurals>
+    <string name="round_info">Round info</string>
     <string name="first_player">First player: %s</string>
     <string name="dealer">Dealer: %s</string>
+
     <string name="choose_results">Choose your results!</string>
     <string name="place_bets">Place your bets!</string>
     <string name="game_table">Game Table</string>
@@ -41,9 +47,4 @@
 
     <string name="about">About</string>
     <string name="about_text">Application developed by Alexandru Rosu.\n\nGraphics created by <a href="http://www.freepik.com/free-vector/flat-golden-and-silver-award-collection_844355.htm">Freepik</a>.\n\nCurrent version: alpha</string>
-
-    <plurals name="numberOfHands">
-        <item quantity="one">Current round: %d hand</item>
-        <item quantity="other">Current round: %d hands</item>
-    </plurals>
 </resources>

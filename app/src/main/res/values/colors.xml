@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorTextBright">#FFF</color>
+    <color name="colorActivityBackground">#EEE</color>
+    <color name="colorTableHeader">#F8F8F8</color>
 
     <color name="colorPositiveResult">#26bc0c</color>
     <color name="colorNegativeResult">#c9173e</color>

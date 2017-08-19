@@ -1,3 +1,19 @@
 <resources>
+    <dimen name="edge_left_right">16dp</dimen>
+    <dimen name="appbar_elevation">4dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <!-- Game table -->
+    <dimen name="table_number_column_width">40dp</dimen>
+    <dimen name="table_scroll_bottom_padding">22dp</dimen>
+    <dimen name="table_edge_left_right">6dp</dimen>
+    <dimen name="table_margin_up_down">64dp</dimen>
+
+    <!-- Bottom sheet -->
+    <dimen name="sheet_text">16sp</dimen>
+    <dimen name="sheet_title_height">56dp</dimen>
+    <dimen name="sheet_item_height">48dp</dimen>
+    <dimen name="sheet_icon">24dp</dimen>
+    <dimen name="sheet_icon_text_padding">32dp</dimen>
+    <dimen name="sheet_peek">56dp</dimen>
 </resources>
