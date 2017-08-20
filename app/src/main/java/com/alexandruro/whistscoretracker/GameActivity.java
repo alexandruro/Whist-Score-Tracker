@@ -1,5 +1,6 @@
 package com.alexandruro.whistscoretracker;
 
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
@@ -39,6 +40,10 @@ public class GameActivity extends AppCompatActivity {
     private static final int WAITING_FOR_RESULT = 1;
     private static final int GAME_OVER = 2;
 
+    // retained fragment
+    private static final String TAG_RETAINED_FRAGMENT = "RetainedFragment";
+    private RetainedFragment retainedFragment;
+
     // game state
     private ArrayList<String> playerNames;
     private ArrayList<PlayerRecord> scoreTable;
@@ -61,18 +66,6 @@ public class GameActivity extends AppCompatActivity {
             ab.setDisplayHomeAsUpEnabled(true);
             ab.setTitle(R.string.game_table);
         }
-
-        initialiseGameState();
-
-        // Initialise the table header
-        TableRow header = (TableRow) findViewById(R.id.header);
-        for(int i = 0; i< playerNames.size(); i++) {
-            scoreTable.add(new PlayerRecord(playerNames.get(i), prize));
-            LayoutInflater.from(this).inflate(R.layout.divider, header, true);
-            LayoutInflater.from(this).inflate(R.layout.name_header_item, header, true);
-            ((TextView)header.getChildAt(getViewIndexOfName(i))).setText(playerNames.get(i));
-        }
-
         // Initialise the bottom sheet
         View bottomSheet = findViewById(R.id.bottom_sheet);
         final BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
@@ -90,6 +83,74 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
+        // find the retained fragment or create it
+        FragmentManager fm = getFragmentManager();
+        retainedFragment = (RetainedFragment) fm.findFragmentByTag(TAG_RETAINED_FRAGMENT);
+        if (retainedFragment == null) {
+            retainedFragment = new RetainedFragment();
+            fm.beginTransaction().add(retainedFragment, TAG_RETAINED_FRAGMENT).commit();
+        }
+
+        // Init / get back data
+        if(savedInstanceState==null) {
+            initialiseGameState();
+            retainedFragment.setData(scoreTable);
+        }
+        else {
+            scoreTable = retainedFragment.getData();
+            playerNames = savedInstanceState.getStringArrayList("playerNames");
+            nrOfPlayers = playerNames.size();
+            gameStatus = savedInstanceState.getInt("gameStatus");
+            currentRound = savedInstanceState.getInt("currentRound");
+            gameType1 = savedInstanceState.getBoolean("gameType1");
+            prize = savedInstanceState.getInt("prize");
+        }
+
+        // Initialise the table header
+        TableRow header = (TableRow) findViewById(R.id.header);
+        for(int i = 0; i< playerNames.size(); i++) {
+            LayoutInflater.from(this).inflate(R.layout.divider, header, true);
+            LayoutInflater.from(this).inflate(R.layout.name_header_item, header, true);
+            ((TextView)header.getChildAt(getViewIndexOfName(i))).setText(playerNames.get(i));
+        }
+
+        // Display old table if not a new game
+        if(savedInstanceState!=null) {
+            int trueCurrentRound = currentRound;
+            for(currentRound=1;currentRound<trueCurrentRound;currentRound++) {
+                int[] bets = new int[nrOfPlayers];
+                int[] scores = new int[nrOfPlayers];
+                for(int i=0;i<nrOfPlayers;i++) {
+                    bets[i] = scoreTable.get(i).getBet(currentRound);
+                    scores[i] = scoreTable.get(i).getScore(currentRound);
+                }
+                displayBets(bets);
+                displayScores(scores);
+            }
+            currentRound = trueCurrentRound;
+
+            if(gameStatus==WAITING_FOR_RESULT) {
+                int[] bets = new int[nrOfPlayers];
+                for(int i=0;i<nrOfPlayers;i++)
+                    bets[i] = scoreTable.get(i).getBet(currentRound);
+                displayBets(bets);
+            }
+
+        }
+        if(gameStatus==GAME_OVER)
+            hideBottomSheet();
+        else
+            updateRoundInfo();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putStringArrayList("playerNames", playerNames);
+        outState.putInt("gameStatus", gameStatus);
+        outState.putInt("currentRound", currentRound);
+        outState.putBoolean("gameType1", gameType1);
+        outState.putInt("prize", prize);
     }
 
     /**
@@ -103,10 +164,10 @@ public class GameActivity extends AppCompatActivity {
         prize = intent.getIntExtra("prize", 0);
 
         scoreTable = new ArrayList<>();
+        for(int i=0;i<nrOfPlayers;i++)
+            scoreTable.add(new PlayerRecord(playerNames.get(i), prize));
         gameStatus = WAITING_FOR_BET;
         currentRound = 1;
-
-        updateRoundInfo();
     }
 
     /**
@@ -126,8 +187,6 @@ public class GameActivity extends AppCompatActivity {
     private void restartGame() {
         initialiseGameState();
         ((TableLayout) findViewById(R.id.tableBody)).removeAllViews();
-        for(int i = 0; i< playerNames.size(); i++)
-            scoreTable.add(new PlayerRecord(playerNames.get(i), prize));
     }
 
     @Override
@@ -229,13 +288,43 @@ public class GameActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == BET_REQUEST) {
             if (resultCode == RESULT_OK) {
-                addBets(data.getIntArrayExtra("inputs"));
+                int[] bets = data.getIntArrayExtra("inputs");
+                for(int i = 0; i< playerNames.size(); i++)
+                    scoreTable.get(i).addBet(bets[i]);
+                displayBets(bets);
+                gameStatus = WAITING_FOR_RESULT;
             }
         }
         else if(requestCode == RESULT_REQUEST) {
             if (resultCode == RESULT_OK) {
-                addResults(data.getIntArrayExtra("inputs"));
+                int[] results = data.getIntArrayExtra("inputs");
+                int[] scores = new int[nrOfPlayers];
+                for(int i = 0; i< playerNames.size(); i++) {
+                    scoreTable.get(i).addResult(results[i]);
+                    scores[i] = scoreTable.get(i).getScore();
+                }
+                displayScores(scores);
+                currentRound++;
+                if(currentRound >3*nrOfPlayers+12)
+                    endGame();
+                else {
+                    updateRoundInfo();
+                    gameStatus = WAITING_FOR_BET;
+                }
             }
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        // this means that this activity will not be recreated now, user is leaving it
+        // or the activity is otherwise finishing
+        if(isFinishing()) {
+            FragmentManager fm = getFragmentManager();
+            // we will not need this fragment anymore
+            fm.beginTransaction().remove(retainedFragment).commit();
         }
     }
 
@@ -264,14 +353,13 @@ public class GameActivity extends AppCompatActivity {
      * Adds the bets of the current round to the table
      * @param bets The bets of the players
      */
-    private void addBets(int[] bets) {
+    private void displayBets(int[] bets) {
         TableLayout body = (TableLayout) findViewById(R.id.tableBody);
         TableRow newRow = new TableRow(this);
         LayoutInflater.from(this).inflate(R.layout.score_number, newRow, true);
         ((TextView)newRow.getChildAt(0)).setText(String.valueOf(getNrOfHands()));
 
         for(int i = 0; i< playerNames.size(); i++) {
-            scoreTable.get(i).addBet(bets[i]);
             LayoutInflater.from(this).inflate(R.layout.divider, newRow, true);
             LayoutInflater.from(this).inflate(R.layout.score_item_short, newRow, true);
             LayoutInflater.from(this).inflate(R.layout.score_item_long, newRow, true);
@@ -280,22 +368,18 @@ public class GameActivity extends AppCompatActivity {
         }
 
         body.addView(newRow);
-
-        gameStatus = WAITING_FOR_RESULT;
-
     }
 
     /**
-     * Adds the results of the current round to the table
-     * @param results The results of the players
+     * Adds the scores of the current round to the table
+     * @param scores The scores of the players
      */
-    private void addResults(int[] results) {
+    private void displayScores(int[] scores) {
         TableLayout body = (TableLayout) findViewById(R.id.tableBody);
         TableRow lastRow = (TableRow) body.getChildAt(body.getChildCount()-1);
 
         for(int i = 0; i< playerNames.size(); i++) {
-            scoreTable.get(i).addResult(results[i]);
-            ((TextView) lastRow.getChildAt(getViewIndexOfScore(i))).setText(String.valueOf(scoreTable.get(i).getScore()));
+            ((TextView) lastRow.getChildAt(getViewIndexOfScore(i))).setText(String.valueOf(scores[i]));
             if(scoreTable.get(i).lastResult())
                 ((TextView) lastRow.getChildAt(getViewIndexOfBet(i))).setTextColor(ContextCompat.getColor(this, R.color.colorPositiveResult));
             else {
@@ -303,14 +387,6 @@ public class GameActivity extends AppCompatActivity {
                 textView.setTextColor(ContextCompat.getColor(this, R.color.colorNegativeResult));
                 textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             }
-        }
-
-        currentRound++;
-        if(currentRound >3*nrOfPlayers+12)
-            endGame();
-        else {
-            updateRoundInfo();
-            gameStatus = WAITING_FOR_BET;
         }
     }
 
@@ -320,26 +396,18 @@ public class GameActivity extends AppCompatActivity {
     private void endGame() {
         gameStatus = GAME_OVER;
 
-        View bottomSheet = findViewById(R.id.bottom_sheet);
-        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        bottomSheetBehavior.setHideable(true);
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-        findViewById(R.id.floatingActionButton).setVisibility(View.INVISIBLE);
+        hideBottomSheet();
 
+        // Show leaderboard
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.game_over);
-
         Collections.sort(scoreTable);
-
         ListView playerScores = new ListView(this);
-
         float scale = getResources().getDisplayMetrics().density;
         int dpAsPixels = (int) (16*scale + 0.5f);
         playerScores.setPadding(dpAsPixels, dpAsPixels, dpAsPixels, dpAsPixels);
-
         EndPlayerListAdapter adapter = new EndPlayerListAdapter(this, scoreTable);
         playerScores.setAdapter(adapter);
-
         builder.setView(playerScores);
         builder.setPositiveButton(R.string.return_to_menu, new DialogInterface.OnClickListener() {
             @Override
@@ -351,6 +419,17 @@ public class GameActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
 
+    }
+
+    /**
+     * Hides the bottom sheet. Called when the game is over
+     */
+    private void hideBottomSheet() {
+        View bottomSheet = findViewById(R.id.bottom_sheet);
+        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        bottomSheetBehavior.setHideable(true);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        findViewById(R.id.floatingActionButton).setVisibility(View.INVISIBLE);
     }
 
     /**
