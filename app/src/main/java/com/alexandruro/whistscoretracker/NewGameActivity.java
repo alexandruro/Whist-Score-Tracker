@@ -3,10 +3,10 @@ package com.alexandruro.whistscoretracker;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
@@ -26,7 +26,7 @@ public class NewGameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_game);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
         if(ab!=null) {
@@ -40,7 +40,7 @@ public class NewGameActivity extends AppCompatActivity {
 
         adapter = new EditListAdapter(this, names);
 
-        WrappedListView listView = (WrappedListView)findViewById(R.id.nameListView);
+        WrappedListView listView = findViewById(R.id.nameListView);
         listView.setAdapter(adapter);
 
     }
@@ -56,11 +56,11 @@ public class NewGameActivity extends AppCompatActivity {
             return;
         }
 
-        RadioButton gameType1 = (RadioButton) findViewById(R.id.radioGameType1);
+        RadioButton gameType1 = findViewById(R.id.radioGameType1);
         //RadioButton gameType2 = (RadioButton) findViewById(R.id.radioGameType2);
 
-        RadioButton prize0 = (RadioButton) findViewById(R.id.radioPrizeNone);
-        RadioButton prize5 = (RadioButton) findViewById(R.id.radioPrize5);
+        RadioButton prize0 = findViewById(R.id.radioPrizeNone);
+        RadioButton prize5 = findViewById(R.id.radioPrize5);
         //RadioButton prize10 = (RadioButton) findViewById(R.id.radioPrize10);
         int prize;
 

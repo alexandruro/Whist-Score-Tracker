@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/game_coord_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorActivityBackground">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -71,7 +71,7 @@
         android:paddingRight="@dimen/edge_left_right"
         app:behavior_hideable="true"
         app:behavior_peekHeight="@dimen/sheet_peek"
-        app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <TextView
             android:id="@+id/bottomSheetTitle"
@@ -143,7 +143,7 @@
 
     </LinearLayout>
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -154,4 +154,4 @@
         app:layout_anchorGravity="top|end"
         app:srcCompat="@drawable/ic_add_white_24px" />
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

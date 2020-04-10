@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/WhistScoreTracker.iml" filepath="$PROJECT_DIR$/WhistScoreTracker.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Whist-Score-Tracker.iml" filepath="$PROJECT_DIR$/Whist-Score-Tracker.iml" group="Whist-Score-Tracker" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="Whist-Score-Tracker/app" />
     </modules>
   </component>
 </project>

@@ -5,14 +5,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -60,7 +60,7 @@ public class GameActivity extends AppCompatActivity {
 
         // Initialise the base UI
         setContentView(R.layout.activity_game);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
         if(ab!=null) {
@@ -115,7 +115,7 @@ public class GameActivity extends AppCompatActivity {
         }
 
         // Initialise the table header
-        TableRow header = (TableRow) findViewById(R.id.header);
+        TableRow header = findViewById(R.id.header);
         for(int i = 0; i< playerNames.size(); i++) {
             LayoutInflater.from(this).inflate(R.layout.divider, header, true);
             LayoutInflater.from(this).inflate(R.layout.name_header_item, header, true);
@@ -217,7 +217,7 @@ public class GameActivity extends AppCompatActivity {
                 builder.setPositiveButton(R.string.undo, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        TableLayout body = (TableLayout) findViewById(R.id.tableBody);
+                        TableLayout body = findViewById(R.id.tableBody);
                         TableRow lastRow = (TableRow) body.getChildAt(body.getChildCount()-1);
                         if(gameStatus==WAITING_FOR_RESULT) {
                             for(int i = 0; i< playerNames.size(); i++) {
@@ -375,7 +375,7 @@ public class GameActivity extends AppCompatActivity {
      * @param bets The bets of the players
      */
     private void displayBets(int[] bets) {
-        TableLayout body = (TableLayout) findViewById(R.id.tableBody);
+        TableLayout body = findViewById(R.id.tableBody);
         TableRow newRow = new TableRow(this);
         LayoutInflater.from(this).inflate(R.layout.score_number, newRow, true);
         ((TextView)newRow.getChildAt(0)).setText(String.valueOf(getNrOfHands()));
@@ -396,7 +396,7 @@ public class GameActivity extends AppCompatActivity {
      * @param scores The scores of the players
      */
     private void displayScores(int[] scores) {
-        TableLayout body = (TableLayout) findViewById(R.id.tableBody);
+        TableLayout body = findViewById(R.id.tableBody);
         TableRow lastRow = (TableRow) body.getChildAt(body.getChildCount()-1);
 
         for(int i = 0; i< playerNames.size(); i++) {
