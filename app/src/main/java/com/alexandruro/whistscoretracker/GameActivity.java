@@ -13,6 +13,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -87,8 +88,10 @@ public class GameActivity extends AppCompatActivity {
         FragmentManager fm = getFragmentManager();
         retainedFragment = (RetainedFragment) fm.findFragmentByTag(TAG_RETAINED_FRAGMENT);
         if (retainedFragment == null) {
+            // Starting a fresh activity
             retainedFragment = new RetainedFragment();
             fm.beginTransaction().add(retainedFragment, TAG_RETAINED_FRAGMENT).commit();
+            Toast.makeText(this, "No retained fragment, this must start afresh", Toast.LENGTH_SHORT).show();
         }
 
         // Init / get back data
@@ -98,6 +101,11 @@ public class GameActivity extends AppCompatActivity {
         }
         else {
             scoreTable = retainedFragment.getData();
+            if(scoreTable==null) {
+                // The app has been killed because there was not enough memory
+                Toast.makeText(this, "Sorry, the retained fragment has been deleted somehow", Toast.LENGTH_SHORT).show();
+                Log.d("Lifecycle:", "The retained fragment has been deleted somehow");
+            }
             playerNames = savedInstanceState.getStringArrayList("playerNames");
             nrOfPlayers = playerNames.size();
             gameStatus = savedInstanceState.getInt("gameStatus");
@@ -319,12 +327,25 @@ public class GameActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
 
+
+        if (this.isFinishing ())
+        {
+            // activity dying
+        }
+        else
+        {
+            // activity not dying just stopping
+        }
+
         // this means that this activity will not be recreated now, user is leaving it
         // or the activity is otherwise finishing
         if(isFinishing()) {
+            Toast.makeText(this, "The activity is finishing", Toast.LENGTH_LONG).show();
+            Log.d("Lifecycle:", "The activity is finishing");
             FragmentManager fm = getFragmentManager();
             // we will not need this fragment anymore
             fm.beginTransaction().remove(retainedFragment).commit();
+//            throw new RuntimeException();
         }
     }
 
