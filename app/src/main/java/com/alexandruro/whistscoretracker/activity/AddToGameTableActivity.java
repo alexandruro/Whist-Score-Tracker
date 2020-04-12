@@ -1,4 +1,4 @@
-package com.alexandruro.whistscoretracker;
+package com.alexandruro.whistscoretracker.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.TextView;
+
+import com.alexandruro.whistscoretracker.R;
 
 import java.util.ArrayList;
 
@@ -43,9 +45,9 @@ public class AddToGameTableActivity extends AppCompatActivity {
 
 
         // Initialise layout elements
-        grid = (GridLayout)findViewById(R.id.grid);
-        playerName = (TextView) findViewById(R.id.playerName);
-        TextView prompt = (TextView) findViewById(R.id.prompt);
+        grid = findViewById(R.id.grid);
+        playerName = findViewById(R.id.playerName);
+        TextView prompt = findViewById(R.id.prompt);
         if (requestCode==GameActivity.RESULT_REQUEST)
             prompt.setText(R.string.choose_results);
         else
@@ -80,7 +82,7 @@ public class AddToGameTableActivity extends AppCompatActivity {
      */
     private void advance(int input) {
         if(input!=-1) {
-            inputs[(index+firstPlayerDelay)%nrOfPlayers] = input;
+            inputs[index] = input;
             handsLeft -= input;
         }
         if(index< playerNames.size()-1) {

@@ -1,4 +1,4 @@
-package com.alexandruro.whistscoretracker;
+package com.alexandruro.whistscoretracker.model;
 
 import androidx.annotation.NonNull;
 
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Keeps a record of a player's bets, results and score
  */
-class PlayerRecord implements Comparable<PlayerRecord> {
+public class PlayerRecord implements Comparable<PlayerRecord> {
 
     private String name;
     private ArrayList<Integer> bets;
@@ -29,7 +29,7 @@ class PlayerRecord implements Comparable<PlayerRecord> {
      * Creates a blank record
      * @param prize The prize applied when winning/losing in a row
      */
-    PlayerRecord(String name, int prize) {
+    public PlayerRecord(String name, int prize) {
         this.name = name;
         this.prize = prize;
 
@@ -44,7 +44,7 @@ class PlayerRecord implements Comparable<PlayerRecord> {
      * Adds a new round's bet
      * @param bet The number of hands bet
      */
-    void addBet(int bet) {
+    public void addBet(int bet) {
         bets.add(bet);
     }
 
@@ -52,7 +52,7 @@ class PlayerRecord implements Comparable<PlayerRecord> {
      * Adds current round's result
      * @param result The number of hands gotten
      */
-    void addResult(int result) {
+    public void addResult(int result) {
         results.add(result);
         int bet = bets.get(bets.size()-1);
         updateScore(bet, result);
@@ -95,7 +95,7 @@ class PlayerRecord implements Comparable<PlayerRecord> {
      * @param round The round
      * @return The amount bet by the player
      */
-    int getBet(int round) {
+    public int getBet(int round) {
         return bets.get(round-1);
     }
 
@@ -104,7 +104,7 @@ class PlayerRecord implements Comparable<PlayerRecord> {
      * @param round The round
      * @return The number of points
      */
-    int getScore(int round) {
+    public int getScore(int round) {
         return scores.get(round-1);
     }
 
@@ -112,14 +112,14 @@ class PlayerRecord implements Comparable<PlayerRecord> {
      * Gets the score of the player
      * @return The number of points
      */
-    int getScore() {
+    public int getScore() {
         return scores.get(scores.size()-1);
     }
 
     /**
      * Undoes the last result in the record
      */
-    void undoResult() {
+    public void undoResult() {
         results.remove(results.size()-1);
         scores.clear();
         consecResult = 0;
@@ -131,7 +131,7 @@ class PlayerRecord implements Comparable<PlayerRecord> {
     /**
      * Undoes the last bet in the record
      */
-    void undoBet() {
+    public void undoBet() {
         bets.remove(bets.size()-1);
     }
 
@@ -144,7 +144,14 @@ class PlayerRecord implements Comparable<PlayerRecord> {
      * Checks whether the last result was positive or not
      * @return True, if the last result was positive, false if not
      */
-    boolean lastResult() {
+    public boolean lastResult() {
         return consecWin;
+    }
+
+    public boolean lastResult(int round) {
+        if(round == 1) {
+            return scores.get(0) > 0;
+        }
+        return scores.get(round-1) > scores.get(round-2);
     }
 }

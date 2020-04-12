@@ -25,19 +25,30 @@
         android:layout_marginRight="@dimen/table_edge_left_right"
         android:layout_marginTop="@dimen/table_margin_up_down"
         android:background="@color/colorTextBright"
-        android:elevation="2dp">
+        android:elevation="2dp"
+        android:stretchColumns="1">
 
         <TableRow
-            android:id="@+id/header"
             android:background="@color/colorTableHeader"
-            android:elevation="2dp">
+            android:elevation="2dp"
+            android:layout_width="match_parent">
 
             <TextView
                 android:layout_width="@dimen/table_number_column_width"
                 android:layout_column="0"
                 android:text="#"
                 android:textAlignment="center"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:layout_height="wrap_content"
+                android:width="@dimen/table_number_column_width"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="#000"
+                android:dividerHeight="2dp"
+                android:listSelector="#600"/>
 
         </TableRow>
 
@@ -46,13 +57,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TableLayout
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/tableBody"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/table_scroll_bottom_padding">
 
-            </TableLayout>
+            </androidx.recyclerview.widget.RecyclerView>
 
         </ScrollView>
 

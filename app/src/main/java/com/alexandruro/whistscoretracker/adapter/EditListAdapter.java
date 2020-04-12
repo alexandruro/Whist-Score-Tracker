@@ -1,4 +1,4 @@
-package com.alexandruro.whistscoretracker;
+package com.alexandruro.whistscoretracker.adapter;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -10,14 +10,18 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 
+import com.alexandruro.whistscoretracker.EditListItem;
+import com.alexandruro.whistscoretracker.R;
+import com.alexandruro.whistscoretracker.EditTextViewHolder;
+
 import java.util.ArrayList;
 
 /**
  * Adapter for an EditList (a list of EditText items)
  */
-class EditListAdapter extends ArrayAdapter<EditListItem> {
+public class EditListAdapter extends ArrayAdapter<EditListItem> {
 
-    EditListAdapter(Context con, ArrayList<EditListItem> list) {
+    public EditListAdapter(Context con, ArrayList<EditListItem> list) {
         super(con, 0, list);
     }
 
@@ -30,12 +34,12 @@ class EditListAdapter extends ArrayAdapter<EditListItem> {
         if(listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
                     R.layout.name_list_item, parent, false);
-            ViewHolder viewHolder = new ViewHolder();
+            EditTextViewHolder viewHolder = new EditTextViewHolder();
             viewHolder.setEditText((EditText) listItemView.findViewById(R.id.name));
             listItemView.setTag(viewHolder);
         }
 
-        ViewHolder holder = (ViewHolder) listItemView.getTag();
+        EditTextViewHolder holder = (EditTextViewHolder) listItemView.getTag();
 
         // Remove any existing TextWatcher that will be keyed to the wrong ListItem
         if(holder.getTextWatcher() != null) {

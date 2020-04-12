@@ -3,11 +3,11 @@ package com.alexandruro.whistscoretracker;
 /**
  * An element in an EditList, represented by its corresponding string input by the user
  */
-class EditListItem {
+public class EditListItem {
 
     private String string;
 
-    EditListItem() {
+    public EditListItem() {
         string = "";
     }
 
@@ -16,7 +16,7 @@ class EditListItem {
         return string;
     }
 
-    void setString(String string) {
+    public void setString(String string) {
         this.string = string;
     }
 }

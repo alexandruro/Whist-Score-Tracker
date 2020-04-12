@@ -1,4 +1,4 @@
-package com.alexandruro.whistscoretracker;
+package com.alexandruro.whistscoretracker.activity;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.alexandruro.whistscoretracker.model.PlayerRecord;
+import com.alexandruro.whistscoretracker.R;
 
 import java.util.List;
 

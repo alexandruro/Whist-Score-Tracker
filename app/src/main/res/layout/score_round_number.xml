@@ -5,4 +5,5 @@
     android:layout_width="@dimen/table_number_column_width"
     android:layout_column="0"
     android:textSize="25sp"
-    android:textAlignment="center"/>
+    android:textAlignment="center"
+    android:id="@+id/roundNumber"/>

@@ -1,4 +1,4 @@
-package com.alexandruro.whistscoretracker;
+package com.alexandruro.whistscoretracker.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +11,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
+import com.alexandruro.whistscoretracker.BuildConfig;
+import com.alexandruro.whistscoretracker.adapter.EditListAdapter;
+import com.alexandruro.whistscoretracker.EditListItem;
+import com.alexandruro.whistscoretracker.R;
+import com.alexandruro.whistscoretracker.WrappedListView;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.alexandruro.whistscoretracker;
+package com.alexandruro.whistscoretracker.activity;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.text.method.LinkMovementMethod;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.alexandruro.whistscoretracker.R;
 
 public class AboutActivity extends AppCompatActivity {
 
