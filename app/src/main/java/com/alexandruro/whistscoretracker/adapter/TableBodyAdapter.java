@@ -3,7 +3,6 @@ package com.alexandruro.whistscoretracker.adapter;
 import android.graphics.Paint;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -14,9 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alexandruro.whistscoretracker.R;
 import com.alexandruro.whistscoretracker.model.Game;
-import com.alexandruro.whistscoretracker.model.PlayerRecord;
-
-import java.util.ArrayList;
 
 public class TableBodyAdapter extends RecyclerView.Adapter<TableBodyAdapter.ScoreRowViewHolder> {
 
@@ -73,7 +69,10 @@ public class TableBodyAdapter extends RecyclerView.Adapter<TableBodyAdapter.Scor
                     }
                 }
                 else {
+                    // if there is no score remove it and the formatting on the bet
                     ((TextView) holder.view.getChildAt(getViewIndexOfScore(i))).setText("");
+                    betTextView.setTextColor(ContextCompat.getColor(betTextView.getContext(), android.R.color.tab_indicator_text));
+                    betTextView.setPaintFlags(betTextView.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
                 }
             }
         }
