@@ -4,7 +4,7 @@ jobs:
   build:
     working_directory: ~/code
     docker:
-      - image: 'circleci/android:api-25-alpha'
+      - image: 'circleci/android:api-29'
     environment:
       JVM_OPTS: -Xmx3200m
     steps:
@@ -21,9 +21,9 @@ jobs:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-      - run:
-          name: Accept Android SDK licences
-          command: sdkmanager --update && yes | sdkmanager --licenses
+#       - run:
+#           name: Accept Android SDK licences
+#           command: sdkmanager --update && yes | sdkmanager --licenses
       - run:
           name: Analyze on SonarCloud
           command: ./gradlew build sonarqube
