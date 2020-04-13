@@ -22,6 +22,9 @@ jobs:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
+          name: Accept Android SDK licences
+          command: sdkmanager --update && yes | sdkmanager --licenses
+      - run:
           name: Analyze on SonarCloud
           command: ./gradlew build sonarqube
 
