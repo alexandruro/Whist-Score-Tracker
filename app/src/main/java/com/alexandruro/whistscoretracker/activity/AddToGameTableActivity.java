@@ -2,11 +2,13 @@ package com.alexandruro.whistscoretracker.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.alexandruro.whistscoretracker.R;
 
@@ -22,13 +24,13 @@ public class AddToGameTableActivity extends AppCompatActivity {
     private ArrayList<String> playerNames;
     private int[] inputs;
     private int index;
-    private TextView playerName;
     private int nrOfHands;
     private int handsLeft;
     private int requestCode;
     private int firstPlayerDelay;
     private int nrOfPlayers;
 
+    private TextView playerName;
     private GridLayout grid;
 
     @Override
@@ -59,12 +61,7 @@ public class AddToGameTableActivity extends AppCompatActivity {
             button.setText(String.valueOf(i));
             GridLayout.LayoutParams params = new GridLayout.LayoutParams(spec(i/3),spec(i%3));
             final int value = i;
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    advance(value);
-                }
-            });
+            button.setOnClickListener(view -> advance(value));
             grid.addView(button, params);
         }
 
@@ -87,22 +84,65 @@ public class AddToGameTableActivity extends AppCompatActivity {
         }
         if(index< playerNames.size()-1) {
             index++;
-            playerName.setText(playerNames.get((index+firstPlayerDelay)%nrOfPlayers));
-            for(int i=0;i<=8;i++) {
-                if(i>nrOfHands
-                        || (requestCode==GameActivity.BET_REQUEST && i==handsLeft && index== playerNames.size()-1)
-                        || (requestCode==GameActivity.RESULT_REQUEST &&
-                            ((i!=handsLeft && index== playerNames.size()-1) || i>handsLeft)))
-                    grid.getChildAt(i).setEnabled(false);
-                else
-                    grid.getChildAt(i).setEnabled(true);
-            }
+            render();
         }
         else {
             Intent intent = getIntent();
             intent.putExtra("inputs", inputs);
             setResult(RESULT_OK, intent);
             finish();
+        }
+    }
+
+    /**
+     * Undoes the last input
+     */
+    private void undo() {
+        if(index == 0) {
+            Log.e("AddToGameActivity", "Tried to undo input with index=0. This should not happen.");
+            return;
+        }
+
+        index--;
+        handsLeft += inputs[index];
+        render();
+    }
+
+    /**
+     * Refreshes the UI (changes player name and enables/disables buttons)
+     */
+    private void render() {
+        resetPlayerName();
+        for(int i=0;i<=8;i++) {
+            if(i>nrOfHands
+                    || (requestCode== GameActivity.BET_REQUEST && i==handsLeft && index== playerNames.size()-1)
+                    || (requestCode==GameActivity.RESULT_REQUEST &&
+                        ((i!=handsLeft && index== playerNames.size()-1) || i>handsLeft)))
+                grid.getChildAt(i).setEnabled(false);
+            else
+                grid.getChildAt(i).setEnabled(true);
+        }
+    }
+
+    /**
+     * Changes the player name to the current one
+     */
+    private void resetPlayerName() {
+        playerName.setText(playerNames.get((index+firstPlayerDelay)%nrOfPlayers));
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(index > 0) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.undo_prompt);
+            builder.setPositiveButton(R.string.undo, (dialog, which) -> undo());
+            builder.setNegativeButton(R.string.cancel, null);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+        else {
+            super.onBackPressed();
         }
     }
 }
