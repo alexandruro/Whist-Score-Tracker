@@ -41,7 +41,7 @@
         android:id="@+id/radioGroup">
 
         <RadioButton
-            android:id="@+id/radioGameType1"
+            android:id="@+id/radioGameTypeOneEightOne"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -51,7 +51,7 @@
             tools:layout_editor_absoluteY="123dp" />
 
         <RadioButton
-            android:id="@+id/radioGameType2"
+            android:id="@+id/radioGameTypeEightOneEight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

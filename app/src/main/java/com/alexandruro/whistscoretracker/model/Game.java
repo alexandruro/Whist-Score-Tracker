@@ -10,21 +10,18 @@ import java.util.Collections;
  */
 public class Game {
 
-    // game status
-    public static class Status {
-        public static final int WAITING_FOR_BET = 0;
-        public static final int WAITING_FOR_RESULT = 1;
-        public static final int GAME_OVER = 2;
-    }
+    public enum Status { WAITING_FOR_BET, WAITING_FOR_RESULT, GAME_OVER }
+
+    public enum Type { ONE_EIGHT_ONE, EIGHT_ONE_EIGHT }
 
     private ArrayList<String> playerNames;
     private ArrayList<PlayerRecord> scoreTable;
-    private int gameStatus;
+    private Status gameStatus;
     private int currentRound; // starting with 1. if current round ended then it's the next one
     private int nrOfPlayers;
-    private boolean gameType1;
+    private Type type;
 
-    public Game(ArrayList<String> playerNames, boolean gameType1, int prize) {
+    public Game(ArrayList<String> playerNames, Type type, int prize) {
         this.playerNames = playerNames;
         this.scoreTable = new ArrayList<>();
         for(String name: playerNames)
@@ -32,16 +29,16 @@ public class Game {
         this.gameStatus = Status.WAITING_FOR_BET;
         this.currentRound = 1;
         this.nrOfPlayers = playerNames.size();
-        this.gameType1 = gameType1;
+        this.type = type;
     }
 
-    public Game(ArrayList<String> playerNames, ArrayList<PlayerRecord> scoreTable, int gameStatus, int currentRound, boolean gameType1, int prize) {
+    public Game(ArrayList<String> playerNames, ArrayList<PlayerRecord> scoreTable, Status gameStatus, int currentRound, Type type) {
         this.playerNames = playerNames;
         this.scoreTable = scoreTable;
         this.gameStatus = gameStatus;
         this.currentRound = currentRound;
         this.nrOfPlayers = playerNames.size();
-        this.gameType1 = gameType1;
+        this.type = type;
     }
 
     public ArrayList<String> getPlayerNames() {
@@ -52,28 +49,16 @@ public class Game {
         return scoreTable;
     }
 
-    public int getGameStatus() {
+    public Status getGameStatus() {
         return gameStatus;
-    }
-
-    public void setGameStatus(int gameStatus) {
-        this.gameStatus = gameStatus;
     }
 
     public int getCurrentRound() {
         return currentRound;
     }
 
-    public void setCurrentRound(int currentRound) {
-        this.currentRound = currentRound;
-    }
-
     public int getNrOfPlayers() {
         return nrOfPlayers;
-    }
-
-    public boolean isGameType1() {
-        return gameType1;
     }
 
     /**
@@ -83,16 +68,17 @@ public class Game {
     public int getNrOfHands(int round) {
         if(round >3* nrOfPlayers +12)
             return -1;
-        if(isGameType1())
-            if(round <= nrOfPlayers)
+        if(type == Type.ONE_EIGHT_ONE) {
+            if (round <= nrOfPlayers)
                 return 1;
-            else if(round <= nrOfPlayers +6)
-                return round - nrOfPlayers +1;
-            else if(round <=2* nrOfPlayers +6)
+            else if (round <= nrOfPlayers + 6)
+                return round - nrOfPlayers + 1;
+            else if (round <= 2 * nrOfPlayers + 6)
                 return 8;
-            else if(round <=2* nrOfPlayers +12)
-                return 2* nrOfPlayers +14- round;
+            else if (round <= 2 * nrOfPlayers + 12)
+                return 2 * nrOfPlayers + 14 - round;
             else return 1;
+        }
         else
         if(round <= nrOfPlayers)
             return 8;

@@ -37,7 +37,7 @@ public class TableBodyAdapter extends RecyclerView.Adapter<TableBodyAdapter.Scor
     public ScoreRowViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         TableRow tableRow = (TableRow) LayoutInflater.from(parent.getContext()).inflate(R.layout.score_row, parent, false);
 
-        for(int i = 0; i< game.getPlayerNames().size(); i++) {
+        for(int i = 0; i< game.getNrOfPlayers(); i++) {
             LayoutInflater.from(parent.getContext()).inflate(R.layout.divider, tableRow, true);
             LayoutInflater.from(parent.getContext()).inflate(R.layout.score_item_short, tableRow, true);
             LayoutInflater.from(parent.getContext()).inflate(R.layout.score_item_long, tableRow, true);
@@ -52,13 +52,13 @@ public class TableBodyAdapter extends RecyclerView.Adapter<TableBodyAdapter.Scor
         Log.d("TableBodyAdapter", "Called onBindViewHolder. with " + position);
         ((TextView) holder.view.findViewById(R.id.roundNumber)).setText(Integer.toString(game.getNrOfHands(position+1)));
 
-        for (int i = 0; i < game.getPlayerNames().size(); i++) {
+        for (int i = 0; i < game.getNrOfPlayers(); i++) {
             if (position < game.getCurrentRound() - 1 || game.getGameStatus() != Game.Status.WAITING_FOR_BET) {
                 int bet = game.getScoreTable().get(i).getBet(position + 1);
                 TextView betTextView = (TextView)holder.view.getChildAt(getViewIndexOfBet(i));
                 betTextView.setText(String.valueOf(bet));
 
-                if (position < game.getCurrentRound() - 1 || game.getGameStatus() == Game.Status.GAME_OVER) {
+                if (position < game.getCurrentRound() - 1 || game.isOver()) {
                     int score = game.getScoreTable().get(i).getScore(position + 1);
                     ((TextView) holder.view.getChildAt(getViewIndexOfScore(i))).setText(String.valueOf(score));
                     if (game.getScoreTable().get(i).lastResult(position + 1))
@@ -80,7 +80,7 @@ public class TableBodyAdapter extends RecyclerView.Adapter<TableBodyAdapter.Scor
 
         @Override
         public int getItemCount() {
-            if(game.getGameStatus() == Game.Status.WAITING_FOR_BET)
+            if(game.getGameStatus() != Game.Status.WAITING_FOR_RESULT)
                 return game.getCurrentRound()-1;
             return game.getCurrentRound();
         }

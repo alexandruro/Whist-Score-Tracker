@@ -17,6 +17,7 @@ import com.alexandruro.whistscoretracker.adapter.EditListAdapter;
 import com.alexandruro.whistscoretracker.EditListItem;
 import com.alexandruro.whistscoretracker.R;
 import com.alexandruro.whistscoretracker.WrappedListView;
+import com.alexandruro.whistscoretracker.model.Game;
 
 import java.util.ArrayList;
 
@@ -62,14 +63,16 @@ public class NewGameActivity extends AppCompatActivity {
             return;
         }
 
-        RadioButton gameType1 = findViewById(R.id.radioGameType1);
-        //RadioButton gameType2 = (RadioButton) findViewById(R.id.radioGameType2);
+        RadioButton gameTypeOneEightOne = findViewById(R.id.radioGameTypeOneEightOne);
+        Game.Type type;
+        if(gameTypeOneEightOne.isChecked())
+            type = Game.Type.ONE_EIGHT_ONE;
+        else
+            type = Game.Type.EIGHT_ONE_EIGHT;
 
         RadioButton prize0 = findViewById(R.id.radioPrizeNone);
         RadioButton prize5 = findViewById(R.id.radioPrize5);
-        //RadioButton prize10 = (RadioButton) findViewById(R.id.radioPrize10);
         int prize;
-
         if(prize0.isChecked())
             prize = 0;
         else if(prize5.isChecked())
@@ -79,7 +82,7 @@ public class NewGameActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 
         Intent intent = new Intent(this, GameActivity.class);
-        intent.putExtra("gameType1", gameType1.isChecked());
+        intent.putExtra("type", type);
         intent.putExtra("prize", prize);
         ArrayList<String> stringNames = new ArrayList<>();
         for(EditListItem item: names) {

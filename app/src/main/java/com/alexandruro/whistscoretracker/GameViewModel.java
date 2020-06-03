@@ -19,11 +19,11 @@ public class GameViewModel extends ViewModel {
         return game;
     }
 
-    public void initialiseNewGame(ArrayList<String> playerNames, boolean gameType1, int prize) {
+    public void initialiseNewGame(ArrayList<String> playerNames, Game.Type type, int prize) {
         if(game != null) {
             Log.w("ViewModel", "initialiseNewGame() called when game is not null");
         }
-        game = new Game(playerNames, gameType1, prize);
+        game = new Game(playerNames, type, prize);
     }
 
 

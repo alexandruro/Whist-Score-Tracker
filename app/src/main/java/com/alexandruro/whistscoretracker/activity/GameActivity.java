@@ -26,6 +26,7 @@ import com.alexandruro.whistscoretracker.adapter.TableBodyAdapter;
 import com.alexandruro.whistscoretracker.adapter.TableRowAdapter;
 import com.alexandruro.whistscoretracker.model.Game;
 import com.alexandruro.whistscoretracker.model.Game.Status;
+import com.alexandruro.whistscoretracker.model.Game.Type;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -103,7 +104,7 @@ public class GameActivity extends AppCompatActivity {
         body.setLayoutManager(bodyLayoutManager);
 
         // Refresh bottom sheet
-        if(game.getGameStatus() == Status.GAME_OVER)
+        if(game.isOver())
             hideBottomSheet();
         else
             updateRoundInfo();
@@ -116,9 +117,9 @@ public class GameActivity extends AppCompatActivity {
         Intent intent = getIntent();
         ArrayList<String> playerNames = intent.getStringArrayListExtra("playerNames");
         int prize = intent.getIntExtra("prize", 0);
-        boolean gameType1 = intent.getBooleanExtra("gameType1", true);
+        Type type = (Type) intent.getSerializableExtra("type");
 
-        gameViewModel.initialiseNewGame(playerNames, gameType1, prize);
+        gameViewModel.initialiseNewGame(playerNames, type, prize);
     }
 
     /**
@@ -158,10 +159,10 @@ public class GameActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage(R.string.undo_prompt);
                 builder.setPositiveButton(R.string.undo, (dialog, which) -> {
-                    game.undo();
-                    if (game.getGameStatus() == Status.GAME_OVER) {
+                    if (game.isOver()) {
                         showBottomSheet();
                     }
+                    game.undo();
                     updateRoundInfo();
                     notifyTableBodyAdapter();
                     Snackbar.make(findViewById(R.id.game_coord_layout), R.string.undo_result, Snackbar.LENGTH_SHORT).show();
@@ -178,7 +179,7 @@ public class GameActivity extends AppCompatActivity {
                 }
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.restart_prompt);
-                if (game.getGameStatus() != Status.GAME_OVER)
+                if (!game.isOver())
                     builder.setMessage(R.string.restart_discard);
                 builder.setPositiveButton(R.string.restart, (dialog, which) -> restartGame());
                 builder.setNegativeButton(R.string.cancel, null);
