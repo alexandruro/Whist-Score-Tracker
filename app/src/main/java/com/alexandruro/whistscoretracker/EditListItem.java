@@ -11,6 +11,10 @@ public class EditListItem {
         string = "";
     }
 
+    public EditListItem(String string) {
+        this.string = string;
+    }
+
     @Override
     public String toString() {
         return string;

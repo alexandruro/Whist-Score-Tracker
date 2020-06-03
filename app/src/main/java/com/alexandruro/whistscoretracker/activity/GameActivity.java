@@ -37,6 +37,9 @@ import java.util.ArrayList;
  */
 public class GameActivity extends AppCompatActivity {
 
+    // development flag to pre-populate some rounds
+    private static final boolean POPULATE_ROUNDS = true;
+
     // request codes
     static final int RESULT_REQUEST = 1;
     static final int BET_REQUEST = 2;
@@ -108,6 +111,13 @@ public class GameActivity extends AppCompatActivity {
             hideBottomSheet();
         else
             updateRoundInfo();
+
+        if(POPULATE_ROUNDS) {
+            for(int i=0; i<16; i++) {
+                game.addBets(new int[]{1, 1});
+                game.addResults(new int[]{1, 1});
+            }
+        }
     }
 
     /**

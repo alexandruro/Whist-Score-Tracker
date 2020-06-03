@@ -26,6 +26,9 @@ import java.util.ArrayList;
  */
 public class NewGameActivity extends AppCompatActivity {
 
+    // development flag to pre-populate some player names
+    private static final boolean POPULATE_NAMES = true;
+
     private ArrayList<EditListItem> names;
     private EditListAdapter adapter;
 
@@ -42,8 +45,11 @@ public class NewGameActivity extends AppCompatActivity {
         }
 
         names = new ArrayList<>();
-//        names.add(new EditListItem("Alex"));
-//        names.add(new EditListItem("Ana"));
+
+        if(POPULATE_NAMES) {
+            names.add(new EditListItem("Alex"));
+            names.add(new EditListItem("Ana"));
+        }
 
         adapter = new EditListAdapter(this, names);
 
