@@ -1,6 +1,5 @@
 package com.alexandruro.whistscoretracker.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -31,7 +30,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Main game activity, where the game table is displayed
@@ -63,7 +61,7 @@ public class GameActivity extends AppCompatActivity {
         }
         // Initialise the bottom sheet
         View bottomSheet = findViewById(R.id.bottom_sheet);
-        final BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        final BottomSheetBehavior<View> bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         bottomSheetBehavior.setHideable(false);
         bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
@@ -152,59 +150,41 @@ public class GameActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_undo:
-                if(game.getCurrentRound() ==1 && game.getGameStatus() == Status.WAITING_FOR_BET) {
+            case R.id.action_undo: {
+                if (!game.isStarted()) {
                     Toast.makeText(this, R.string.no_rounds, Toast.LENGTH_SHORT).show();
                     return true;
                 }
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage(R.string.undo_prompt);
-                builder.setPositiveButton(R.string.undo, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if(game.getGameStatus() == Status.WAITING_FOR_RESULT) {
-                            for(int i = 0; i< game.getPlayerNames().size(); i++) {
-                                game.getScoreTable().get(i).undoBet();
-                            }
-                            game.setGameStatus(Status.WAITING_FOR_BET);
-                        }
-                        else {
-                            for(int i = 0; i< game.getPlayerNames().size(); i++) {
-                                game.getScoreTable().get(i).undoResult();
-                            }
-                            if(game.getGameStatus() == Status.GAME_OVER) { // if game was ended, undo that
-                                View bottomSheet = findViewById(R.id.bottom_sheet);
-                                BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-                                bottomSheetBehavior.setHideable(false);
-                                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                                findViewById(R.id.floatingActionButton).setVisibility(View.VISIBLE);
-                            }
-                            game.setCurrentRound(game.getCurrentRound() - 1);
-                            updateRoundInfo();
-                            game.setGameStatus(Status.WAITING_FOR_RESULT);
-                        }
-                        notifyTableBodyAdapter();
-                        Snackbar.make(findViewById(R.id.game_coord_layout), R.string.undo_result, Snackbar.LENGTH_SHORT).show();
+                builder.setPositiveButton(R.string.undo, (dialog, which) -> {
+                    game.undo();
+                    if (game.getGameStatus() == Status.GAME_OVER) {
+                        showBottomSheet();
                     }
+                    updateRoundInfo();
+                    notifyTableBodyAdapter();
+                    Snackbar.make(findViewById(R.id.game_coord_layout), R.string.undo_result, Snackbar.LENGTH_SHORT).show();
                 });
-                builder.setNegativeButton(R.string.cancel, null);
-                AlertDialog dialog = builder.create();
-                dialog.show();
-                return true;
-
-            case R.id.action_restart:
-                if(game.getCurrentRound() ==0) {
-                    Toast.makeText(this, R.string.no_rounds, Toast.LENGTH_SHORT).show();
-                    return true;
-                }
-                builder = new AlertDialog.Builder(this);
-                builder.setTitle(R.string.restart_prompt);
-                if(game.getGameStatus() != Status.GAME_OVER)
-                    builder.setMessage(R.string.restart_discard);
-                builder.setPositiveButton(R.string.restart, (dialog1, which) -> restartGame());
                 builder.setNegativeButton(R.string.cancel, null);
                 builder.show();
                 return true;
+            }
+
+            case R.id.action_restart: {
+                if (!game.isStarted()) {
+                    Toast.makeText(this, R.string.no_rounds, Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.restart_prompt);
+                if (game.getGameStatus() != Status.GAME_OVER)
+                    builder.setMessage(R.string.restart_discard);
+                builder.setPositiveButton(R.string.restart, (dialog, which) -> restartGame());
+                builder.setNegativeButton(R.string.cancel, null);
+                builder.show();
+                return true;
+            }
 
             case R.id.action_about:
                 Intent intent = new Intent(this, AboutActivity.class);
@@ -234,27 +214,19 @@ public class GameActivity extends AppCompatActivity {
         if (requestCode == BET_REQUEST) {
             if (resultCode == RESULT_OK) {
                 int[] bets = data.getIntArrayExtra("inputs");
-                for(int i = 0; i< game.getPlayerNames().size(); i++)
-                    game.getScoreTable().get(i).addBet(bets[i]);
+                game.addBets(bets);
                 notifyTableBodyAdapter();
-                game.setGameStatus(Status.WAITING_FOR_RESULT);
             }
         }
         else if(requestCode == RESULT_REQUEST) {
             if (resultCode == RESULT_OK) {
                 int[] results = data.getIntArrayExtra("inputs");
-                int[] scores = new int[game.getNrOfPlayers()];
-                for(int i = 0; i< game.getPlayerNames().size(); i++) {
-                    game.getScoreTable().get(i).addResult(results[i]);
-                    scores[i] = game.getScoreTable().get(i).getScore();
-                }
+                game.addResults(results);
                 notifyTableBodyAdapter();
-                game.setCurrentRound(game.getCurrentRound() + 1);
-                if(game.getCurrentRound() >3* game.getNrOfPlayers() +12)
+                if(game.isOver())
                     endGame();
                 else {
                     updateRoundInfo();
-                    game.setGameStatus(Status.WAITING_FOR_BET);
                 }
             }
         }
@@ -299,14 +271,11 @@ public class GameActivity extends AppCompatActivity {
      * Ends the current game
      */
     private void endGame() {
-        game.setGameStatus(Status.GAME_OVER);
-
         hideBottomSheet();
 
         // Show leaderboard
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.game_over);
-        Collections.sort(game.getScoreTable());
         ListView playerScores = new ListView(this);
         float scale = getResources().getDisplayMetrics().density;
         int dpAsPixels = (int) (16*scale + 0.5f);
@@ -314,16 +283,9 @@ public class GameActivity extends AppCompatActivity {
         EndPlayerListAdapter adapter = new EndPlayerListAdapter(this, game.getScoreTable());
         playerScores.setAdapter(adapter);
         builder.setView(playerScores);
-        builder.setPositiveButton(R.string.return_to_menu, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        });
+        builder.setPositiveButton(R.string.return_to_menu, (dialog, which) -> finish());
         builder.setNegativeButton(R.string.dismiss, null);
-        AlertDialog dialog = builder.create();
-        dialog.show();
-
+        builder.show();
     }
 
     /**
@@ -331,10 +293,21 @@ public class GameActivity extends AppCompatActivity {
      */
     private void hideBottomSheet() {
         View bottomSheet = findViewById(R.id.bottom_sheet);
-        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        BottomSheetBehavior<View> bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         bottomSheetBehavior.setHideable(true);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
         findViewById(R.id.floatingActionButton).setVisibility(View.INVISIBLE);
+    }
+
+    /**
+     * Shows the bottom sheet. Can be called at the beginning of the game or if the last round is undone
+     */
+    private void showBottomSheet() {
+        View bottomSheet = findViewById(R.id.bottom_sheet);
+        BottomSheetBehavior<View> bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        bottomSheetBehavior.setHideable(false);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        findViewById(R.id.floatingActionButton).setVisibility(View.VISIBLE);
     }
 
     @Override

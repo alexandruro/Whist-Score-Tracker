@@ -1,6 +1,9 @@
 package com.alexandruro.whistscoretracker.model;
 
+import android.util.Log;
+
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Represents a game state
@@ -104,5 +107,80 @@ public class Game {
 
     public int getNrOfHands() {
         return getNrOfHands(currentRound);
+    }
+
+    /**
+     * Return whether the game has started (the first bets have been made) or not
+     * @return True if the games has started, false otherwise
+     */
+    public boolean isStarted() {
+        return currentRound > 1 || gameStatus != Status.WAITING_FOR_BET;
+    }
+
+    /**
+     * Return whether the game has ended or not
+     * @return True if the game is over, false otherwise
+     */
+    public boolean isOver() {
+        return currentRound > 3*nrOfPlayers + 12;
+    }
+
+    public void undo() {
+        if(gameStatus == Status.WAITING_FOR_RESULT) {
+            undoBets();
+        }
+        else {
+            undoResults();
+        }
+    }
+
+    private void undoBets() {
+        for(int i = 0; i< playerNames.size(); i++) {
+            scoreTable.get(i).undoBet();
+        }
+        gameStatus = Status.WAITING_FOR_BET;
+    }
+
+    private void undoResults() {
+        currentRound--;
+        for(PlayerRecord playerRecord: scoreTable) {
+            playerRecord.undoResult();
+        }
+        for(int i=0; i<currentRound-1; i++) {
+            int nrOfHands = getNrOfHands(i);
+            for(PlayerRecord playerRecord: scoreTable) {
+                playerRecord.recalculateRoundScore(i, nrOfHands == 1);
+            }
+        }
+        gameStatus = Status.WAITING_FOR_RESULT;
+    }
+
+    public void addResults(int[] results) {
+        if(results.length != playerNames.size()) {
+            Log.e("Game", "addResults() called with incorrect number of results. This should not happen.");
+            throw new RuntimeException();
+        }
+        for(int i = 0; i< playerNames.size(); i++)
+            scoreTable.get(i).addResult(results[i], getNrOfHands() == 1);
+        currentRound++;
+
+        if(isOver()) {
+            gameStatus = Status.GAME_OVER;
+            // prepare the leaderboard
+            Collections.sort(scoreTable);
+        }
+        else {
+            gameStatus = Status.WAITING_FOR_BET;
+        }
+    }
+
+    public void addBets(int[] bets) {
+        if(bets.length != playerNames.size()) {
+            Log.e("Game", "addBets() called with incorrect number of bets. This should not happen.");
+            throw new RuntimeException();
+        }
+        for(int i = 0; i< playerNames.size(); i++)
+            scoreTable.get(i).addBet(bets[i]);
+        gameStatus = Status.WAITING_FOR_RESULT;
     }
 }

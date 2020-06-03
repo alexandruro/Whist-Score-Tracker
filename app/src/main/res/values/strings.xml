@@ -34,7 +34,7 @@
     <string name="game_table">Game Table</string>
     <string name="undo_prompt">Undo last input?</string>
     <string name="undo">Undo</string>
-    <string name="undo_result">Results undone</string>
+    <string name="undo_result">Last input was undone.</string>
     <string name="cancel">Cancel</string>
     <string name="no_rounds">No rounds were played yet!</string>
     <string name="restart_prompt">Restart game?</string>

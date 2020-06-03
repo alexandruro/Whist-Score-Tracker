@@ -14,8 +14,10 @@ public class PlayerRecord implements Comparable<PlayerRecord> {
     private ArrayList<Integer> results;
     private ArrayList<Integer> scores;
     private int prize;
-    private int consecResult;
-    private boolean consecWin;
+
+    private int winningStreak;
+    private int losingStreak;
+
 
     /**
      * Gets the name of the player
@@ -33,8 +35,8 @@ public class PlayerRecord implements Comparable<PlayerRecord> {
         this.name = name;
         this.prize = prize;
 
-        consecResult = 0;
-
+        winningStreak = 0;
+        losingStreak = 0;
         bets = new ArrayList<>();
         results = new ArrayList<>();
         scores = new ArrayList<>();
@@ -51,42 +53,53 @@ public class PlayerRecord implements Comparable<PlayerRecord> {
     /**
      * Adds current round's result
      * @param result The number of hands gotten
+     * @param breakStreak True if this round invalidates bonus streaks, false otherwise
      */
-    public void addResult(int result) {
+    public void addResult(int result, boolean breakStreak) {
         results.add(result);
         int bet = bets.get(bets.size()-1);
-        updateScore(bet, result);
+        updateScore(bet, result, breakStreak);
     }
 
     /**
-     * Updates the score, given a new pair of bet and result
+     * Adds a new score entry, given a new pair of bet and result
      * @param bet The bet
      * @param result The result
+     * @param breakStreak True if this round invalidates bonus streaks, false otherwise
      */
-    private void updateScore(int bet, int result) {
+    private void updateScore(int bet, int result, boolean breakStreak) {
+
         int score = 0;
         if(!scores.isEmpty())
             score = scores.get(scores.size()-1);
-        if(bet==result) {
-            score += 5 + result;
-            if(consecWin)
-                if(++consecResult %5==0)
-                    score+=prize;
-            if(consecResult==0 || !consecWin) {
-                    consecResult = 1;
-                    consecWin = true;
+
+        if(bet == result) {
+            score += bet + 5;
+            losingStreak = 0;
+            if(breakStreak) {
+                winningStreak = 0;
+            }
+            else {
+                winningStreak++;
+                if(winningStreak % 5 == 0) {
+                    score += prize;
                 }
+            }
         }
         else {
-            score -= Math.abs(result - bet);
-            if(!consecWin)
-                if(++consecResult%5==0)
-                    score-=prize;
-            if(consecResult==0 || consecWin) {
-                    consecResult = 1;
-                    consecWin = false;
+            score -= Math.abs(bet - result);
+            winningStreak = 0;
+            if(breakStreak) {
+                losingStreak = 0;
+            }
+            else {
+                losingStreak++;
+                if(losingStreak % 5 == 0) {
+                    score -= prize;
                 }
+            }
         }
+
         scores.add(score);
     }
 
@@ -117,15 +130,14 @@ public class PlayerRecord implements Comparable<PlayerRecord> {
     }
 
     /**
-     * Undoes the last result in the record
+     * Undoes the last result in the record.
+     * This calls needs to be followed by a series of recalculation calls, as it removes the scores.
      */
     public void undoResult() {
         results.remove(results.size()-1);
         scores.clear();
-        consecResult = 0;
-        for(int i=0;i<results.size();i++) {
-            updateScore(bets.get(i), results.get(i));
-        }
+        winningStreak = 0;
+        losingStreak = 0;
     }
 
     /**
@@ -135,23 +147,29 @@ public class PlayerRecord implements Comparable<PlayerRecord> {
         bets.remove(bets.size()-1);
     }
 
+    /**
+     * Recalculates the score in a given round
+     * @param roundIndex The round index
+     * @param breakStreak True if this round invalidates bonus streaks, false otherwise
+     */
+    public void recalculateRoundScore(int roundIndex, boolean breakStreak) {
+        updateScore(bets.get(roundIndex), results.get(roundIndex), breakStreak);
+    }
+
     @Override
     public int compareTo(@NonNull PlayerRecord o) {
         return o.getScore()-getScore();
     }
 
     /**
-     * Checks whether the last result was positive or not
-     * @return True, if the last result was positive, false if not
+     * Return true if result of the given round was positive, false otherwise
+     * @param roundNumber The round number
+     * @return whether the result of the round is positive
      */
-    public boolean lastResult() {
-        return consecWin;
-    }
-
-    public boolean lastResult(int round) {
-        if(round == 1) {
+    public boolean lastResult(int roundNumber) {
+        if(roundNumber == 1) {
             return scores.get(0) > 0;
         }
-        return scores.get(round-1) > scores.get(round-2);
+        return scores.get(roundNumber -1) > scores.get(roundNumber -2);
     }
 }
