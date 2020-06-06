@@ -26,5 +26,10 @@ public class GameViewModel extends ViewModel {
         game = new Game(playerNames, type, prize);
     }
 
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        // This is where the game can be stored
+    }
 
 }
