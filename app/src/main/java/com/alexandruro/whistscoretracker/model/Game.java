@@ -133,7 +133,7 @@ public class Game {
             playerRecord.undoResult();
         }
         for(int i=0; i<currentRound-1; i++) {
-            int nrOfHands = getNrOfHands(i);
+            int nrOfHands = getNrOfHands(i+1);
             for(PlayerRecord playerRecord: scoreTable) {
                 playerRecord.recalculateRoundScore(i, nrOfHands == 1);
             }
