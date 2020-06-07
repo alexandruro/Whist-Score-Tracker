@@ -28,6 +28,7 @@ import com.alexandruro.whistscoretracker.adapter.TableRowAdapter;
 import com.alexandruro.whistscoretracker.model.Game;
 import com.alexandruro.whistscoretracker.model.Game.Status;
 import com.alexandruro.whistscoretracker.model.Game.Type;
+import com.alexandruro.whistscoretracker.model.PlayerRecord;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -38,36 +39,23 @@ import java.util.ArrayList;
  */
 public class GameActivity extends AppCompatActivity {
 
-    // development flag to pre-populate some rounds
-    private static final boolean POPULATE_ROUNDS = false;
-
     // request codes
     static final int RESULT_REQUEST = 1;
     static final int BET_REQUEST = 2;
 
     private GameViewModel gameViewModel;
 
-    // TODO: temporary, get rid of this
-    private Game game;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("GameActivity", "Called onCreate");
+        Log.i("GameActivity", "Creating Game Activity");
 
         // Initialise data
         gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
         initialiseGameState(savedInstanceState == null);
-
         initialiseUI();
-
-        if(POPULATE_ROUNDS) {
-            for(int i=0; i<16; i++) {
-                game.addBets(new int[]{1, 1});
-                game.addResults(new int[]{1, 1});
-            }
-        }
+        observeViewModel();
     }
 
     @Override
@@ -81,7 +69,7 @@ public class GameActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_undo: {
-                if (!game.isStarted()) {
+                if (!gameViewModel.isStarted()) {
                     Toast.makeText(this, R.string.no_rounds, Toast.LENGTH_SHORT).show();
                     return true;
                 }
@@ -94,13 +82,13 @@ public class GameActivity extends AppCompatActivity {
             }
 
             case R.id.action_restart: {
-                if (!game.isStarted()) {
+                if (!gameViewModel.isStarted()) {
                     Toast.makeText(this, R.string.no_rounds, Toast.LENGTH_SHORT).show();
                     return true;
                 }
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.restart_prompt);
-                if (!game.isOver())
+                if (!gameViewModel.isOver())
                     builder.setMessage(R.string.restart_discard);
                 builder.setPositiveButton(R.string.restart, (dialog, which) -> restartGame());
                 builder.setNegativeButton(R.string.cancel, null);
@@ -130,18 +118,13 @@ public class GameActivity extends AppCompatActivity {
         if (requestCode == BET_REQUEST) {
             if (resultCode == RESULT_OK) {
                 int[] bets = data.getIntArrayExtra("inputs");
-                game.addBets(bets);
-                notifyTableBodyAdapter();
+                gameViewModel.addBets(bets);
             }
         }
         else if(requestCode == RESULT_REQUEST) {
             if (resultCode == RESULT_OK) {
                 int[] results = data.getIntArrayExtra("inputs");
-                game.addResults(results);
-                notifyTableBodyAdapter();
-                updateBottomSheet();
-                if(game.isOver())
-                    showGameOverLeaderboard();
+                gameViewModel.addResults(results);
             }
         }
     }
@@ -157,7 +140,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /////////////////////////
-    // Initialisation methods
+    // Initialisation methods (should be called only at the beginning of the activity lifecycle)
     /////////////////////////
 
     /**
@@ -181,7 +164,6 @@ public class GameActivity extends AppCompatActivity {
      * Initialise the bottom sheet after the activity was creted
      */
     private void initialiseBottomSheet() {
-        // Initialise the bottom sheet
         View bottomSheet = findViewById(R.id.bottom_sheet);
         final BottomSheetBehavior<View> bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
@@ -197,7 +179,6 @@ public class GameActivity extends AppCompatActivity {
                     findViewById(R.id.floatingActionButton).animate().scaleX(1 - slideOffset).scaleY(1 - slideOffset).setDuration(0).start();
             }
         });
-        updateBottomSheet();
     }
 
     /**
@@ -207,15 +188,13 @@ public class GameActivity extends AppCompatActivity {
         // Initialise the table header
         RecyclerView header = findViewById(R.id.header);
         header.setHasFixedSize(true);
-        header.setAdapter(new TableRowAdapter(game.getPlayerNames()));
-        GridLayoutManager layoutManager = new GridLayoutManager(this, game.getNrOfPlayers());
-        header.setLayoutManager(layoutManager);
         CustomDividerItemDecoration dividerItemDecoration = new CustomDividerItemDecoration(this);
         header.addItemDecoration(dividerItemDecoration);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
+        header.setLayoutManager(layoutManager);
 
         // Initialise the table body
         RecyclerView body = findViewById(R.id.tableBody);
-        body.setAdapter(new TableBodyAdapter(game));
         RecyclerView.LayoutManager bodyLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         body.setLayoutManager(bodyLayoutManager);
     }
@@ -235,9 +214,30 @@ public class GameActivity extends AppCompatActivity {
 
             gameViewModel.initialiseNewGame(playerNames, type, prize);
         }
+    }
 
-        // gameViewModel should have a game already. Call getGame to log if game is null.
-        game = gameViewModel.getGame();
+    /**
+     * Observe the ViewModel changes to update the UI.
+     * This must be called only after the UI has been initialised.
+     */
+    private void observeViewModel() {
+        gameViewModel.getGame().observe(this, game -> {
+            if (game != null) {
+                // game table header
+                RecyclerView header = findViewById(R.id.header);
+                header.setAdapter(new TableRowAdapter(game.getPlayerNames()));
+                ((GridLayoutManager)header.getLayoutManager()).setSpanCount(game.getNrOfPlayers());
+                // game table body
+                RecyclerView body = findViewById(R.id.tableBody);
+                body.setAdapter(new TableBodyAdapter(game));
+
+                updateBottomSheet(game);
+
+                if(game.isOver()) {
+                    showGameOverLeaderboard(game.getScoreTable());
+                }
+            }
+        });
     }
 
     ///////////////////////
@@ -248,9 +248,7 @@ public class GameActivity extends AppCompatActivity {
      * Undo the last action (last added bets / results)
      */
     private void undo() {
-        game.undo();
-        updateBottomSheet();
-        notifyTableBodyAdapter();
+        gameViewModel.undo();
         Snackbar.make(findViewById(R.id.game_coord_layout), R.string.undo_result, Snackbar.LENGTH_SHORT).show();
     }
 
@@ -258,9 +256,7 @@ public class GameActivity extends AppCompatActivity {
      * Resets the game to the beginning
      */
     private void restartGame() {
-        initialiseGameState(true);
-        // TODO: delete this when using livedata
-        recreate();
+        gameViewModel.restartGame();
     }
 
     /**
@@ -270,16 +266,16 @@ public class GameActivity extends AppCompatActivity {
     public void addScore(View view) {
 
         int requestCode;
-        if (game.getGameStatus() == Status.WAITING_FOR_RESULT) {
+        if (gameViewModel.getGameStatus() == Status.WAITING_FOR_RESULT) {
             requestCode = RESULT_REQUEST;
         }
         else requestCode = BET_REQUEST;
 
         Intent intent = new Intent(this, AddToGameTableActivity.class);
-        intent.putExtra("nrOfHands", game.getNrOfHands());
-        intent.putStringArrayListExtra("playerNames", game.getPlayerNames());
+        intent.putExtra("nrOfHands", gameViewModel.getNrOfHands());
+        intent.putStringArrayListExtra("playerNames", gameViewModel.getPlayerNames());
         intent.putExtra("requestCode", requestCode);
-        intent.putExtra("firstPlayerDelay", (game.getCurrentRound() -1) % game.getNrOfPlayers());
+        intent.putExtra("firstPlayerDelay", (gameViewModel.getCurrentRound() -1) % gameViewModel.getNrOfPlayers());
 
         startActivityForResult(intent, requestCode);
     }
@@ -289,23 +285,16 @@ public class GameActivity extends AppCompatActivity {
     //////////////////////
 
     /**
-     * Notify the able body adapter that the data has changed.
-     */
-    private void notifyTableBodyAdapter() {
-        ((RecyclerView) findViewById(R.id.tableBody)).getAdapter().notifyDataSetChanged();
-    }
-
-    /**
      * Shows the leaderboard at the end of the game
      */
-    private void showGameOverLeaderboard() {
+    private void showGameOverLeaderboard(ArrayList<PlayerRecord> scoreTable) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.game_over);
         ListView playerScores = new ListView(this);
         float scale = getResources().getDisplayMetrics().density;
         int dpAsPixels = (int) (16*scale + 0.5f);
         playerScores.setPadding(dpAsPixels, dpAsPixels, dpAsPixels, dpAsPixels);
-        EndPlayerListAdapter adapter = new EndPlayerListAdapter(this, game.getScoreTable());
+        EndPlayerListAdapter adapter = new EndPlayerListAdapter(this, scoreTable);
         playerScores.setAdapter(adapter);
         builder.setView(playerScores);
         builder.setPositiveButton(R.string.return_to_menu, (dialog, which) -> finish());
@@ -316,7 +305,7 @@ public class GameActivity extends AppCompatActivity {
     /**
      * Updates the bottom sheet by either updating the information and showing it or by hiding it if the game is over
      */
-    private void updateBottomSheet() {
+    private void updateBottomSheet(Game game) {
         if(game.isOver())
             hideBottomSheet();
         else {
@@ -324,8 +313,8 @@ public class GameActivity extends AppCompatActivity {
             int nrOfHands = game.getNrOfHands();
             String currentRoundText = getResources().getQuantityString(R.plurals.numberOfHands, nrOfHands, nrOfHands);
             ((TextView) findViewById(R.id.currentRound)).setText(currentRoundText);
-            ((TextView) findViewById(R.id.firstPlayer)).setText(getResources().getString(R.string.first_player, game.getPlayerNames().get((this.game.getCurrentRound() - 1) % game.getNrOfPlayers())));
-            ((TextView) findViewById(R.id.dealer)).setText(getResources().getString(R.string.dealer, game.getPlayerNames().get((this.game.getCurrentRound() + game.getNrOfPlayers() - 2) % game.getNrOfPlayers())));
+            ((TextView) findViewById(R.id.firstPlayer)).setText(getResources().getString(R.string.first_player, game.getPlayerNames().get((game.getCurrentRound() - 1) % game.getNrOfPlayers())));
+            ((TextView) findViewById(R.id.dealer)).setText(getResources().getString(R.string.dealer, game.getPlayerNames().get((game.getCurrentRound() + game.getNrOfPlayers() - 2) % game.getNrOfPlayers())));
         }
     }
 
@@ -350,18 +339,4 @@ public class GameActivity extends AppCompatActivity {
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         findViewById(R.id.floatingActionButton).setVisibility(View.VISIBLE);
     }
-
-//    @Override
-//    public void onPause() {
-//        super.onPause();
-//
-//        if (this.isFinishing ())
-//        {
-//            // activity dying
-//        }
-//        else
-//        {
-//            // activity not dying just stopping
-//        }
-//    }
 }

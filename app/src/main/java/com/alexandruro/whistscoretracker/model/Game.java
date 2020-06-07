@@ -20,18 +20,30 @@ public class Game {
     private int currentRound; // starting with 1. if current round ended then it's the next one
     private int nrOfPlayers;
     private Type type;
+    private int prize;
 
+    /**
+     * Creates a new game
+     * @param playerNames
+     * @param type
+     * @param prize
+     */
     public Game(ArrayList<String> playerNames, Type type, int prize) {
         this.playerNames = playerNames;
-        this.scoreTable = new ArrayList<>();
-        for(String name: playerNames)
-            scoreTable.add(new PlayerRecord(name, prize));
-        this.gameStatus = Status.WAITING_FOR_BET;
-        this.currentRound = 1;
-        this.nrOfPlayers = playerNames.size();
         this.type = type;
+        this.prize = prize;
+
+        initialiseNewGame();
     }
 
+    /**
+     * Creates a game
+     * @param playerNames
+     * @param scoreTable
+     * @param gameStatus
+     * @param currentRound
+     * @param type
+     */
     public Game(ArrayList<String> playerNames, ArrayList<PlayerRecord> scoreTable, Status gameStatus, int currentRound, Type type) {
         this.playerNames = playerNames;
         this.scoreTable = scoreTable;
@@ -62,7 +74,8 @@ public class Game {
     }
 
     /**
-     * Computes the number of hands in the current round
+     * Computes the number of hands in the given round
+     * @param round The round number
      * @return The number of hands
      */
     public int getNrOfHands(int round) {
@@ -91,6 +104,10 @@ public class Game {
         else return 8;
     }
 
+    /**
+     * Computes the number of hands in the current round
+     * @return The number of hands
+     */
     public int getNrOfHands() {
         return getNrOfHands(currentRound);
     }
@@ -111,6 +128,9 @@ public class Game {
         return currentRound > 3*nrOfPlayers + 12;
     }
 
+    /**
+     * Undo the last action (last added bets / results)
+     */
     public void undo() {
         if(gameStatus == Status.WAITING_FOR_RESULT) {
             undoBets();
@@ -120,6 +140,9 @@ public class Game {
         }
     }
 
+    /**
+     * Undo the last bets
+     */
     private void undoBets() {
         for(int i = 0; i< playerNames.size(); i++) {
             scoreTable.get(i).undoBet();
@@ -127,6 +150,9 @@ public class Game {
         gameStatus = Status.WAITING_FOR_BET;
     }
 
+    /**
+     * Undo the last results
+     */
     private void undoResults() {
         currentRound--;
         for(PlayerRecord playerRecord: scoreTable) {
@@ -141,6 +167,10 @@ public class Game {
         gameStatus = Status.WAITING_FOR_RESULT;
     }
 
+    /**
+     * Add a set of results
+     * @param results
+     */
     public void addResults(int[] results) {
         if(results.length != playerNames.size()) {
             Log.e("Game", "addResults() called with incorrect number of results. This should not happen.");
@@ -160,6 +190,10 @@ public class Game {
         }
     }
 
+    /**
+     * Add a set of bets
+     * @param bets
+     */
     public void addBets(int[] bets) {
         if(bets.length != playerNames.size()) {
             Log.e("Game", "addBets() called with incorrect number of bets. This should not happen.");
@@ -168,5 +202,18 @@ public class Game {
         for(int i = 0; i< playerNames.size(); i++)
             scoreTable.get(i).addBet(bets[i]);
         gameStatus = Status.WAITING_FOR_RESULT;
+    }
+
+    /**
+     * Initialise a new game.
+     * This can be used at the beginning when setting up the game or when restarting the game.
+     */
+    public void initialiseNewGame() {
+        this.scoreTable = new ArrayList<>();
+        for(String name: playerNames)
+            scoreTable.add(new PlayerRecord(name, prize));
+        this.gameStatus = Status.WAITING_FOR_BET;
+        this.currentRound = 1;
+        this.nrOfPlayers = playerNames.size();
     }
 }

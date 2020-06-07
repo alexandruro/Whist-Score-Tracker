@@ -37,7 +37,7 @@ public class TableBodyAdapter extends RecyclerView.Adapter<TableBodyAdapter.Scor
     public ScoreRowViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         TableRow tableRow = (TableRow) LayoutInflater.from(parent.getContext()).inflate(R.layout.score_row, parent, false);
 
-        for(int i = 0; i< game.getNrOfPlayers(); i++) {
+        for (int i = 0; i < game.getNrOfPlayers(); i++) {
             LayoutInflater.from(parent.getContext()).inflate(R.layout.divider, tableRow, true);
             LayoutInflater.from(parent.getContext()).inflate(R.layout.score_item_short, tableRow, true);
             LayoutInflater.from(parent.getContext()).inflate(R.layout.score_item_long, tableRow, true);
@@ -50,12 +50,12 @@ public class TableBodyAdapter extends RecyclerView.Adapter<TableBodyAdapter.Scor
     @Override
     public void onBindViewHolder(@NonNull ScoreRowViewHolder holder, int position) {
         Log.d("TableBodyAdapter", "Called onBindViewHolder. with " + position);
-        ((TextView) holder.view.findViewById(R.id.roundNumber)).setText(Integer.toString(game.getNrOfHands(position+1)));
+        ((TextView) holder.view.findViewById(R.id.roundNumber)).setText(Integer.toString(game.getNrOfHands(position + 1)));
 
         for (int i = 0; i < game.getNrOfPlayers(); i++) {
             if (position < game.getCurrentRound() - 1 || game.getGameStatus() != Game.Status.WAITING_FOR_BET) {
                 int bet = game.getScoreTable().get(i).getBet(position + 1);
-                TextView betTextView = (TextView)holder.view.getChildAt(getViewIndexOfBet(i));
+                TextView betTextView = (TextView) holder.view.getChildAt(getViewIndexOfBet(i));
                 betTextView.setText(String.valueOf(bet));
 
                 if (position < game.getCurrentRound() - 1 || game.isOver()) {
@@ -67,39 +67,40 @@ public class TableBodyAdapter extends RecyclerView.Adapter<TableBodyAdapter.Scor
                         betTextView.setTextColor(ContextCompat.getColor(betTextView.getContext(), R.color.colorNegativeResult));
                         betTextView.setPaintFlags(betTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     }
-                }
-                else {
+                } else {
                     // if there is no score remove it and the formatting on the bet
                     ((TextView) holder.view.getChildAt(getViewIndexOfScore(i))).setText("");
                     betTextView.setTextColor(ContextCompat.getColor(betTextView.getContext(), android.R.color.tab_indicator_text));
-                    betTextView.setPaintFlags(betTextView.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+                    betTextView.setPaintFlags(betTextView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
                 }
             }
         }
     }
 
-        @Override
-        public int getItemCount() {
-            if(game.getGameStatus() != Game.Status.WAITING_FOR_RESULT)
-                return game.getCurrentRound()-1;
-            return game.getCurrentRound();
-        }
-
-        /**
-         * Gets the index of the child view that has the bet of a player
-         * @param playerIndex The index of the player
-         * @return The index of the child view
-         */
-        private int getViewIndexOfBet(int playerIndex) {
-            return 3*playerIndex+2;
-        }
-
-        /**
-         * Gets the index of the child view that has the result of a player
-         * @param playerIndex The index of the player
-         * @return The index of the child view
-         */
-        private int getViewIndexOfScore(int playerIndex) {
-            return 3*playerIndex+3;
-        }
+    @Override
+    public int getItemCount() {
+        if (game.getGameStatus() != Game.Status.WAITING_FOR_RESULT)
+            return game.getCurrentRound() - 1;
+        return game.getCurrentRound();
     }
+
+    /**
+     * Gets the index of the child view that has the bet of a player
+     *
+     * @param playerIndex The index of the player
+     * @return The index of the child view
+     */
+    private int getViewIndexOfBet(int playerIndex) {
+        return 3 * playerIndex + 2;
+    }
+
+    /**
+     * Gets the index of the child view that has the result of a player
+     *
+     * @param playerIndex The index of the player
+     * @return The index of the child view
+     */
+    private int getViewIndexOfScore(int playerIndex) {
+        return 3 * playerIndex + 3;
+    }
+}
