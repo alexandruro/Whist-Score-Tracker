@@ -12,9 +12,6 @@ import java.util.ArrayList;
 
 public class GameViewModel extends ViewModel {
 
-    // development flag to pre-populate some rounds
-    private static final boolean POPULATE_ROUNDS = true;
-
     private MutableLiveData<Game> game = new MutableLiveData<>();
 
     public LiveData<Game> getGame() {
@@ -29,7 +26,7 @@ public class GameViewModel extends ViewModel {
             Log.w("ViewModel", "initialiseNewGame() called when game is not null");
         }
         game.setValue(new Game(playerNames, type, prize));
-        if(POPULATE_ROUNDS) {
+        if(DevelopmentFlags.PREPOPULATE_GAME_TABLE) {
             for(int i=0; i<16; i++) {
                 addBets(new int[]{1, 1});
                 addResults(new int[]{1, 1});

@@ -13,6 +13,7 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.alexandruro.whistscoretracker.BuildConfig;
+import com.alexandruro.whistscoretracker.DevelopmentFlags;
 import com.alexandruro.whistscoretracker.adapter.EditListAdapter;
 import com.alexandruro.whistscoretracker.EditListItem;
 import com.alexandruro.whistscoretracker.R;
@@ -25,9 +26,6 @@ import java.util.ArrayList;
  * Activity used for configuring a new game
  */
 public class NewGameActivity extends AppCompatActivity {
-
-    // development flag to pre-populate some player names
-    private static final boolean POPULATE_NAMES = true;
 
     private ArrayList<EditListItem> names;
     private EditListAdapter adapter;
@@ -46,7 +44,7 @@ public class NewGameActivity extends AppCompatActivity {
 
         names = new ArrayList<>();
 
-        if(POPULATE_NAMES) {
+        if(DevelopmentFlags.PREPOPULATE_PLAYER_NAMES) {
             names.add(new EditListItem("Alex"));
             names.add(new EditListItem("Ana"));
         }
