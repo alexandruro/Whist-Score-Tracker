@@ -1,9 +1,10 @@
 package com.alexandruro.whistscoretracker.model;
 
-import android.util.Log;
+import com.alexandruro.ApplicationBugException;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Represents a game state
@@ -14,8 +15,8 @@ public class Game {
 
     public enum Type { ONE_EIGHT_ONE, EIGHT_ONE_EIGHT }
 
-    private ArrayList<String> playerNames;
-    private ArrayList<PlayerRecord> scoreTable;
+    private List<String> playerNames;
+    private List<PlayerRecord> scoreTable;
     private Status gameStatus;
     private int currentRound;
     private int nrOfPlayers;
@@ -28,7 +29,7 @@ public class Game {
      * @param type
      * @param prize
      */
-    public Game(ArrayList<String> playerNames, Type type, int prize) {
+    public Game(List<String> playerNames, Type type, int prize) {
         this.playerNames = playerNames;
         this.type = type;
         this.prize = prize;
@@ -44,7 +45,7 @@ public class Game {
      * @param currentRound
      * @param type
      */
-    public Game(ArrayList<String> playerNames, ArrayList<PlayerRecord> scoreTable, Status gameStatus, int currentRound, Type type) {
+    public Game(List<String> playerNames, List<PlayerRecord> scoreTable, Status gameStatus, int currentRound, Type type) {
         this.playerNames = playerNames;
         this.scoreTable = scoreTable;
         this.gameStatus = gameStatus;
@@ -53,11 +54,11 @@ public class Game {
         this.type = type;
     }
 
-    public ArrayList<String> getPlayerNames() {
+    public List<String> getPlayerNames() {
         return playerNames;
     }
 
-    public ArrayList<PlayerRecord> getScoreTable() {
+    public List<PlayerRecord> getScoreTable() {
         return scoreTable;
     }
 
@@ -178,8 +179,7 @@ public class Game {
      */
     public void addResults(int[] results) {
         if(results.length != playerNames.size()) {
-            Log.e("Game", "addResults() called with incorrect number of results. This should not happen.");
-            throw new RuntimeException();
+            throw new ApplicationBugException("addResults() called with incorrect number of results. This should not happen.");
         }
         for(int i = 0; i< playerNames.size(); i++)
             scoreTable.get(i).addResult(results[i], getNrOfHands() == 1);
@@ -188,7 +188,7 @@ public class Game {
         if(isOver()) {
             gameStatus = Status.GAME_OVER;
             // prepare the leaderboard
-            Collections.sort(scoreTable);
+            Collections.sort(scoreTable, Collections.reverseOrder());
         }
         else {
             gameStatus = Status.WAITING_FOR_BET;
@@ -201,8 +201,7 @@ public class Game {
      */
     public void addBets(int[] bets) {
         if(bets.length != playerNames.size()) {
-            Log.e("Game", "addBets() called with incorrect number of bets. This should not happen.");
-            throw new RuntimeException();
+            throw new ApplicationBugException("addBets() called with incorrect number of bets. This should not happen.");
         }
         for(int i = 0; i< playerNames.size(); i++)
             scoreTable.get(i).addBet(bets[i]);

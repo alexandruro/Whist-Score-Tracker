@@ -1,4 +1,4 @@
-package com.alexandruro.whistscoretracker.activity;
+package com.alexandruro.whistscoretracker.adapter;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -17,9 +17,9 @@ import java.util.List;
 /**
  * Adapter for showing the scores at the end of the game
  */
-class EndPlayerListAdapter extends ArrayAdapter<PlayerRecord> {
+public class EndPlayerListAdapter extends ArrayAdapter<PlayerRecord> {
 
-    EndPlayerListAdapter(@NonNull Context context, @NonNull List<PlayerRecord> objects) {
+    public EndPlayerListAdapter(@NonNull Context context, @NonNull List<PlayerRecord> objects) {
         super(context, 0, objects);
     }
 

@@ -4,18 +4,19 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alexandruro.whistscoretracker.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class TableRowAdapter extends RecyclerView.Adapter<TableRowAdapter.MyViewHolder> {
 
-    private ArrayList<String> mDataset;
+    private List<String> dataset;
 
-    public TableRowAdapter(ArrayList<String> mDataset) {
-        this.mDataset = mDataset;
+    public TableRowAdapter(List<String> dataset) {
+        this.dataset = dataset;
     }
 
     // Provide a reference to the views for each data item
@@ -32,13 +33,13 @@ public class TableRowAdapter extends RecyclerView.Adapter<TableRowAdapter.MyView
 
     // Create new views (invoked by the layout manager)
     @Override
+    @NonNull
     public TableRowAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                      int viewType) {
         // create a new view
         TextView v = (TextView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.name_header_item, parent, false);
-        MyViewHolder vh = new MyViewHolder(v);
-        return vh;
+        return new MyViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -46,32 +47,11 @@ public class TableRowAdapter extends RecyclerView.Adapter<TableRowAdapter.MyView
     public void onBindViewHolder(MyViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.textView.setText(mDataset.get(position));
+        holder.textView.setText(dataset.get(position));
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.size();
+        return dataset.size();
     }
-
-
-//    @NonNull
-//    @Override
-//    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
-//
-//        // Check if the existing view is being reused, otherwise inflate a new view
-//        TextView listItemView = (TextView)convertView;
-//        if(listItemView == null) {
-//            listItemView = (TextView)LayoutInflater.from(getContext()).inflate(R.layout.name_header_item, null, true);
-//            listItemView.setText(getItem(position));
-//        }
-//
-//        return listItemView;
-//    }
-
-//    @Override
-//    public int getItemCount() {
-//        return 0;
-//    }
 }

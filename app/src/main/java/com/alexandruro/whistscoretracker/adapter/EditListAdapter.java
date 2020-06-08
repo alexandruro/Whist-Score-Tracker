@@ -14,14 +14,14 @@ import com.alexandruro.whistscoretracker.EditListItem;
 import com.alexandruro.whistscoretracker.R;
 import com.alexandruro.whistscoretracker.EditTextViewHolder;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Adapter for an EditList (a list of EditText items)
  */
 public class EditListAdapter extends ArrayAdapter<EditListItem> {
 
-    public EditListAdapter(Context con, ArrayList<EditListItem> list) {
+    public EditListAdapter(Context con, List<EditListItem> list) {
         super(con, 0, list);
     }
 

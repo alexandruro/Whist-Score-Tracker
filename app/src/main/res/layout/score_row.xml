@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-<!--        <include layout="@layout/score_round_number"/>-->
-
         <TextView
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_height="wrap_content"
@@ -16,23 +14,5 @@
             android:textAlignment="center"
             android:id="@+id/roundNumber"
             android:text=""/>
-
-<!--            <TextView-->
-<!--                android:layout_width="@dimen/table_number_column_width"-->
-<!--                android:layout_column="0"-->
-<!--                android:text="#"-->
-<!--                android:textAlignment="center"-->
-<!--                android:textSize="25sp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:width="@dimen/table_number_column_width"/>-->
-
-
-<!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:id="@+id/recyclerview"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:divider="#000"-->
-<!--                android:dividerHeight="2dp"-->
-<!--                android:listSelector="#600"/>-->
 
 </TableRow>

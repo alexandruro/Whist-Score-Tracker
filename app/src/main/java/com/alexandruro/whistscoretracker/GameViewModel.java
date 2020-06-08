@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.alexandruro.whistscoretracker.model.Game;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class GameViewModel extends ViewModel {
 
@@ -21,7 +21,7 @@ public class GameViewModel extends ViewModel {
         return game;
     }
 
-    public void initialiseNewGame(ArrayList<String> playerNames, Game.Type type, int prize) {
+    public void initialiseNewGame(List<String> playerNames, Game.Type type, int prize) {
         if(game.getValue() != null) {
             Log.w("ViewModel", "initialiseNewGame() called when game is not null");
         }
@@ -80,7 +80,7 @@ public class GameViewModel extends ViewModel {
         return game.getValue().getNrOfHands();
     }
 
-    public ArrayList<String> getPlayerNames() {
+    public List<String> getPlayerNames() {
         return game.getValue().getPlayerNames();
     }
 

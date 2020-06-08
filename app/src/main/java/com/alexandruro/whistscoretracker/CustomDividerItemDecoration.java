@@ -31,10 +31,15 @@ public class CustomDividerItemDecoration extends DividerItemDecoration {
         if (parent.getLayoutManager() == null || getDrawable() == null) {
             return;
         }
-        drawHorizontal(c, parent);
+        draw(c, parent);
     }
 
-    private void drawHorizontal(Canvas canvas, RecyclerView parent) {
+    /**
+     * Similar to drawHorizontal in the parent class, but drawing to the left instead of to the right of the item
+     * @param canvas
+     * @param parent
+     */
+    private void draw(Canvas canvas, RecyclerView parent) {
         canvas.save();
         final int top;
         final int bottom;

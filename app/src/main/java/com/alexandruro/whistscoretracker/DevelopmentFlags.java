@@ -2,6 +2,10 @@ package com.alexandruro.whistscoretracker;
 
 public abstract class DevelopmentFlags {
 
+    private DevelopmentFlags() {
+        throw new IllegalStateException("Utility class");
+    }
+
     // Add some player names to the new game form
     public static final boolean PREPOPULATE_PLAYER_NAMES = true;
 

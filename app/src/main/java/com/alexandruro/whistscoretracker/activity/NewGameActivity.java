@@ -1,6 +1,5 @@
 package com.alexandruro.whistscoretracker.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.ActionBar;
@@ -21,13 +20,14 @@ import com.alexandruro.whistscoretracker.WrappedListView;
 import com.alexandruro.whistscoretracker.model.Game;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Activity used for configuring a new game
  */
 public class NewGameActivity extends AppCompatActivity {
 
-    private ArrayList<EditListItem> names;
+    private List<EditListItem> names;
     private EditListAdapter adapter;
 
     @Override
@@ -123,12 +123,7 @@ public class NewGameActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.discard_prompt);
-        builder.setPositiveButton(R.string.discard, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                NewGameActivity.super.onBackPressed();
-            }
-        });
+        builder.setPositiveButton(R.string.discard, (dialog, which) -> NewGameActivity.super.onBackPressed());
         builder.setNegativeButton(R.string.cancel, null);
         AlertDialog dialog = builder.create();
         dialog.show();

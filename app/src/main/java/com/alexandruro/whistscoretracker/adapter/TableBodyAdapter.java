@@ -43,8 +43,7 @@ public class TableBodyAdapter extends RecyclerView.Adapter<TableBodyAdapter.Scor
             LayoutInflater.from(parent.getContext()).inflate(R.layout.score_item_long, tableRow, true);
         }
 
-        ScoreRowViewHolder viewHolder = new ScoreRowViewHolder(tableRow);
-        return viewHolder;
+        return new ScoreRowViewHolder(tableRow);
     }
 
     @Override

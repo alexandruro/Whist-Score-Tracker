@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alexandruro.whistscoretracker.CustomDividerItemDecoration;
 import com.alexandruro.whistscoretracker.GameViewModel;
 import com.alexandruro.whistscoretracker.R;
+import com.alexandruro.whistscoretracker.adapter.EndPlayerListAdapter;
 import com.alexandruro.whistscoretracker.adapter.TableBodyAdapter;
 import com.alexandruro.whistscoretracker.adapter.TableRowAdapter;
 import com.alexandruro.whistscoretracker.model.Game;
@@ -33,6 +34,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Main game activity, where the game table is displayed
@@ -68,7 +70,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_undo: {
+            case R.id.action_undo:
                 if (!gameViewModel.isStarted()) {
                     Toast.makeText(this, R.string.no_rounds, Toast.LENGTH_SHORT).show();
                     return true;
@@ -79,14 +81,13 @@ public class GameActivity extends AppCompatActivity {
                 builder.setNegativeButton(R.string.cancel, null);
                 builder.show();
                 return true;
-            }
 
-            case R.id.action_restart: {
+            case R.id.action_restart:
                 if (!gameViewModel.isStarted()) {
                     Toast.makeText(this, R.string.no_rounds, Toast.LENGTH_SHORT).show();
                     return true;
                 }
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.restart_prompt);
                 if (!gameViewModel.isOver())
                     builder.setMessage(R.string.restart_discard);
@@ -94,7 +95,6 @@ public class GameActivity extends AppCompatActivity {
                 builder.setNegativeButton(R.string.cancel, null);
                 builder.show();
                 return true;
-            }
 
             case R.id.action_about:
                 Intent intent = new Intent(this, AboutActivity.class);
@@ -115,17 +115,14 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == BET_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                int[] bets = data.getIntArrayExtra("inputs");
-                gameViewModel.addBets(bets);
-            }
+        if (requestCode == BET_REQUEST && resultCode == RESULT_OK) {
+            int[] bets = data.getIntArrayExtra("inputs");
+            gameViewModel.addBets(bets);
         }
-        else if(requestCode == RESULT_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                int[] results = data.getIntArrayExtra("inputs");
-                gameViewModel.addResults(results);
-            }
+        else if(requestCode == RESULT_REQUEST && resultCode == RESULT_OK) {
+            int[] results = data.getIntArrayExtra("inputs");
+            gameViewModel.addResults(results);
+
         }
     }
 
@@ -273,7 +270,7 @@ public class GameActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, AddToGameTableActivity.class);
         intent.putExtra("nrOfHands", gameViewModel.getNrOfHands());
-        intent.putStringArrayListExtra("playerNames", gameViewModel.getPlayerNames());
+        intent.putStringArrayListExtra("playerNames", new ArrayList<>(gameViewModel.getPlayerNames()));
         intent.putExtra("requestCode", requestCode);
         intent.putExtra("firstPlayerDelay", (gameViewModel.getCurrentRound() -1) % gameViewModel.getNrOfPlayers());
 
@@ -287,7 +284,7 @@ public class GameActivity extends AppCompatActivity {
     /**
      * Shows the leaderboard at the end of the game
      */
-    private void showGameOverLeaderboard(ArrayList<PlayerRecord> scoreTable) {
+    private void showGameOverLeaderboard(List<PlayerRecord> scoreTable) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.game_over);
         ListView playerScores = new ListView(this);

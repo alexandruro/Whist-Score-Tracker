@@ -2,7 +2,6 @@ package com.alexandruro.whistscoretracker.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.TextView;
@@ -10,9 +9,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.alexandruro.ApplicationBugException;
 import com.alexandruro.whistscoretracker.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import static android.widget.GridLayout.spec;
 
@@ -21,7 +21,7 @@ import static android.widget.GridLayout.spec;
  */
 public class AddToGameTableActivity extends AppCompatActivity {
 
-    private ArrayList<String> playerNames;
+    private List<String> playerNames;
     private int[] inputs;
     private int index;
     private int nrOfHands;
@@ -56,8 +56,6 @@ public class AddToGameTableActivity extends AppCompatActivity {
             prompt.setText(R.string.place_bets);
         for(int i=0;i<=8;i++){
             final Button button = new Button(this);
-            button.setX(i/3);
-            button.setY(i%3);
             button.setText(String.valueOf(i));
             GridLayout.LayoutParams params = new GridLayout.LayoutParams(spec(i/3),spec(i%3));
             final int value = i;
@@ -99,8 +97,7 @@ public class AddToGameTableActivity extends AppCompatActivity {
      */
     private void undo() {
         if(index == 0) {
-            Log.e("AddToGameActivity", "Tried to undo input with index=0. This should not happen.");
-            return;
+            throw new ApplicationBugException("Tried to undo input with index=0. This should not happen.");
         }
 
         index--;
@@ -114,13 +111,9 @@ public class AddToGameTableActivity extends AppCompatActivity {
     private void render() {
         resetPlayerName();
         for(int i=0;i<=8;i++) {
-            if(i>nrOfHands
-                    || (requestCode== GameActivity.BET_REQUEST && i==handsLeft && index== playerNames.size()-1)
-                    || (requestCode==GameActivity.RESULT_REQUEST &&
-                        ((i!=handsLeft && index== playerNames.size()-1) || i>handsLeft)))
-                grid.getChildAt(i).setEnabled(false);
-            else
-                grid.getChildAt(i).setEnabled(true);
+            boolean invalidBet = requestCode == GameActivity.BET_REQUEST && i == handsLeft && index == playerNames.size()-1;
+            boolean invalidResult = requestCode == GameActivity.RESULT_REQUEST && ((i != handsLeft && index == playerNames.size()-1) || i>handsLeft);
+            grid.getChildAt(i).setEnabled(i<=nrOfHands && !invalidBet && !invalidResult);
         }
     }
 

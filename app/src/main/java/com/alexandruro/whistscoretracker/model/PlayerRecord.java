@@ -3,16 +3,19 @@ package com.alexandruro.whistscoretracker.model;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Keeps a record of a player's bets, results and score
+ * Keeps a record of a player's bets, results and score.
+ * Note: this class has a natural ordering that is inconsistent with equals.
+ * Ordering is made using the final score.
  */
 public class PlayerRecord implements Comparable<PlayerRecord> {
 
     private String name;
-    private ArrayList<Integer> bets;
-    private ArrayList<Integer> results;
-    private ArrayList<Integer> scores;
+    private List<Integer> bets;
+    private List<Integer> results;
+    private List<Integer> scores;
     private int prize;
 
     private int winningStreak;
@@ -158,7 +161,7 @@ public class PlayerRecord implements Comparable<PlayerRecord> {
 
     @Override
     public int compareTo(@NonNull PlayerRecord o) {
-        return o.getScore()-getScore();
+        return getScore() - o.getScore();
     }
 
     /**
