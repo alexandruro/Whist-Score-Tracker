@@ -17,7 +17,7 @@ public class Game {
     private ArrayList<String> playerNames;
     private ArrayList<PlayerRecord> scoreTable;
     private Status gameStatus;
-    private int currentRound; // starting with 1. if current round ended then it's the next one
+    private int currentRound;
     private int nrOfPlayers;
     private Type type;
     private int prize;
@@ -65,6 +65,11 @@ public class Game {
         return gameStatus;
     }
 
+    /**
+     * Returns the current round number, sarting with 1.
+     * I results have been added then the round number was increased.
+     * @return The current round number
+     */
     public int getCurrentRound() {
         return currentRound;
     }
@@ -75,32 +80,32 @@ public class Game {
 
     /**
      * Computes the number of hands in the given round
-     * @param round The round number
+     * @param roundNumber The round number
      * @return The number of hands
      */
-    public int getNrOfHands(int round) {
-        if(round >3* nrOfPlayers +12)
+    public int getNrOfHands(int roundNumber) {
+        if(roundNumber >3* nrOfPlayers +12)
             return -1;
         if(type == Type.ONE_EIGHT_ONE) {
-            if (round <= nrOfPlayers)
+            if (roundNumber <= nrOfPlayers)
                 return 1;
-            else if (round <= nrOfPlayers + 6)
-                return round - nrOfPlayers + 1;
-            else if (round <= 2 * nrOfPlayers + 6)
+            else if (roundNumber <= nrOfPlayers + 6)
+                return roundNumber - nrOfPlayers + 1;
+            else if (roundNumber <= 2 * nrOfPlayers + 6)
                 return 8;
-            else if (round <= 2 * nrOfPlayers + 12)
-                return 2 * nrOfPlayers + 14 - round;
+            else if (roundNumber <= 2 * nrOfPlayers + 12)
+                return 2 * nrOfPlayers + 14 - roundNumber;
             else return 1;
         }
         else
-        if(round <= nrOfPlayers)
+        if(roundNumber <= nrOfPlayers)
             return 8;
-        else if(round <= nrOfPlayers +6)
-            return nrOfPlayers +8- round;
-        else if(round <=2* nrOfPlayers +6)
+        else if(roundNumber <= nrOfPlayers +6)
+            return nrOfPlayers +8- roundNumber;
+        else if(roundNumber <=2* nrOfPlayers +6)
             return 1;
-        else if(round <=2* nrOfPlayers +12)
-            return round -2* nrOfPlayers -5;
+        else if(roundNumber <=2* nrOfPlayers +12)
+            return roundNumber -2* nrOfPlayers -5;
         else return 8;
     }
 

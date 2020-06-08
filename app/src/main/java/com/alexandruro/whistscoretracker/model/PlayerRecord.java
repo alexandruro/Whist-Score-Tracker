@@ -105,20 +105,20 @@ public class PlayerRecord implements Comparable<PlayerRecord> {
 
     /**
      * Gets the bet in a certain round
-     * @param round The round
+     * @param roundNumber The round number (starting with 1)
      * @return The amount bet by the player
      */
-    public int getBet(int round) {
-        return bets.get(round-1);
+    public int getBet(int roundNumber) {
+        return bets.get(roundNumber-1);
     }
 
     /**
      * Gets the score of the player in a certain round
-     * @param round The round
+     * @param roundNumber The round number (starting with 10
      * @return The number of points
      */
-    public int getScore(int round) {
-        return scores.get(round-1);
+    public int getScore(int roundNumber) {
+        return scores.get(roundNumber-1);
     }
 
     /**
@@ -149,7 +149,7 @@ public class PlayerRecord implements Comparable<PlayerRecord> {
 
     /**
      * Recalculates the score in a given round
-     * @param roundIndex The round index
+     * @param roundIndex The round index (starting with 1)
      * @param breakStreak True if this round invalidates bonus streaks, false otherwise
      */
     public void recalculateRoundScore(int roundIndex, boolean breakStreak) {
@@ -163,7 +163,7 @@ public class PlayerRecord implements Comparable<PlayerRecord> {
 
     /**
      * Return true if result of the given round was positive, false otherwise
-     * @param roundNumber The round number
+     * @param roundNumber The round number (starting with 1)
      * @return whether the result of the round is positive
      */
     public boolean lastResult(int roundNumber) {
