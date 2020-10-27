@@ -40,4 +40,5 @@ local.properties
 
 # IntelliJ + Sonar
 .idea/sonarlint
+.idea/sonarlint.xml
 .idea/sonarlint-state.xml
