@@ -28,8 +28,10 @@ public class GameViewModel extends ViewModel {
         game.setValue(new Game(playerNames, type, prize));
         if(DevelopmentFlags.PREPOPULATE_GAME_TABLE) {
             for(int i=0; i<16; i++) {
-                addBets(new int[]{1, 1});
-                addResults(new int[]{1, 1});
+                addBets(new int[]{0, 0});
+                int[] results = new int[]{0,0};
+                results[0] = game.getValue().getNrOfHands();
+                addResults(results);
             }
         }
     }

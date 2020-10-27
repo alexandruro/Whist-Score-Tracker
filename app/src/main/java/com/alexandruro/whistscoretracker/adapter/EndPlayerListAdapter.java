@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.alexandruro.whistscoretracker.model.PlayerRecord;
 import com.alexandruro.whistscoretracker.R;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -20,7 +22,8 @@ import java.util.List;
 public class EndPlayerListAdapter extends ArrayAdapter<PlayerRecord> {
 
     public EndPlayerListAdapter(@NonNull Context context, @NonNull List<PlayerRecord> objects) {
-        super(context, 0, objects);
+        super(context, 0,  new ArrayList<>(objects));
+        sort(Collections.reverseOrder());
     }
 
     @NonNull

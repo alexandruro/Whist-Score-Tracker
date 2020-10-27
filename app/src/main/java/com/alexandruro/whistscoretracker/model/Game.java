@@ -1,9 +1,9 @@
 package com.alexandruro.whistscoretracker.model;
 
-import com.alexandruro.ApplicationBugException;
+import com.alexandruro.whistscoretracker.ApplicationBugException;
+import com.google.common.base.Objects;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -15,8 +15,8 @@ public class Game {
 
     public enum Type { ONE_EIGHT_ONE, EIGHT_ONE_EIGHT }
 
-    private List<String> playerNames;
-    private List<PlayerRecord> scoreTable;
+    private final List<String> playerNames;
+    private final List<PlayerRecord> scoreTable;
     private Status gameStatus;
     private int currentRound;
     private int nrOfPlayers;
@@ -30,9 +30,13 @@ public class Game {
      * @param prize
      */
     public Game(List<String> playerNames, Type type, int prize) {
+        if(playerNames.isEmpty()) {
+            throw new ApplicationBugException("Initialised game with illegal parameters");
+        }
         this.playerNames = playerNames;
         this.type = type;
         this.prize = prize;
+        this.scoreTable = new ArrayList<>();
 
         initialiseNewGame();
     }
@@ -46,12 +50,16 @@ public class Game {
      * @param type
      */
     public Game(List<String> playerNames, List<PlayerRecord> scoreTable, Status gameStatus, int currentRound, Type type) {
+        if(scoreTable.isEmpty() || scoreTable.size()!=playerNames.size()) {
+            throw new ApplicationBugException("Initialised game with illegal parameters");
+        }
         this.playerNames = playerNames;
         this.scoreTable = scoreTable;
         this.gameStatus = gameStatus;
         this.currentRound = currentRound;
         this.nrOfPlayers = playerNames.size();
         this.type = type;
+        this.prize = scoreTable.get(0).getPrize();
     }
 
     public List<String> getPlayerNames() {
@@ -67,8 +75,8 @@ public class Game {
     }
 
     /**
-     * Returns the current round number, sarting with 1.
-     * I results have been added then the round number was increased.
+     * Returns the current round number, starting with 1.
+     * If results have been added then the round number was increased.
      * @return The current round number
      */
     public int getCurrentRound() {
@@ -81,12 +89,12 @@ public class Game {
 
     /**
      * Computes the number of hands in the given round
-     * @param roundNumber The round number
+     * @param roundNumber The round number (starting with 1)
      * @return The number of hands
      */
     public int getNrOfHands(int roundNumber) {
         if(roundNumber >3* nrOfPlayers +12)
-            return -1;
+            throw new IndexOutOfBoundsException();
         if(type == Type.ONE_EIGHT_ONE) {
             if (roundNumber <= nrOfPlayers)
                 return 1;
@@ -138,6 +146,8 @@ public class Game {
      * Undo the last action (last added bets / results)
      */
     public void undo() {
+        if(!isStarted())
+            throw new ApplicationBugException("undo() called before the game has started.");
         if(gameStatus == Status.WAITING_FOR_RESULT) {
             undoBets();
         }
@@ -178,17 +188,22 @@ public class Game {
      * @param results
      */
     public void addResults(int[] results) {
+        if(isOver())
+            throw new ApplicationBugException("addResults() called after the game has finished.");
         if(results.length != playerNames.size()) {
-            throw new ApplicationBugException("addResults() called with incorrect number of results. This should not happen.");
+            throw new ApplicationBugException("addResults() called with incorrect number of results.");
         }
-        for(int i = 0; i< playerNames.size(); i++)
+        int totalHandsWon = 0;
+        for(int i = 0; i< playerNames.size(); i++) {
             scoreTable.get(i).addResult(results[i], getNrOfHands() == 1);
+            totalHandsWon+=results[i];
+        }
+        if(totalHandsWon != getNrOfHands())
+            throw new ApplicationBugException("addResults() called with incorrect results.");
         currentRound++;
 
         if(isOver()) {
             gameStatus = Status.GAME_OVER;
-            // prepare the leaderboard
-            Collections.sort(scoreTable, Collections.reverseOrder());
         }
         else {
             gameStatus = Status.WAITING_FOR_BET;
@@ -200,11 +215,20 @@ public class Game {
      * @param bets
      */
     public void addBets(int[] bets) {
+        if(isOver())
+            throw new ApplicationBugException("addBets() called after the game has finished");
         if(bets.length != playerNames.size()) {
-            throw new ApplicationBugException("addBets() called with incorrect number of bets. This should not happen.");
+            throw new ApplicationBugException("addBets() called with incorrect number of bets.");
         }
-        for(int i = 0; i< playerNames.size(); i++)
+        int totalBet = 0;
+        for(int i = 0; i< playerNames.size(); i++) {
+            totalBet+=bets[i];
+            if(bets[i] > getNrOfHands())
+                throw new ApplicationBugException("addBets() called with bet bigger than nr or hands.");
             scoreTable.get(i).addBet(bets[i]);
+        }
+        if(totalBet == getNrOfHands())
+            throw new ApplicationBugException("addBets() called with incorrect sum of bets (" + totalBet + ").");
         gameStatus = Status.WAITING_FOR_RESULT;
     }
 
@@ -213,11 +237,30 @@ public class Game {
      * This can be used at the beginning when setting up the game or when restarting the game.
      */
     public void initialiseNewGame() {
-        this.scoreTable = new ArrayList<>();
+        this.scoreTable.clear();
         for(String name: playerNames)
             scoreTable.add(new PlayerRecord(name, prize));
         this.gameStatus = Status.WAITING_FOR_BET;
         this.currentRound = 1;
         this.nrOfPlayers = playerNames.size();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Game)) return false;
+        Game game = (Game) o;
+        return currentRound == game.currentRound &&
+                nrOfPlayers == game.nrOfPlayers &&
+                prize == game.prize &&
+                playerNames.equals(game.playerNames) &&
+                scoreTable.equals(game.scoreTable) &&
+                gameStatus == game.gameStatus &&
+                type == game.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(playerNames, scoreTable, gameStatus, currentRound, nrOfPlayers, type, prize);
     }
 }

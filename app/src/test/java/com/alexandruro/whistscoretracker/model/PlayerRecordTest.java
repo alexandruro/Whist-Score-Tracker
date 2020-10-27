@@ -19,6 +19,7 @@ public class PlayerRecordTest {
         assertEquals(6, record.getScore());
 
         addRound(record, 2, 0, false);
+        assertEquals(2, record.getBet(2));
         assertEquals(4, record.getScore());
 
         addRound(record, 0, 5, false);

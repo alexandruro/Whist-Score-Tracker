@@ -1,5 +1,7 @@
 package com.alexandruro.whistscoretracker.model;
 
+import com.google.common.base.Objects;
+
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
@@ -23,15 +25,8 @@ public class PlayerRecord implements Comparable<PlayerRecord> {
 
 
     /**
-     * Gets the name of the player
-     * @return The name of the player
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
      * Creates a blank record
+     * @param name The name of the player
      * @param prize The prize applied when winning/losing in a row
      */
     public PlayerRecord(String name, int prize) {
@@ -43,6 +38,14 @@ public class PlayerRecord implements Comparable<PlayerRecord> {
         bets = new ArrayList<>();
         results = new ArrayList<>();
         scores = new ArrayList<>();
+    }
+
+    /**
+     * Gets the name of the player
+     * @return The name of the player
+     */
+    public String getName() {
+        return name;
     }
 
     /**
@@ -129,12 +132,14 @@ public class PlayerRecord implements Comparable<PlayerRecord> {
      * @return The number of points
      */
     public int getScore() {
+        if(scores.isEmpty())
+            return 0;
         return scores.get(scores.size()-1);
     }
 
     /**
      * Undoes the last result in the record.
-     * This calls needs to be followed by a series of recalculation calls, as it removes the scores.
+     * !Important! This call needs to be followed by a series of recalculateRoundScore calls, as it removes the scores.
      */
     public void undoResult() {
         results.remove(results.size()-1);
@@ -174,5 +179,32 @@ public class PlayerRecord implements Comparable<PlayerRecord> {
             return scores.get(0) > 0;
         }
         return scores.get(roundNumber -1) > scores.get(roundNumber -2);
+    }
+
+    /**
+     * Gets the prize amount (specific to the game)
+     * @return the prize
+     */
+    public int getPrize() {
+        return prize;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PlayerRecord that = (PlayerRecord) o;
+        return prize == that.prize &&
+                winningStreak == that.winningStreak &&
+                losingStreak == that.losingStreak &&
+                name.equals(that.name) &&
+                bets.equals(that.bets) &&
+                results.equals(that.results) &&
+                scores.equals(that.scores);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(name, bets, results, scores, prize, winningStreak, losingStreak);
     }
 }

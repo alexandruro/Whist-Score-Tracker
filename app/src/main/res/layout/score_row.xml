@@ -6,7 +6,6 @@
     android:layout_height="wrap_content">
 
         <TextView
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_height="wrap_content"
             android:layout_width="@dimen/table_number_column_width"
             android:layout_column="0"
