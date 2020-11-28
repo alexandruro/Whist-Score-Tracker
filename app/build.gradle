@@ -96,9 +96,9 @@ jacoco {
     reportsDir = file("$buildDir/reports")
 }
 
-tasks.withType(Test) {
-    jacoco.includeNoLocationClasses = true
-}
+//tasks.withType(Test) {
+//    jacoco.includeNoLocationClasses = true
+//}
 
 //task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
 //
