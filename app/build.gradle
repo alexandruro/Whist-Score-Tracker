@@ -75,6 +75,7 @@ sonarqube {
         property "sonar.host.url", "https://sonarcloud.io"
 
         property "sonar.java.coveragePlugin", "jacoco"
+        property "sonar.coverage.jacoco.xmlReportPaths", "**/jacoco/*.xml"
 //        property "sonar.jacoco.reportPath", "**/jacoco/*.exec"
 //
 //        property "sonar.sources", "src/main/java"
