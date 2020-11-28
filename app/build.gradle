@@ -1,5 +1,4 @@
 plugins {
-//    id "jacoco"
     id "org.sonarqube" version "3.0"
 }
 apply plugin: 'com.android.application'
@@ -85,7 +84,7 @@ sonarqube {
 //        property "sonar.java.binaries", "build/intermediates/app_classes/debug"
 //        property "sonar.jacoco.reportPath","build/jacoco/testDevDebugUnitTest.exec"
 //
-////        property "sonar.tests", "src/test/java, src/androidTest/java"
+        property "sonar.tests", "src/test/java, src/androidTest/java"
 ////        property "sonar.java.test.binaries", "build/intermediates/classes/debug"
 //
 ////        def unit = fileTree(dir: project.projectDir, includes: ['**/*.exec']).files;
