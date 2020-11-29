@@ -18,7 +18,7 @@ android {
     }
     buildTypes {
         debug {
-            testCoverageEnabled true // SHOULD BE false?
+            testCoverageEnabled true
         }
         release {
             minifyEnabled false
@@ -81,21 +81,15 @@ sonarqube {
         property "sonar.java.coveragePlugin", "jacoco"
         property "sonar.coverage.jacoco.xmlReportPaths", "**/jacocoTestReport/jacocoTestReport.xml"
 
-//        property("sonar.junit.reportsPath","build/test-results/test")
 
-//        property "sonar.binaries", "build/intermediates/classes/debug"
+//        property "sonar.binaries", "build/intermediates/app_classes/debug" // not needed bc sonar.java.binaries
 //
-//        property "sonar.android.lint.report", "build/outputs/lint-results.xml"
-//        property "sonar.java.binaries", "build/intermediates/app_classes/debug"
+        property "sonar.android.lint.report", "build/reports/lint-results.xml"
+        property "sonar.java.binaries", "build/intermediates/app_classes/debug"
 //
-////        property "sonar.java.test.binaries", "build/intermediates/classes/debug"
-//
-////        def unit = fileTree(dir: project.projectDir, includes: ['**/*.exec']).files;
-////        def ui = fileTree(dir: project.projectDir, includes: ['**/*.ec']).files;
-////        unit.addAll(ui);
-////        def files = unit.join(", ");
-//
-//        property "sonar.junit.reportsPath", "build/test-results/testDebugUnitTest"
+        property "sonar.java.test.binaries", "build/intermediates/app_classes/debug"
+
+        property "sonar.junit.reportsPath", "build/test-results/testDebugUnitTest"
     }
 }
 
@@ -156,7 +150,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
             excludes: fileFilter
     )
     getClassDirectories().setFrom(files([ javaClasses ]))
-    getAdditionalSourceDirs().setFrom(files(coverageSourceDirs))
+    getAdditionalSourceDirs().setFrom(files(coverageSourceDirs)) // useless?
     getSourceDirectories().setFrom(files(coverageSourceDirs))
     getExecutionData().setFrom(fileTree(dir: "$project.buildDir", includes: [
             "jacoco/testDebugUnitTest.exec"
