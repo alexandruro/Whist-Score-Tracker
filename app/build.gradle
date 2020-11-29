@@ -147,7 +147,9 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
             '**/*$ViewInjector*.*',
             '**/*$ViewBinder*.*',
             '**/BuildConfig.*',
-            '**/Manifest*.*'
+            '**/Manifest*.*',
+            '**/*Test*.*',
+            'android/**/*.*'
     ]
     def javaClasses = fileTree(
             dir: "$project.buildDir/intermediates/app_classes/debug",
@@ -161,9 +163,9 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
     ]))
 }
 
-//tasks.named("sonarqube") {
-//    dependsOn(tasks.named("jacocoTestReport"))
-//}
+tasks.named("sonarqube") {
+    dependsOn(tasks.named("jacocoTestReport"))
+}
 
 //plugins.withType(JacocoPlugin) {
 //    tasks["test"].finalizedBy 'jacocoTestReport'
