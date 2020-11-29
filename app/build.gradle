@@ -37,7 +37,6 @@ android {
                 includeNoLocationClasses = true
             }
         }
-        execution 'ANDROID_TEST_ORCHESTRATOR'
         animationsDisabled true
         unitTests {
             includeAndroidResources = true
@@ -120,7 +119,6 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
             excludes: fileFilter
     )
     getClassDirectories().setFrom(files([ javaClasses ]))
-//    getAdditionalSourceDirs().setFrom(files(coverageSourceDirs)) // useless?
     getSourceDirectories().setFrom(files(coverageSourceDirs))
     getExecutionData().setFrom(fileTree(dir: "$project.buildDir", includes: [
             "jacoco/testDebugUnitTest.exec"
