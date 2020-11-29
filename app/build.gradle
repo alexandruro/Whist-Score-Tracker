@@ -18,7 +18,7 @@ android {
     }
     buildTypes {
         debug {
-            testCoverageEnabled true
+            testCoverageEnabled true // SHOULD BE false?
         }
         release {
             minifyEnabled false
@@ -133,9 +133,13 @@ tasks.withType(Test) {
 //    ]))
 //}
 
-task jacocoUnitTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
     def coverageSourceDirs = [
-            "src/main/java"
+            "${project.projectDir}/src/main/java"
     ]
     def fileFilter = [
             '**/R.class',
@@ -146,7 +150,7 @@ task jacocoUnitTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) 
             '**/Manifest*.*'
     ]
     def javaClasses = fileTree(
-            dir: "$project.buildDir/intermediates/classes/debug",
+            dir: "$project.buildDir/intermediates/app_classes/debug",
             excludes: fileFilter
     )
     getClassDirectories().setFrom(files([ javaClasses ]))
@@ -155,12 +159,12 @@ task jacocoUnitTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) 
     getExecutionData().setFrom(fileTree(dir: "$project.buildDir", includes: [
             "jacoco/testDebugUnitTest.exec"
     ]))
-    reports {
-        xml.enabled = true
-        html.enabled = true
-    }
 }
 
-tasks.named("sonarqube") {
-    dependsOn(tasks.named("jacocoUnitTestReport"))
-}
+//tasks.named("sonarqube") {
+//    dependsOn(tasks.named("jacocoTestReport"))
+//}
+
+//plugins.withType(JacocoPlugin) {
+//    tasks["test"].finalizedBy 'jacocoTestReport'
+//}
