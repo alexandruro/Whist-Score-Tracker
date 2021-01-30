@@ -165,6 +165,41 @@ public class PlayerRecordTest {
     }
 
     /**
+     * Test the beginning of a game of 4 players
+     */
+    @Test
+    public void testTrueGame() {
+        PlayerRecord record = new PlayerRecord("mockName", 5);
+
+        addRound(record, 0, 0, true);
+        assertEquals(5, record.getScore());
+
+        addRound(record, 1, 1, true);
+        assertEquals(11, record.getScore());
+
+        addRound(record, 1, 1, true);
+        assertEquals(17, record.getScore());
+
+        addRound(record, 0, 0, true);
+        assertEquals(22, record.getScore());
+
+        addRound(record, 1, 1, false);
+        assertEquals(28, record.getScore());
+
+        addRound(record, 3, 3, false);
+        assertEquals(36, record.getScore());
+
+        addRound(record, 2, 2, false);
+        assertEquals(43, record.getScore());
+
+        addRound(record, 0, 0, false);
+        assertEquals(48, record.getScore());
+
+        addRound(record, 1, 1, false);
+        assertEquals(59, record.getScore());
+    }
+
+    /**
      * Helper function to add a round to the player record
      */
     private static void addRound(PlayerRecord record, int bet, int result, boolean breakStreak) {
