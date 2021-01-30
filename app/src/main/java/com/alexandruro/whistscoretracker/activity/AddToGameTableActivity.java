@@ -27,7 +27,7 @@ public class AddToGameTableActivity extends AppCompatActivity {
     private int nrOfHands;
     private int handsLeft;
     private int requestCode;
-    private int firstPlayerDelay;
+    private int firstPlayerIndex;
     private int nrOfPlayers;
 
     private TextView playerName;
@@ -43,7 +43,7 @@ public class AddToGameTableActivity extends AppCompatActivity {
         nrOfHands = intent.getIntExtra("nrOfHands", 8);
         requestCode = intent.getIntExtra("requestCode", -1);
         playerNames = intent.getStringArrayListExtra("playerNames");
-        firstPlayerDelay = intent.getIntExtra("firstPlayerDelay", 0);
+        firstPlayerIndex = intent.getIntExtra("firstPlayerIndex", 0);
 
 
         // Initialise layout elements
@@ -75,7 +75,7 @@ public class AddToGameTableActivity extends AppCompatActivity {
      * Confirms an input by the user and either goes to the next player or back to the table
      * @param input The number of hands in the bet/result
      */
-    private void advance(int input) {
+    public void advance(int input) {
         if(input!=-1) {
             inputs[index] = input;
             handsLeft -= input;
@@ -85,8 +85,14 @@ public class AddToGameTableActivity extends AppCompatActivity {
             render();
         }
         else {
+            // This needs refactoring
+            // Shift inputs array
+            int[] results = new int[nrOfPlayers];
+            for(int i=0; i<nrOfPlayers; i++) {
+                results[i] = inputs[(i+nrOfPlayers-firstPlayerIndex)%nrOfPlayers];
+            }
             Intent intent = getIntent();
-            intent.putExtra("inputs", inputs);
+            intent.putExtra("inputs", results);
             setResult(RESULT_OK, intent);
             finish();
         }
@@ -121,7 +127,7 @@ public class AddToGameTableActivity extends AppCompatActivity {
      * Changes the player name to the current one
      */
     private void resetPlayerName() {
-        playerName.setText(playerNames.get((index+firstPlayerDelay)%nrOfPlayers));
+        playerName.setText(playerNames.get((index+firstPlayerIndex)%nrOfPlayers));
     }
 
     @Override

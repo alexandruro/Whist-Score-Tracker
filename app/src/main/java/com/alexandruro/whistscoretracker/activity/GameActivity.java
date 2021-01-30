@@ -272,7 +272,7 @@ public class GameActivity extends AppCompatActivity {
         intent.putExtra("nrOfHands", gameViewModel.getNrOfHands());
         intent.putStringArrayListExtra("playerNames", new ArrayList<>(gameViewModel.getPlayerNames()));
         intent.putExtra("requestCode", requestCode);
-        intent.putExtra("firstPlayerDelay", (gameViewModel.getCurrentRound() -1) % gameViewModel.getNrOfPlayers());
+        intent.putExtra("firstPlayerIndex", (gameViewModel.getCurrentRound() -1) % gameViewModel.getNrOfPlayers());
 
         startActivityForResult(intent, requestCode);
     }
