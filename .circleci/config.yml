@@ -35,6 +35,7 @@ jobs:
           command: |
             ./gradlew :app:assembleDebug
             ./gradlew :app:assembleDebugAndroidTest
+            ./gradlew build
       - run:
           name: Store Google Service Account
           command: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
@@ -49,12 +50,19 @@ jobs:
             sudo gcloud firebase test android run \
               --app app/build/outputs/apk/debug/app-debug.apk \
               --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
-#              --results-bucket cloud-test-${GOOGLE_PROJECT_ID}
+              --environment-variables coverage=true, coverageFile=/sdcard/tmp/code-coverage/connected/coverage.ec \
+              --directories-to-pull=/sdcard/tmp \
       - run:
-          name: Install gsutil dependency and copy test results data
+          name: Create directory to store test results
+          command: mkdir firebase
+      - run:
+          name: Download instrumented test results from Firebase Test Lab
           command: |
             sudo pip install -U crcmod
-            sudo gsutil -m cp -r -U `sudo gsutil ls gs://test-lab-durvnjx1ft5f2-yfcyy0uzs56f6 | tail -1` ${CIRCLE_ARTIFACTS}/ | true
+            sudo gsutil -m cp -r -U `sudo gsutil ls gs://test-lab-durvnjx1ft5f2-yfcyy0uzs56f6 | tail -1` /root/workspace/firebase/ | true
+      - store_artifacts:
+          path: firebase/
+          destination: /firebase/
       - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
           path: app/build/reports
           destination: reports
