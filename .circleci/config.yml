@@ -56,18 +56,18 @@ jobs:
               --environment-variables coverage=true,coverageFile=/sdcard/coverage.ec \
               --directories-to-pull=/sdcard \
               --results-dir=${CIRCLE_BRANCH}_${CIRCLE_BUILD_NUM}
-      - run:
-          name: Create directory to store test results
-          command: mkdir firebase
+#      - run:
+#          name: Create directory to store test results
+#          command: mkdir firebase
       - run:
           name: Download instrumented test results from Firebase Test Lab
           command: |
             sudo pip install -U crcmod
             sudo gsutil -m cp -r -U gs://test-lab-durvnjx1ft5f2-yfcyy0uzs56f6/${CIRCLE_BRANCH}_${CIRCLE_BUILD_NUM}/Pixel2-27-en-portrait/artifacts/coverage.ec app/build/outputs/code_coverage/debugAndroidTest/connected/coverage.ec
-            gsutil -m cp -r -U "`gsutil ls gs://test-lab-durvnjx1ft5f2-yfcyy0uzs56f6/${CIRCLE_BRANCH}_${CIRCLE_BUILD_NUM}/Pixel2-27-en-portrait | tail -1`*" firebase/
-      - store_artifacts:
-          path: firebase
-          destination: firebase
+            gsutil -m cp -r -U "`gsutil ls gs://test-lab-durvnjx1ft5f2-yfcyy0uzs56f6/${CIRCLE_BRANCH}_${CIRCLE_BUILD_NUM}/Pixel2-27-en-portrait/test_result_1.xml app/build/test-results/testDebugAndroidTest/test_result_1.xml
+#      - store_artifacts:
+#          path: firebase
+#          destination: firebase
       - run:
           name: Lint
           command: ./gradlew lint
