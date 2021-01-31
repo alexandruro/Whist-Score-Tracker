@@ -50,6 +50,7 @@ jobs:
               --device model=Pixel2,version=27 \
               --environment-variables coverage=true,coverageFile=/sdcard/coverage.ec \
               --directories-to-pull=/sdcard \
+              --results-dir=${CIRCLE_BRANCH}_${CIRCLE_BUILD_NUM}
       - run:
           name: Create directory to store test results
           command: mkdir firebase
@@ -57,7 +58,12 @@ jobs:
           name: Download instrumented test results from Firebase Test Lab
           command: |
             sudo pip install -U crcmod
-            sudo gsutil -m cp -r -U `sudo gsutil ls gs://test-lab-durvnjx1ft5f2-yfcyy0uzs56f6 | tail -1` firebase/ | true
+            sudo gsutil -m cp -r -U `sudo gsutil ls gs://test-lab-durvnjx1ft5f2-yfcyy0uzs56f6/${CIRCLE_BRANCH}_${CIRCLE_BUILD_NUM}/walleye-28-en_US-portrait/artifacts/coverage.ec | tail -1` firebase/ | true
+#      - run:
+#          name: Move instrumented test coverage report in the correct path
+#          command: |
+#            mkdir -p app/build/outputs/code-coverage/connected
+#            cp firebase/coverage.ec app/build/outputs/code_coverage/debugAndroidTest/connected/coverage.ec
       - store_artifacts:
           path: firebase/
           destination: firebase
