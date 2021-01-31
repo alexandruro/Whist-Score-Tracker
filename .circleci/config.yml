@@ -27,9 +27,6 @@ jobs:
 #       - run:
 #           name: Accept Android SDK licences
 #           command: sdkmanager --update && yes | sdkmanager --licenses
-#      - run:
-#          name: Build
-#          command: ./gradlew build
       - run:
           name: Build debug APK and release APK
           command: |
@@ -50,6 +47,7 @@ jobs:
             sudo gcloud firebase test android run \
               --app app/build/outputs/apk/debug/app-debug.apk \
               --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
+              --device model=Pixel2,version=27 \
               --environment-variables coverage=true,coverageFile=/sdcard/tmp/code-coverage/connected/coverage.ec \
               --directories-to-pull=/sdcard/tmp \
       - run:
