@@ -58,7 +58,7 @@ jobs:
           name: Download instrumented test results from Firebase Test Lab
           command: |
             sudo pip install -U crcmod
-            sudo gsutil -m cp -r -U `sudo gsutil ls gs://test-lab-durvnjx1ft5f2-yfcyy0uzs56f6/${CIRCLE_BRANCH}_${CIRCLE_BUILD_NUM}/walleye-28-en_US-portrait/artifacts/coverage.ec | tail -1` firebase/ | true
+            sudo gsutil -m cp -r -U `sudo gsutil ls gs://test-lab-durvnjx1ft5f2-yfcyy0uzs56f6/${CIRCLE_BRANCH}_${CIRCLE_BUILD_NUM}/Pixel2-27-en-portrait/artifacts/coverage.ec | tail -1` firebase/ | true
 #      - run:
 #          name: Move instrumented test coverage report in the correct path
 #          command: |
