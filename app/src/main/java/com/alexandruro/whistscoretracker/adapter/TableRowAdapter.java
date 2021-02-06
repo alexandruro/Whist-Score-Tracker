@@ -13,7 +13,7 @@ import java.util.List;
 
 public class TableRowAdapter extends RecyclerView.Adapter<TableRowAdapter.MyViewHolder> {
 
-    private List<String> dataset;
+    private final List<String> dataset;
 
     public TableRowAdapter(List<String> dataset) {
         this.dataset = dataset;
@@ -24,7 +24,7 @@ public class TableRowAdapter extends RecyclerView.Adapter<TableRowAdapter.MyView
     // you provide access to all the views for a data item in a view holder
     static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        TextView textView;
+        private final TextView textView;
         MyViewHolder(TextView v) {
             super(v);
             textView = v;

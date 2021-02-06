@@ -14,11 +14,11 @@ import java.util.List;
  */
 public class PlayerRecord implements Comparable<PlayerRecord> {
 
-    private String name;
-    private List<Integer> bets;
-    private List<Integer> results;
-    private List<Integer> scores;
-    private int prize;
+    private final String name;
+    private final List<Integer> bets;
+    private final List<Integer> results;
+    private final List<Integer> scores;
+    private final int prize;
 
     private int winningStreak;
     private int losingStreak;

@@ -15,19 +15,17 @@ public class Game {
 
     public enum Type { ONE_EIGHT_ONE, EIGHT_ONE_EIGHT }
 
+    private final int nrOfPlayers;
+    private final Type type;
+    private final int prize;
+
     private final List<String> playerNames;
     private final List<PlayerRecord> scoreTable;
     private Status gameStatus;
     private int currentRound;
-    private int nrOfPlayers;
-    private Type type;
-    private int prize;
 
     /**
-     * Creates a new game
-     * @param playerNames
-     * @param type
-     * @param prize
+     * Creates a new game.
      */
     public Game(List<String> playerNames, Type type, int prize) {
         if(playerNames.isEmpty()) {
@@ -37,17 +35,13 @@ public class Game {
         this.type = type;
         this.prize = prize;
         this.scoreTable = new ArrayList<>();
+        this.nrOfPlayers = playerNames.size();
 
         initialiseNewGame();
     }
 
     /**
-     * Creates a game
-     * @param playerNames
-     * @param scoreTable
-     * @param gameStatus
-     * @param currentRound
-     * @param type
+     * Instantiates an existing game
      */
     public Game(List<String> playerNames, List<PlayerRecord> scoreTable, Status gameStatus, int currentRound, Type type) {
         if(scoreTable.isEmpty() || scoreTable.size()!=playerNames.size()) {
@@ -77,6 +71,7 @@ public class Game {
     /**
      * Returns the current round number, starting with 1.
      * If results have been added then the round number was increased.
+     *
      * @return The current round number
      */
     public int getCurrentRound() {
@@ -89,6 +84,7 @@ public class Game {
 
     /**
      * Computes the number of hands in the given round
+     *
      * @param roundNumber The round number (starting with 1)
      * @return The number of hands
      */
@@ -120,6 +116,7 @@ public class Game {
 
     /**
      * Computes the number of hands in the current round
+     *
      * @return The number of hands
      */
     public int getNrOfHands() {
@@ -128,6 +125,7 @@ public class Game {
 
     /**
      * Return whether the game has started (the first bets have been made) or not
+     *
      * @return True if the games has started, false otherwise
      */
     public boolean isStarted() {
@@ -136,15 +134,14 @@ public class Game {
 
     /**
      * Return whether the game has ended or not
+     *
      * @return True if the game is over, false otherwise
      */
     public boolean isOver() {
         return currentRound > 3*nrOfPlayers + 12;
     }
 
-    /**
-     * Undo the last action (last added bets / results)
-     */
+    /** Undo the last action (last added bets / results) */
     public void undo() {
         if(!isStarted())
             throw new ApplicationBugException("undo() called before the game has started.");
@@ -185,11 +182,15 @@ public class Game {
 
     /**
      * Add a set of results
-     * @param results
+     *
+     * @param results The array of results corresponding to each player
      */
     public void addResults(int[] results) {
         if(isOver())
             throw new ApplicationBugException("addResults() called after the game has finished.");
+        if(gameStatus != Status.WAITING_FOR_RESULT) {
+            throw new ApplicationBugException("addResults() called when expecting bets.");
+        }
         if(results.length != playerNames.size()) {
             throw new ApplicationBugException("addResults() called with incorrect number of results.");
         }
@@ -212,11 +213,15 @@ public class Game {
 
     /**
      * Add a set of bets
-     * @param bets
+     *
+     * @param bets The array of bets corresponding to each player
      */
     public void addBets(int[] bets) {
         if(isOver())
             throw new ApplicationBugException("addBets() called after the game has finished");
+        if(gameStatus != Status.WAITING_FOR_BET) {
+            throw new ApplicationBugException("addBets() called when expecting results.");
+        }
         if(bets.length != playerNames.size()) {
             throw new ApplicationBugException("addBets() called with incorrect number of bets.");
         }
@@ -242,7 +247,6 @@ public class Game {
             scoreTable.add(new PlayerRecord(name, prize));
         this.gameStatus = Status.WAITING_FOR_BET;
         this.currentRound = 1;
-        this.nrOfPlayers = playerNames.size();
     }
 
     @Override

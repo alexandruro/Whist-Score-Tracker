@@ -16,7 +16,7 @@ import com.alexandruro.whistscoretracker.model.Game;
 
 public class TableBodyAdapter extends RecyclerView.Adapter<TableBodyAdapter.ScoreRowViewHolder> {
 
-    private Game game;
+    private final Game game;
 
     public TableBodyAdapter(Game game) {
         this.game = game;
@@ -24,7 +24,7 @@ public class TableBodyAdapter extends RecyclerView.Adapter<TableBodyAdapter.Scor
 
     static class ScoreRowViewHolder extends RecyclerView.ViewHolder {
 
-        TableRow view;
+        private final TableRow view;
 
         public ScoreRowViewHolder(@NonNull TableRow itemView) {
             super(itemView);

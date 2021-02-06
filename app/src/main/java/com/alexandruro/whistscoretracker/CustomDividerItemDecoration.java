@@ -36,8 +36,8 @@ public class CustomDividerItemDecoration extends DividerItemDecoration {
 
     /**
      * Similar to drawHorizontal in the parent class, but drawing to the left instead of to the right of the item
-     * @param canvas
-     * @param parent
+     * @param canvas Canvas to draw into
+     * @param parent RecyclerView this ItemDecoration is drawing into
      */
     private void draw(Canvas canvas, RecyclerView parent) {
         canvas.save();

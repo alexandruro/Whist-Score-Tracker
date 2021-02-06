@@ -11,7 +11,7 @@
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:hint="@string/new_game_player_name"
-        />
+        android:inputType="textPersonName" />
 
     <ImageButton
         android:id="@+id/remove"

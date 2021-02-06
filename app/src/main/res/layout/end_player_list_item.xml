@@ -27,13 +27,15 @@
         android:textStyle="bold" />
 
     <TextView
+        android:text="Testing"
         android:id="@+id/playerScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/playerName"
+        android:layout_alignLeft="@id/playerName"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:gravity="center"
+        android:gravity="center|right"
         android:textSize="30sp" />
 
 

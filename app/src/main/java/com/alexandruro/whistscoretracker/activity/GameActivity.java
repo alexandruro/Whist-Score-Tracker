@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alexandruro.whistscoretracker.CustomDividerItemDecoration;
-import com.alexandruro.whistscoretracker.GameViewModel;
+import com.alexandruro.whistscoretracker.viewmodel.GameViewModel;
 import com.alexandruro.whistscoretracker.R;
 import com.alexandruro.whistscoretracker.adapter.EndPlayerListAdapter;
 import com.alexandruro.whistscoretracker.adapter.TableBodyAdapter;
@@ -158,7 +158,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     * Initialise the bottom sheet after the activity was creted
+     * Initialise the bottom sheet after the activity was created
      */
     private void initialiseBottomSheet() {
         View bottomSheet = findViewById(R.id.bottom_sheet);

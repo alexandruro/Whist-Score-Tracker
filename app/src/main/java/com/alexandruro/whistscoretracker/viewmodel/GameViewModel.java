@@ -1,4 +1,4 @@
-package com.alexandruro.whistscoretracker;
+package com.alexandruro.whistscoretracker.viewmodel;
 
 import android.util.Log;
 
@@ -6,13 +6,14 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.alexandruro.whistscoretracker.DevelopmentFlags;
 import com.alexandruro.whistscoretracker.model.Game;
 
 import java.util.List;
 
 public class GameViewModel extends ViewModel {
 
-    private MutableLiveData<Game> game = new MutableLiveData<>();
+    private final MutableLiveData<Game> game = new MutableLiveData<>();
 
     public LiveData<Game> getGame() {
         if(game.getValue() == null) {

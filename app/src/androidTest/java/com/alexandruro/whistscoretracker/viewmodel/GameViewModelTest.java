@@ -1,4 +1,4 @@
-package com.alexandruro.whistscoretracker;
+package com.alexandruro.whistscoretracker.viewmodel;
 
 import com.alexandruro.whistscoretracker.model.Game;
 
