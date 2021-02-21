@@ -1,4 +1,4 @@
-package com.alexandruro.whistscoretracker;
+package com.alexandruro.whistscoretracker.config;
 
 public abstract class DevelopmentFlags {
 

@@ -1,4 +1,4 @@
-package com.alexandruro.whistscoretracker;
+package com.alexandruro.whistscoretracker.view;
 
 /**
  * An element in an EditList, represented by its corresponding string input by the user

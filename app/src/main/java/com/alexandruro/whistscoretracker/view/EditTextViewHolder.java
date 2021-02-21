@@ -1,4 +1,4 @@
-package com.alexandruro.whistscoretracker;
+package com.alexandruro.whistscoretracker.view;
 
 import android.text.TextWatcher;
 import android.widget.EditText;

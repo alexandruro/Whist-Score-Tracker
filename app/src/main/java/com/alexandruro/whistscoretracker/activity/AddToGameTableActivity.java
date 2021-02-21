@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.alexandruro.whistscoretracker.ApplicationBugException;
+import com.alexandruro.whistscoretracker.exception.ApplicationBugException;
 import com.alexandruro.whistscoretracker.R;
 
 import java.util.List;

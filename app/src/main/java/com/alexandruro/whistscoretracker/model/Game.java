@@ -1,28 +1,42 @@
 package com.alexandruro.whistscoretracker.model;
 
-import com.alexandruro.whistscoretracker.ApplicationBugException;
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+import com.alexandruro.whistscoretracker.exception.ApplicationBugException;
 import com.google.common.base.Objects;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Represents a game state
  */
+@Entity
 public class Game {
 
     public enum Status { WAITING_FOR_BET, WAITING_FOR_RESULT, GAME_OVER }
 
     public enum Type { ONE_EIGHT_ONE, EIGHT_ONE_EIGHT }
 
-    private final int nrOfPlayers;
-    private final Type type;
-    private final int prize;
+    @PrimaryKey
+    @NonNull
+    private final String uid;
 
-    private final List<String> playerNames;
+    private final Type type;
     private final List<PlayerRecord> scoreTable;
     private Status gameStatus;
     private int currentRound;
+
+    // Initialised from the others, so not stored in the database
+    @Ignore private final int nrOfPlayers;
+    @Ignore private final int prize;
+    @Ignore private final List<String> playerNames;
 
     /**
      * Creates a new game.
@@ -31,6 +45,7 @@ public class Game {
         if(playerNames.isEmpty()) {
             throw new ApplicationBugException("Initialised game with illegal parameters");
         }
+        this.uid = UUID.randomUUID().toString();
         this.playerNames = playerNames;
         this.type = type;
         this.prize = prize;
@@ -41,19 +56,32 @@ public class Game {
     }
 
     /**
-     * Instantiates an existing game
+     * Instantiates an existing game. This is called when retrieving a game from the database.
      */
-    public Game(List<String> playerNames, List<PlayerRecord> scoreTable, Status gameStatus, int currentRound, Type type) {
-        if(scoreTable.isEmpty() || scoreTable.size()!=playerNames.size()) {
+    public Game(@NotNull String uid, List<PlayerRecord> scoreTable, Status gameStatus, int currentRound, Type type) {
+        if(scoreTable.isEmpty()) {
             throw new ApplicationBugException("Initialised game with illegal parameters");
         }
-        this.playerNames = playerNames;
+        this.uid = uid;
         this.scoreTable = scoreTable;
         this.gameStatus = gameStatus;
         this.currentRound = currentRound;
-        this.nrOfPlayers = playerNames.size();
         this.type = type;
+        this.nrOfPlayers = scoreTable.size();
         this.prize = scoreTable.get(0).getPrize();
+        this.playerNames = new ArrayList<>();
+        for(PlayerRecord playerRecord: this.scoreTable) {
+            this.playerNames.add(playerRecord.getName());
+        }
+    }
+
+    @NonNull
+    public String getUid() {
+        return uid;
+    }
+
+    public Type getType() {
+        return type;
     }
 
     public List<String> getPlayerNames() {

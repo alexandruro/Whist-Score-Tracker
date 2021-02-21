@@ -1,4 +1,4 @@
-package com.alexandruro.whistscoretracker;
+package com.alexandruro.whistscoretracker.view;
 
 import android.content.Context;
 import android.graphics.Canvas;

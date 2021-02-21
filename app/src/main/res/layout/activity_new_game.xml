@@ -113,7 +113,7 @@
         android:text="@string/new_game_players"
         android:textSize="24sp" />
 
-    <com.alexandruro.whistscoretracker.WrappedListView
+    <com.alexandruro.whistscoretracker.view.WrappedListView
         android:id="@+id/nameListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

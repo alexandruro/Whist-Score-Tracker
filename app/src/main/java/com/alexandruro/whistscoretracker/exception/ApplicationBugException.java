@@ -1,4 +1,4 @@
-package com.alexandruro.whistscoretracker;
+package com.alexandruro.whistscoretracker.exception;
 
 /**
  * Represents an exception that should not have happened.

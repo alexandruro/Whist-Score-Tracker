@@ -12,11 +12,11 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.alexandruro.whistscoretracker.BuildConfig;
-import com.alexandruro.whistscoretracker.DevelopmentFlags;
+import com.alexandruro.whistscoretracker.config.DevelopmentFlags;
 import com.alexandruro.whistscoretracker.adapter.EditListAdapter;
-import com.alexandruro.whistscoretracker.EditListItem;
+import com.alexandruro.whistscoretracker.view.EditListItem;
 import com.alexandruro.whistscoretracker.R;
-import com.alexandruro.whistscoretracker.WrappedListView;
+import com.alexandruro.whistscoretracker.view.WrappedListView;
 import com.alexandruro.whistscoretracker.model.Game;
 
 import java.util.ArrayList;

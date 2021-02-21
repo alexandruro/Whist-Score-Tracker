@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 
-import com.alexandruro.whistscoretracker.EditListItem;
+import com.alexandruro.whistscoretracker.view.EditListItem;
 import com.alexandruro.whistscoretracker.R;
-import com.alexandruro.whistscoretracker.EditTextViewHolder;
+import com.alexandruro.whistscoretracker.view.EditTextViewHolder;
 
 import java.util.List;
 

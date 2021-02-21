@@ -4,16 +4,60 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
-import com.alexandruro.whistscoretracker.DevelopmentFlags;
+import com.alexandruro.whistscoretracker.config.DevelopmentFlags;
+import com.alexandruro.whistscoretracker.exception.DatabaseOperationException;
 import com.alexandruro.whistscoretracker.model.Game;
+import com.alexandruro.whistscoretracker.database.GameRepository;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+/**
+ * View model for the GameActivity.
+ */
+@HiltViewModel
 public class GameViewModel extends ViewModel {
 
-    private final MutableLiveData<Game> game = new MutableLiveData<>();
+    private static final String TAG = "GameViewModel";
+    private static final String GAME_ID_KEY = "gameId";
+
+    @Inject
+    GameRepository gameRepository;
+
+    private final MutableLiveData<Game> game;
+
+    private final SavedStateHandle savedStateHandle;
+
+    @Inject
+    public GameViewModel(SavedStateHandle savedStateHandle, GameRepository gameRepository) {
+        game = new MutableLiveData<>();
+        this.gameRepository = gameRepository;
+        this.savedStateHandle = savedStateHandle;
+        if(savedStateHandle.contains(GAME_ID_KEY)) {
+            String gameId = savedStateHandle.get(GAME_ID_KEY);
+            Log.d(TAG, "GameViewModel: Found saved game id: " + gameId);
+            try {
+                game.setValue(gameRepository.getGame(gameId).get());
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+                throw new DatabaseOperationException("Database threw an ExecutionException while retrieving a saved game.");
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+        else {
+            Log.d(TAG, "GameViewModel: Did not find saved game id. This is a new game.");
+            // TODO intialise new game here using the intent data that is put into savedStateHandle.
+            // Make sure to also stop calling initialiseNewGame from activity
+        }
+    }
 
     public LiveData<Game> getGame() {
         if(game.getValue() == null) {
@@ -35,12 +79,16 @@ public class GameViewModel extends ViewModel {
                 addResults(results);
             }
         }
+        String gameId = game.getValue().getUid();
+        savedStateHandle.set(GAME_ID_KEY, gameId);
+        Log.d(TAG, "initialiseNewGame: saved gameId");
     }
 
-    @Override
-    protected void onCleared() {
-        super.onCleared();
-        // This is where the game can be stored
+    /**
+     * Persist the game in the database
+     */
+    public void persistGame() {
+        gameRepository.insert(game.getValue());
     }
 
     // Actions for game

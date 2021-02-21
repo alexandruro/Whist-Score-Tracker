@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.alexandruro.whistscoretracker.CustomDividerItemDecoration;
+import com.alexandruro.whistscoretracker.view.CustomDividerItemDecoration;
 import com.alexandruro.whistscoretracker.viewmodel.GameViewModel;
 import com.alexandruro.whistscoretracker.R;
 import com.alexandruro.whistscoretracker.adapter.EndPlayerListAdapter;
@@ -36,14 +36,19 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
 /**
  * Main game activity, where the game table is displayed
  */
+@AndroidEntryPoint
 public class GameActivity extends AppCompatActivity {
 
     // request codes
     static final int RESULT_REQUEST = 1;
     static final int BET_REQUEST = 2;
+
+    private static final String TAG = "GameActivity";
 
     private GameViewModel gameViewModel;
 
@@ -51,7 +56,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("GameActivity", "Creating Game Activity");
+        Log.i(TAG, "Creating Game Activity");
 
         // Initialise data
         gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
@@ -134,6 +139,13 @@ public class GameActivity extends AppCompatActivity {
         builder.setNegativeButton(R.string.cancel, null);
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause called, will persist data.");
+        gameViewModel.persistGame();
     }
 
     /////////////////////////

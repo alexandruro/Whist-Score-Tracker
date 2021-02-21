@@ -1,6 +1,6 @@
 package com.alexandruro.whistscoretracker.model;
 
-import com.alexandruro.whistscoretracker.ApplicationBugException;
+import com.alexandruro.whistscoretracker.exception.ApplicationBugException;
 
 import org.junit.Test;
 
@@ -120,7 +120,7 @@ public class GameTest {
             playerRecord.addResult(1, false);
             scoreTable.add(playerRecord);
         }
-        Game game = new Game(playerNames, scoreTable, Game.Status.GAME_OVER, 15, Game.Type.EIGHT_ONE_EIGHT);
+        Game game = new Game("mockId", scoreTable, Game.Status.GAME_OVER, 15, Game.Type.EIGHT_ONE_EIGHT);
 
         game.initialiseNewGame();
 
