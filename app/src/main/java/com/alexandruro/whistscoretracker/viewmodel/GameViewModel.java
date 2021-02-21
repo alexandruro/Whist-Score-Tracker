@@ -153,9 +153,9 @@ public class GameViewModel extends ViewModel {
         try {
             game.setValue(gameRepository.getGame(gameId).get());
         } catch (ExecutionException e) {
-            Log.e(TAG, "Database threw an ExecutionException while retrieving a saved game.", e);
             throw new DatabaseOperationException("Database threw an ExecutionException while retrieving a saved game.", e);
         } catch (InterruptedException e) {
+            Log.e(TAG, "retrievePersistedGame: Got InterruptedException executing database query.", e);
             Thread.currentThread().interrupt();
         }
     }

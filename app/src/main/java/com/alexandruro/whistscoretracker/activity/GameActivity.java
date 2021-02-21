@@ -212,13 +212,16 @@ public class GameActivity extends AppCompatActivity {
     private void observeViewModel() {
         gameViewModel.getGame().observe(this, game -> {
             if (game != null) {
+                Log.d(TAG, "observeViewModel: updating UI");
                 // game table header
                 RecyclerView header = findViewById(R.id.header);
                 header.setAdapter(new TableRowAdapter(game.getPlayerNames()));
                 ((GridLayoutManager)header.getLayoutManager()).setSpanCount(game.getNrOfPlayers());
                 // game table body
                 RecyclerView body = findViewById(R.id.tableBody);
-                body.setAdapter(new TableBodyAdapter(game));
+                TableBodyAdapter adapter = new TableBodyAdapter(game);
+                body.setAdapter(adapter);
+                body.scrollToPosition(adapter.getItemCount()-1); // make sure the last update is visible
 
                 updateBottomSheet(game);
 
