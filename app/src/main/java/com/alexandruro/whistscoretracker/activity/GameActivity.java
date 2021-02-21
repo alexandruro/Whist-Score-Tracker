@@ -28,7 +28,6 @@ import com.alexandruro.whistscoretracker.adapter.TableBodyAdapter;
 import com.alexandruro.whistscoretracker.adapter.TableRowAdapter;
 import com.alexandruro.whistscoretracker.model.Game;
 import com.alexandruro.whistscoretracker.model.Game.Status;
-import com.alexandruro.whistscoretracker.model.Game.Type;
 import com.alexandruro.whistscoretracker.model.PlayerRecord;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.snackbar.Snackbar;
@@ -58,9 +57,7 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "Creating Game Activity");
 
-        // Initialise data
         gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
-        initialiseGameState(savedInstanceState == null);
         initialiseUI();
         observeViewModel();
     }
@@ -206,23 +203,6 @@ public class GameActivity extends AppCompatActivity {
         RecyclerView body = findViewById(R.id.tableBody);
         RecyclerView.LayoutManager bodyLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         body.setLayoutManager(bodyLayoutManager);
-    }
-
-    /**
-     * Initialises the game state.
-     * This is done by either getting the players and the options from the intent
-     * or by resuming a game stored in the gameViewModel
-     */
-    private void initialiseGameState(boolean isNewGame) {
-        if (isNewGame) {
-            // get game details from intent
-            Intent intent = getIntent();
-            ArrayList<String> playerNames = intent.getStringArrayListExtra("playerNames");
-            int prize = intent.getIntExtra("prize", 0);
-            Type type = (Type) intent.getSerializableExtra("type");
-
-            gameViewModel.initialiseNewGame(playerNames, type, prize);
-        }
     }
 
     /**

@@ -41,21 +41,10 @@ public class GameViewModel extends ViewModel {
         this.gameRepository = gameRepository;
         this.savedStateHandle = savedStateHandle;
         if(savedStateHandle.contains(GAME_ID_KEY)) {
-            String gameId = savedStateHandle.get(GAME_ID_KEY);
-            Log.d(TAG, "GameViewModel: Found saved game id: " + gameId);
-            try {
-                game.setValue(gameRepository.getGame(gameId).get());
-            } catch (ExecutionException e) {
-                Log.e(TAG, "Database threw an ExecutionException while retrieving a saved game.", e);
-                throw new DatabaseOperationException("Database threw an ExecutionException while retrieving a saved game.", e);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+            retrievePersistedGame();
         }
         else {
-            Log.d(TAG, "GameViewModel: Did not find saved game id. This is a new game.");
-            // TODO intialise new game here using the intent data that is put into savedStateHandle.
-            // Make sure to also stop calling initialiseNewGame from activity
+            initialiseNewGame();
         }
     }
 
@@ -66,30 +55,13 @@ public class GameViewModel extends ViewModel {
         return game;
     }
 
-    public void initialiseNewGame(List<String> playerNames, Game.Type type, int prize) {
-        if(game.getValue() != null) {
-            Log.w("ViewModel", "initialiseNewGame() called when game is not null");
-        }
-        game.setValue(new Game(playerNames, type, prize));
-        if(DevelopmentFlags.PREPOPULATE_GAME_TABLE) {
-            for(int i=0; i<16; i++) {
-                addBets(new int[]{0, 0});
-                int[] results = new int[]{0,0};
-                results[0] = game.getValue().getNrOfHands();
-                addResults(results);
-            }
-        }
-        String gameId = game.getValue().getUid();
-        savedStateHandle.set(GAME_ID_KEY, gameId);
-        Log.d(TAG, "initialiseNewGame: saved gameId");
-    }
-
     /**
      * Persist the game in the database
      */
     public void persistGame() {
         gameRepository.insert(game.getValue());
     }
+
 
     // Actions for game
 
@@ -112,6 +84,7 @@ public class GameViewModel extends ViewModel {
         game.getValue().initialiseNewGame();
         game.setValue(game.getValue());
     }
+
 
     // Getters for Game
 
@@ -141,5 +114,49 @@ public class GameViewModel extends ViewModel {
 
     public int getNrOfPlayers() {
         return game.getValue().getNrOfPlayers();
+    }
+
+
+    // Private methods
+
+    /**
+     * Initialises a new game using the options from the intent, which are put in the savedStateHandle
+     */
+    private void initialiseNewGame() {
+        Log.d(TAG, "GameViewModel: Did not find saved game id. This is a new game.");
+
+        List<String> playerNames = savedStateHandle.get("playerNames");
+        int prize = savedStateHandle.get("prize");
+        Game.Type type = (Game.Type) savedStateHandle.get("type");
+
+        game.setValue(new Game(playerNames, type, prize));
+        if(DevelopmentFlags.PREPOPULATE_GAME_TABLE) {
+            for(int i=0; i<16; i++) {
+                addBets(new int[]{0, 0});
+                int[] results = new int[]{0,0};
+                results[0] = game.getValue().getNrOfHands();
+                addResults(results);
+            }
+        }
+        String gameId = game.getValue().getUid();
+        savedStateHandle.set(GAME_ID_KEY, gameId);
+        Log.d(TAG, "initialiseNewGame: saved gameId");
+    }
+
+    /**
+     * Retrieve the persisted game from the repository
+     */
+    private void retrievePersistedGame() {
+        String gameId = savedStateHandle.get(GAME_ID_KEY);
+        Log.d(TAG, "GameViewModel: Found saved game id: " + gameId);
+
+        try {
+            game.setValue(gameRepository.getGame(gameId).get());
+        } catch (ExecutionException e) {
+            Log.e(TAG, "Database threw an ExecutionException while retrieving a saved game.", e);
+            throw new DatabaseOperationException("Database threw an ExecutionException while retrieving a saved game.", e);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 }

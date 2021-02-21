@@ -33,9 +33,11 @@ public class GameViewModelTest {
         List<String> playerNames = Arrays.asList("mockUser1", "mockUser2", "mockUser3", "mockUser4");
         Game expectedGame = new Game(playerNames, Game.Type.EIGHT_ONE_EIGHT, 5);
         SavedStateHandle savedStateHandle = new SavedStateHandle();
-        GameViewModel viewModel = new GameViewModel(savedStateHandle, null);
-        viewModel.initialiseNewGame(playerNames, Game.Type.EIGHT_ONE_EIGHT, 5);
+        savedStateHandle.set("playerNames", playerNames);
+        savedStateHandle.set("prize", 5);
+        savedStateHandle.set("type", Game.Type.EIGHT_ONE_EIGHT);
 
+        GameViewModel viewModel = new GameViewModel(savedStateHandle, null);
         Game actualGame = viewModel.getGame().getValue();
 
         assertEquals(expectedGame, actualGame);
@@ -58,17 +60,13 @@ public class GameViewModelTest {
     }
 
     @Test
-    public void getGameNull() {
-        GameViewModel viewModel = new GameViewModel(new SavedStateHandle(), null);
-
-        assertNull(viewModel.getGame().getValue());
-    }
-
-    @Test
     public void getGameSameGame() {
         List<String> playerNames = Arrays.asList("mockUser1", "mockUser2", "mockUser3", "mockUser4");
-        GameViewModel viewModel = new GameViewModel(new SavedStateHandle(), null);
-        viewModel.initialiseNewGame(playerNames, Game.Type.EIGHT_ONE_EIGHT, 5);
+        SavedStateHandle savedStateHandle = new SavedStateHandle();
+        savedStateHandle.set("playerNames", playerNames);
+        savedStateHandle.set("prize", 5);
+        savedStateHandle.set("type", Game.Type.EIGHT_ONE_EIGHT);
+        GameViewModel viewModel = new GameViewModel(savedStateHandle, null);
 
         Game game1 = viewModel.getGame().getValue();
         Game game2 = viewModel.getGame().getValue();
@@ -79,7 +77,12 @@ public class GameViewModelTest {
     @Test
     public void persistGame() {
         GameRepository gameRepository = mock(GameRepository.class);
-        GameViewModel viewModel = new GameViewModel(new SavedStateHandle(), gameRepository);
+        List<String> playerNames = Arrays.asList("mockUser1", "mockUser2", "mockUser3", "mockUser4");
+        SavedStateHandle savedStateHandle = new SavedStateHandle();
+        savedStateHandle.set("playerNames", playerNames);
+        savedStateHandle.set("prize", 5);
+        savedStateHandle.set("type", Game.Type.EIGHT_ONE_EIGHT);
+        GameViewModel viewModel = new GameViewModel(savedStateHandle, gameRepository);
 
         viewModel.persistGame();
 
