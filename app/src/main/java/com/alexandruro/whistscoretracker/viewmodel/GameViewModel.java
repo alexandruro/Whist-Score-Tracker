@@ -46,8 +46,8 @@ public class GameViewModel extends ViewModel {
             try {
                 game.setValue(gameRepository.getGame(gameId).get());
             } catch (ExecutionException e) {
-                e.printStackTrace();
-                throw new DatabaseOperationException("Database threw an ExecutionException while retrieving a saved game.");
+                Log.e(TAG, "Database threw an ExecutionException while retrieving a saved game.", e);
+                throw new DatabaseOperationException("Database threw an ExecutionException while retrieving a saved game.", e);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
