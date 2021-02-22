@@ -43,7 +43,6 @@ public class CustomDividerItemDecoration extends DividerItemDecoration {
         canvas.save();
         final int top;
         final int bottom;
-        //noinspection AndroidLintNewApi - NewApi lint fails to handle overrides.
         if (parent.getClipToPadding()) {
             top = parent.getPaddingTop();
             bottom = parent.getHeight() - parent.getPaddingBottom();

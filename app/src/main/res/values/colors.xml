@@ -3,6 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorOnSecondary">#FFF</color>
+
     <color name="colorTextBright">#FFF</color>
     <color name="colorActivityBackground">#EEE</color>
     <color name="colorTableHeader">#F8F8F8</color>
