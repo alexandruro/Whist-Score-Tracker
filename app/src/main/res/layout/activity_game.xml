@@ -80,7 +80,7 @@
         android:orientation="vertical"
         android:paddingLeft="@dimen/edge_left_right"
         android:paddingRight="@dimen/edge_left_right"
-        app:behavior_hideable="true"
+        app:behavior_hideable="false"
         app:behavior_peekHeight="@dimen/sheet_peek"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
@@ -163,6 +163,7 @@
         app:fabSize="normal"
         app:layout_anchor="@+id/bottom_sheet"
         app:layout_anchorGravity="top|end"
-        app:srcCompat="@drawable/ic_add_white_24px" />
+        app:srcCompat="@drawable/ic_add_white_24px"
+        android:contentDescription="@string/fab_content_description" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

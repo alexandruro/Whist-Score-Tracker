@@ -30,6 +30,7 @@ import com.alexandruro.whistscoretracker.model.Game;
 import com.alexandruro.whistscoretracker.model.Game.Status;
 import com.alexandruro.whistscoretracker.model.PlayerRecord;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -241,7 +242,15 @@ public class GameActivity extends AppCompatActivity {
      */
     private void undo() {
         gameViewModel.undo();
-        Snackbar.make(findViewById(R.id.game_coord_layout), R.string.undo_result, Snackbar.LENGTH_SHORT).show();
+
+        // Show a snackbar
+        FloatingActionButton fab = findViewById(R.id.floatingActionButton);
+        BottomSheetBehavior<View> bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottom_sheet));
+        Snackbar snackbar = Snackbar.make(findViewById(R.id.game_coord_layout), R.string.undo_result, Snackbar.LENGTH_SHORT);
+        if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+            snackbar.setAnchorView(fab);
+        }
+        snackbar.show();
     }
 
     /**
@@ -316,8 +325,7 @@ public class GameActivity extends AppCompatActivity {
     private void hideBottomSheet() {
         View bottomSheet = findViewById(R.id.bottom_sheet);
         BottomSheetBehavior<View> bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        bottomSheetBehavior.setHideable(true);
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        bottomSheetBehavior.setPeekHeight(0);
         findViewById(R.id.floatingActionButton).setVisibility(View.INVISIBLE);
     }
 
@@ -328,7 +336,7 @@ public class GameActivity extends AppCompatActivity {
         View bottomSheet = findViewById(R.id.bottom_sheet);
         BottomSheetBehavior<View> bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         bottomSheetBehavior.setHideable(false);
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        bottomSheetBehavior.setPeekHeight(getResources().getDimensionPixelSize(R.dimen.sheet_peek));
         findViewById(R.id.floatingActionButton).setVisibility(View.VISIBLE);
     }
 }
