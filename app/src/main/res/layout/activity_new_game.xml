@@ -122,7 +122,7 @@
         />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/new_game_start"
@@ -132,7 +132,7 @@
         android:onClick="startGame"
         />
 
-    <ImageButton
+    <Button
         android:id="@+id/buttonAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -140,7 +140,9 @@
         android:layout_alignParentEnd="true"
         android:layout_marginRight="8dp"
         android:onClick="addName"
-        app:srcCompat="@drawable/ic_add_black_24dp" />
+        app:icon="@drawable/ic_add_black_24dp"
+        style="@style/Widget.App.Button.IconOnly"
+        android:contentDescription="@string/add_player" />
 
 
 

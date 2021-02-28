@@ -21,8 +21,11 @@ import java.util.List;
  */
 public class EditListAdapter extends ArrayAdapter<EditListItem> {
 
-    public EditListAdapter(Context con, List<EditListItem> list) {
+    private final android.text.TextWatcher textChangedListener;
+
+    public EditListAdapter(Context con, List<EditListItem> list, android.text.TextWatcher textChangedListener) {
         super(con, 0, list);
+        this.textChangedListener = textChangedListener;
     }
 
     @NonNull
@@ -63,6 +66,7 @@ public class EditListAdapter extends ArrayAdapter<EditListItem> {
             }
         });
         holder.getEditText().addTextChangedListener(holder.getTextWatcher());
+        holder.getEditText().addTextChangedListener(textChangedListener);
 
         if(position==getCount()-1)
             listItemView.findViewById(R.id.remove).setVisibility(View.VISIBLE);

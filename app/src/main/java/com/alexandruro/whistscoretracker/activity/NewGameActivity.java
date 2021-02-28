@@ -6,12 +6,16 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
-import com.alexandruro.whistscoretracker.BuildConfig;
+import com.alexandruro.whistscoretracker.config.Constants;
 import com.alexandruro.whistscoretracker.config.DevelopmentFlags;
 import com.alexandruro.whistscoretracker.adapter.EditListAdapter;
 import com.alexandruro.whistscoretracker.view.EditListItem;
@@ -26,6 +30,8 @@ import java.util.List;
  * Activity used for configuring a new game
  */
 public class NewGameActivity extends AppCompatActivity {
+
+    private static final String TAG = "NewGameActivity";
 
     private List<EditListItem> names;
     private EditListAdapter adapter;
@@ -47,13 +53,27 @@ public class NewGameActivity extends AppCompatActivity {
         if(DevelopmentFlags.PREPOPULATE_PLAYER_NAMES) {
             names.add(new EditListItem("Alex"));
             names.add(new EditListItem("Ana"));
+            names.add(new EditListItem("Alin"));
+        }
+        else {
+            names.add(new EditListItem());
         }
 
-        adapter = new EditListAdapter(this, names);
+        adapter = new EditListAdapter(this, names, new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                checkConstraints();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
         WrappedListView listView = findViewById(R.id.nameListView);
         listView.setAdapter(adapter);
-
+        checkConstraints();
     }
 
     /**
@@ -61,11 +81,6 @@ public class NewGameActivity extends AppCompatActivity {
      * @param view The view that calls the method
      */
     public void startGame(View view){
-
-        if(!BuildConfig.DEBUG && names.size()<4) {
-            Toast.makeText(this, R.string.new_game_minimum, Toast.LENGTH_SHORT).show();
-            return;
-        }
 
         RadioButton gameTypeOneEightOne = findViewById(R.id.radioGameTypeOneEightOne);
         Game.Type type;
@@ -91,10 +106,6 @@ public class NewGameActivity extends AppCompatActivity {
         ArrayList<String> stringNames = new ArrayList<>();
         for(EditListItem item: names) {
             stringNames.add(item.toString());
-            if(!BuildConfig.DEBUG && item.toString().isEmpty()) {
-                Toast.makeText(this, R.string.new_game_empty_fields, Toast.LENGTH_SHORT).show();
-                return;
-            }
         }
         intent.putStringArrayListExtra("playerNames", stringNames);
         startActivity(intent);
@@ -106,8 +117,10 @@ public class NewGameActivity extends AppCompatActivity {
      * @param view The view that calls the method
      */
     public void removeLastName(View view){
+        Log.d(TAG, "removeLastName");
         names.remove(names.size()-1);
         adapter.notifyDataSetChanged();
+        checkConstraints();
     }
 
     /**
@@ -116,6 +129,29 @@ public class NewGameActivity extends AppCompatActivity {
      */
     public void addName(View view) {
         adapter.add(new EditListItem());
+        checkConstraints();
+    }
+
+    /**
+     * Check the constraints regarding the number of players
+     * and disable the "Start game" or "Add player" buttons accordingly
+     */
+    private void checkConstraints() {
+        // Check for "Start game" button
+        boolean constraintsMet = true;
+        if(names.size() < Constants.MIN_PLAYERS_COUNT || names.size() > Constants.MAX_PLAYERS_COUNT) {
+            constraintsMet = false;
+        }
+        for(EditListItem name: names) {
+            if(name.toString().isEmpty()) {
+                constraintsMet = false;
+            }
+        }
+        ((Button)findViewById(R.id.buttonStart)).setEnabled(constraintsMet);
+
+        // Check for "Add player" button
+        boolean enableAddButton = names.size() < Constants.MAX_PLAYERS_COUNT;
+        findViewById(R.id.buttonAdd).setEnabled(enableAddButton);
     }
 
     @Override

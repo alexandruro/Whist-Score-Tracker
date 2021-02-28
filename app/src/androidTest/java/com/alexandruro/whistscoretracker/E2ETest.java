@@ -73,15 +73,6 @@ public class E2ETest {
                                 1)));
         appCompatRadioButton2.perform(scrollTo(), click());
 
-        ViewInteraction appCompatImageButton = onView(
-                allOf(withId(R.id.buttonAdd),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.ScrollView")),
-                                        0),
-                                8)));
-        appCompatImageButton.perform(scrollTo(), click());
-
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.name),
                         childAtPosition(
@@ -158,7 +149,7 @@ public class E2ETest {
         appCompatImageButton6.perform(scrollTo(), click());
 
         ViewInteraction appCompatButton2 = onView(
-                allOf(withId(R.id.button2), withText("Start game"),
+                allOf(withId(R.id.buttonStart), withText("Start game"),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("android.widget.ScrollView")),

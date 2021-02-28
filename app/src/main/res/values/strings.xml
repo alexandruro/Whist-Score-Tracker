@@ -18,8 +18,7 @@
     <string name="new_game_players">Players</string>
     <string name="new_game_start">Start game</string>
     <string name="new_game_player_name">Name</string>
-    <string name="new_game_empty_fields">Write names in all the fields or delete the empty ones</string>
-    <string name="new_game_minimum">A game needs at least 4 players</string>
+    <string name="add_player">Add player</string>
 
     <plurals name="numberOfHands">
         <item quantity="one">%d hand</item>

@@ -12,7 +12,7 @@ public class EditListItem {
     }
 
     public EditListItem(String string) {
-        this.string = string;
+        this.string = string.trim();
     }
 
     @Override
@@ -21,6 +21,6 @@ public class EditListItem {
     }
 
     public void setString(String string) {
-        this.string = string;
+        this.string = string.trim();
     }
 }
