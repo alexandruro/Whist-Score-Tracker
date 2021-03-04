@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alexandruro.whistscoretracker.R;
+import com.alexandruro.whistscoretracker.config.Constants;
 import com.alexandruro.whistscoretracker.model.GameInput;
 
 import java.util.ArrayList;
@@ -34,14 +35,14 @@ public class AddGameInputActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_row);
 
         Intent intent = getIntent();
-        int requestCode = intent.getIntExtra("requestCode", -1);
+        int requestCode = intent.getIntExtra(Constants.INTENT_REQUEST_CODE, -1);
 
         // Create / retrieve GameInput object
         if(savedInstanceState == null) {
             // Get data from intent
-            int nrOfHands = intent.getIntExtra("nrOfHands", 8);
-            ArrayList<String> playerNames = intent.getStringArrayListExtra("playerNames");
-            int firstPlayerIndex = intent.getIntExtra("firstPlayerIndex", 0);
+            int nrOfHands = intent.getIntExtra(Constants.INTENT_NR_OF_HANDS, 8);
+            ArrayList<String> playerNames = intent.getStringArrayListExtra(Constants.INTENT_PLAYER_NAMES);
+            int firstPlayerIndex = intent.getIntExtra(Constants.INTENT_FIRST_PLAYER_INDEX, 0);
             gameInput = new GameInput(playerNames, nrOfHands, requestCode, firstPlayerIndex);
         }
         else {
@@ -88,7 +89,7 @@ public class AddGameInputActivity extends AppCompatActivity {
         else {
             int[] results = gameInput.getInputs();
             Intent intent = getIntent();
-            intent.putExtra("inputs", results);
+            intent.putExtra(Constants.INTENT_INPUTS, results);
             setResult(RESULT_OK, intent);
             finish();
         }
@@ -102,7 +103,7 @@ public class AddGameInputActivity extends AppCompatActivity {
         // Initialise layout elements
         GridLayout grid = findViewById(R.id.grid);
         TextView prompt = findViewById(R.id.prompt);
-        if (requestCode == GameActivity.RESULT_REQUEST)
+        if (requestCode == Constants.RESULT_REQUEST)
             prompt.setText(R.string.choose_results);
         else
             prompt.setText(R.string.place_bets);

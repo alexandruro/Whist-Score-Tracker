@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
+import com.alexandruro.whistscoretracker.config.Constants;
 import com.alexandruro.whistscoretracker.config.DevelopmentFlags;
 import com.alexandruro.whistscoretracker.exception.DatabaseOperationException;
 import com.alexandruro.whistscoretracker.model.Game;
@@ -125,9 +126,9 @@ public class GameViewModel extends ViewModel {
     private void initialiseNewGame() {
         Log.d(TAG, "GameViewModel: Did not find saved game id. This is a new game.");
 
-        List<String> playerNames = savedStateHandle.get("playerNames");
-        int prize = savedStateHandle.get("prize");
-        Game.Type type = (Game.Type) savedStateHandle.get("type");
+        List<String> playerNames = savedStateHandle.get(Constants.INTENT_PLAYER_NAMES);
+        int prize = savedStateHandle.get(Constants.INTENT_PRIZE);
+        Game.Type type = (Game.Type) savedStateHandle.get(Constants.INTENT_TYPE);
 
         game.setValue(new Game(playerNames, type, prize));
         if(DevelopmentFlags.PREPOPULATE_GAME_TABLE) {

@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alexandruro.whistscoretracker.config.Constants;
 import com.alexandruro.whistscoretracker.view.CustomDividerItemDecoration;
 import com.alexandruro.whistscoretracker.viewmodel.GameViewModel;
 import com.alexandruro.whistscoretracker.R;
@@ -43,10 +44,6 @@ import dagger.hilt.android.AndroidEntryPoint;
  */
 @AndroidEntryPoint
 public class GameActivity extends AppCompatActivity {
-
-    // request codes
-    public static final int RESULT_REQUEST = 1;
-    public static final int BET_REQUEST = 2;
 
     private static final String TAG = "GameActivity";
 
@@ -118,12 +115,12 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == BET_REQUEST && resultCode == RESULT_OK) {
-            int[] bets = data.getIntArrayExtra("inputs");
+        if (requestCode == Constants.BET_REQUEST && resultCode == RESULT_OK) {
+            int[] bets = data.getIntArrayExtra(Constants.INTENT_INPUTS);
             gameViewModel.addBets(bets);
         }
-        else if(requestCode == RESULT_REQUEST && resultCode == RESULT_OK) {
-            int[] results = data.getIntArrayExtra("inputs");
+        else if(requestCode == Constants.RESULT_REQUEST && resultCode == RESULT_OK) {
+            int[] results = data.getIntArrayExtra(Constants.INTENT_INPUTS);
             gameViewModel.addResults(results);
 
         }
@@ -268,15 +265,15 @@ public class GameActivity extends AppCompatActivity {
 
         int requestCode;
         if (gameViewModel.getGameStatus() == Status.WAITING_FOR_RESULT) {
-            requestCode = RESULT_REQUEST;
+            requestCode = Constants.RESULT_REQUEST;
         }
-        else requestCode = BET_REQUEST;
+        else requestCode = Constants.BET_REQUEST;
 
         Intent intent = new Intent(this, AddGameInputActivity.class);
-        intent.putExtra("nrOfHands", gameViewModel.getNrOfHands());
-        intent.putStringArrayListExtra("playerNames", new ArrayList<>(gameViewModel.getPlayerNames()));
-        intent.putExtra("requestCode", requestCode);
-        intent.putExtra("firstPlayerIndex", (gameViewModel.getCurrentRound() -1) % gameViewModel.getNrOfPlayers());
+        intent.putExtra(Constants.INTENT_NR_OF_HANDS, gameViewModel.getNrOfHands());
+        intent.putStringArrayListExtra(Constants.INTENT_PLAYER_NAMES, new ArrayList<>(gameViewModel.getPlayerNames()));
+        intent.putExtra(Constants.INTENT_REQUEST_CODE, requestCode);
+        intent.putExtra(Constants.INTENT_FIRST_PLAYER_INDEX, (gameViewModel.getCurrentRound() -1) % gameViewModel.getNrOfPlayers());
 
         startActivityForResult(intent, requestCode);
     }

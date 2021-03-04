@@ -101,13 +101,13 @@ public class NewGameActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 
         Intent intent = new Intent(this, GameActivity.class);
-        intent.putExtra("type", type);
-        intent.putExtra("prize", prize);
+        intent.putExtra(Constants.INTENT_TYPE, type);
+        intent.putExtra(Constants.INTENT_PRIZE, prize);
         ArrayList<String> stringNames = new ArrayList<>();
         for(EditListItem item: names) {
             stringNames.add(item.toString());
         }
-        intent.putStringArrayListExtra("playerNames", stringNames);
+        intent.putStringArrayListExtra(Constants.INTENT_PLAYER_NAMES, stringNames);
         startActivity(intent);
         finish();
     }
