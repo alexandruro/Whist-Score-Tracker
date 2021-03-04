@@ -42,7 +42,7 @@
                 android:value="com.alexandruro.whistscoretracker.activity.MainMenuActivity" />
         </activity>
         <activity
-            android:name=".activity.AddToGameTableActivity"
+            android:name=".activity.AddGameInputActivity"
             android:parentActivityName=".activity.GameActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

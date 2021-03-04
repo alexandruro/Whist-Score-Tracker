@@ -45,8 +45,8 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class GameActivity extends AppCompatActivity {
 
     // request codes
-    static final int RESULT_REQUEST = 1;
-    static final int BET_REQUEST = 2;
+    public static final int RESULT_REQUEST = 1;
+    public static final int BET_REQUEST = 2;
 
     private static final String TAG = "GameActivity";
 
@@ -261,7 +261,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     * Method called by pressing the add button. Redirects the user to the AddToGameTableActivity
+     * Method called by pressing the add button. Redirects the user to the AddGameInputActivity
      * @param view The view that calls the method
      */
     public void addScore(View view) {
@@ -272,7 +272,7 @@ public class GameActivity extends AppCompatActivity {
         }
         else requestCode = BET_REQUEST;
 
-        Intent intent = new Intent(this, AddToGameTableActivity.class);
+        Intent intent = new Intent(this, AddGameInputActivity.class);
         intent.putExtra("nrOfHands", gameViewModel.getNrOfHands());
         intent.putStringArrayListExtra("playerNames", new ArrayList<>(gameViewModel.getPlayerNames()));
         intent.putExtra("requestCode", requestCode);

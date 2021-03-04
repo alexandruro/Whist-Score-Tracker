@@ -13,19 +13,19 @@ import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
-public class AddToGameTableActivityTest {
+public class AddGameInputActivityTest {
 
     @Test
     public void testBetsNoDelay() {
         ArrayList<String> playerNames = new ArrayList<>(Arrays.asList("Name1", "Name2", "Name3", "Name4"));
 
-        Intent intent = new Intent(ApplicationProvider.getApplicationContext(), AddToGameTableActivity.class);
+        Intent intent = new Intent(ApplicationProvider.getApplicationContext(), AddGameInputActivity.class);
         intent.putExtra("nrOfHands", 4);
         intent.putExtra("requestCode", GameActivity.BET_REQUEST);
         intent.putStringArrayListExtra("playerNames", playerNames);
         intent.putExtra("firstPlayerIndex", 0);
 
-        ActivityScenario<AddToGameTableActivity> scenario = ActivityScenario.launch(intent);
+        ActivityScenario<AddGameInputActivity> scenario = ActivityScenario.launch(intent);
 
         scenario.onActivity(activity -> activity.advance(4));
         scenario.onActivity(activity -> activity.advance(3));
@@ -40,13 +40,13 @@ public class AddToGameTableActivityTest {
     public void testBetsDelay() {
         ArrayList<String> playerNames = new ArrayList<>(Arrays.asList("Name1", "Name2", "Name3", "Name4"));
 
-        Intent intent = new Intent(ApplicationProvider.getApplicationContext(), AddToGameTableActivity.class);
+        Intent intent = new Intent(ApplicationProvider.getApplicationContext(), AddGameInputActivity.class);
         intent.putExtra("nrOfHands", 4);
         intent.putExtra("requestCode", GameActivity.BET_REQUEST);
         intent.putStringArrayListExtra("playerNames", playerNames);
         intent.putExtra("firstPlayerIndex", 1);
 
-        ActivityScenario<AddToGameTableActivity> scenario = ActivityScenario.launch(intent);
+        ActivityScenario<AddGameInputActivity> scenario = ActivityScenario.launch(intent);
 
         scenario.onActivity(activity -> activity.advance(4));
         scenario.onActivity(activity -> activity.advance(3));
@@ -61,13 +61,13 @@ public class AddToGameTableActivityTest {
     public void testResultsNoDelay() {
         ArrayList<String> playerNames = new ArrayList<>(Arrays.asList("Name1", "Name2", "Name3", "Name4"));
 
-        Intent intent = new Intent(ApplicationProvider.getApplicationContext(), AddToGameTableActivity.class);
+        Intent intent = new Intent(ApplicationProvider.getApplicationContext(), AddGameInputActivity.class);
         intent.putExtra("nrOfHands", 4);
         intent.putExtra("requestCode", GameActivity.RESULT_REQUEST);
         intent.putStringArrayListExtra("playerNames", playerNames);
         intent.putExtra("firstPlayerIndex", 0);
 
-        ActivityScenario<AddToGameTableActivity> scenario = ActivityScenario.launch(intent);
+        ActivityScenario<AddGameInputActivity> scenario = ActivityScenario.launch(intent);
 
         scenario.onActivity(activity -> activity.advance(3));
         scenario.onActivity(activity -> activity.advance(0));
@@ -82,13 +82,13 @@ public class AddToGameTableActivityTest {
     public void testResultsDelay() {
         ArrayList<String> playerNames = new ArrayList<>(Arrays.asList("Name1", "Name2", "Name3", "Name4"));
 
-        Intent intent = new Intent(ApplicationProvider.getApplicationContext(), AddToGameTableActivity.class);
+        Intent intent = new Intent(ApplicationProvider.getApplicationContext(), AddGameInputActivity.class);
         intent.putExtra("nrOfHands", 4);
         intent.putExtra("requestCode", GameActivity.RESULT_REQUEST);
         intent.putStringArrayListExtra("playerNames", playerNames);
         intent.putExtra("firstPlayerIndex", 2);
 
-        ActivityScenario<AddToGameTableActivity> scenario = ActivityScenario.launch(intent);
+        ActivityScenario<AddGameInputActivity> scenario = ActivityScenario.launch(intent);
 
         scenario.onActivity(activity -> activity.advance(3));
         scenario.onActivity(activity -> activity.advance(0));

@@ -25,19 +25,19 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class AddToGameTableActivityEspressoTest {
+public class AddGameInputActivityEspressoTest {
 
     @Test
     public void testBetsNoDelay() {
         ArrayList<String> playerNames = new ArrayList<>(Arrays.asList("Name1", "Name2", "Name3", "Name4"));
 
-        Intent intent = new Intent(ApplicationProvider.getApplicationContext(), AddToGameTableActivity.class);
+        Intent intent = new Intent(ApplicationProvider.getApplicationContext(), AddGameInputActivity.class);
         intent.putExtra("nrOfHands", 4);
         intent.putExtra("requestCode", GameActivity.BET_REQUEST);
         intent.putStringArrayListExtra("playerNames", playerNames);
         intent.putExtra("firstPlayerIndex", 0);
 
-        ActivityScenario<AddToGameTableActivity> scenario = ActivityScenario.launch(intent);
+        ActivityScenario<AddGameInputActivity> scenario = ActivityScenario.launch(intent);
 
         for(int i=0; i<=8; i++) {
             if(i <= 4)
@@ -86,13 +86,13 @@ public class AddToGameTableActivityEspressoTest {
     public void testBetsDelay() {
         ArrayList<String> playerNames = new ArrayList<>(Arrays.asList("Name1", "Name2", "Name3", "Name4"));
 
-        Intent intent = new Intent(ApplicationProvider.getApplicationContext(), AddToGameTableActivity.class);
+        Intent intent = new Intent(ApplicationProvider.getApplicationContext(), AddGameInputActivity.class);
         intent.putExtra("nrOfHands", 4);
         intent.putExtra("requestCode", GameActivity.BET_REQUEST);
         intent.putStringArrayListExtra("playerNames", playerNames);
         intent.putExtra("firstPlayerIndex", 1);
 
-        ActivityScenario<AddToGameTableActivity> scenario = ActivityScenario.launch(intent);
+        ActivityScenario<AddGameInputActivity> scenario = ActivityScenario.launch(intent);
 
         for(int i=0; i<=8; i++) {
             if(i <= 4)
@@ -141,13 +141,13 @@ public class AddToGameTableActivityEspressoTest {
     public void testResultsNoDelay() {
         ArrayList<String> playerNames = new ArrayList<>(Arrays.asList("Name1", "Name2", "Name3", "Name4"));
 
-        Intent intent = new Intent(ApplicationProvider.getApplicationContext(), AddToGameTableActivity.class);
+        Intent intent = new Intent(ApplicationProvider.getApplicationContext(), AddGameInputActivity.class);
         intent.putExtra("nrOfHands", 4);
         intent.putExtra("requestCode", GameActivity.RESULT_REQUEST);
         intent.putStringArrayListExtra("playerNames", playerNames);
         intent.putExtra("firstPlayerIndex", 0);
 
-        ActivityScenario<AddToGameTableActivity> scenario = ActivityScenario.launch(intent);
+        ActivityScenario<AddGameInputActivity> scenario = ActivityScenario.launch(intent);
 
         for(int i=0; i<=8; i++) {
             if(i <= 4)
@@ -193,13 +193,13 @@ public class AddToGameTableActivityEspressoTest {
     public void testResultsDelay() {
         ArrayList<String> playerNames = new ArrayList<>(Arrays.asList("Name1", "Name2", "Name3", "Name4"));
 
-        Intent intent = new Intent(ApplicationProvider.getApplicationContext(), AddToGameTableActivity.class);
+        Intent intent = new Intent(ApplicationProvider.getApplicationContext(), AddGameInputActivity.class);
         intent.putExtra("nrOfHands", 4);
         intent.putExtra("requestCode", GameActivity.RESULT_REQUEST);
         intent.putStringArrayListExtra("playerNames", playerNames);
         intent.putExtra("firstPlayerIndex", 3);
 
-        ActivityScenario<AddToGameTableActivity> scenario = ActivityScenario.launch(intent);
+        ActivityScenario<AddGameInputActivity> scenario = ActivityScenario.launch(intent);
 
         for(int i=0; i<=8; i++) {
             if(i <= 4)
