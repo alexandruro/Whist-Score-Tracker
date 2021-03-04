@@ -9,6 +9,8 @@ import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
+import com.alexandruro.whistscoretracker.config.Constants;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -33,7 +35,7 @@ public class AddGameInputActivityEspressoTest {
 
         Intent intent = new Intent(ApplicationProvider.getApplicationContext(), AddGameInputActivity.class);
         intent.putExtra("nrOfHands", 4);
-        intent.putExtra("requestCode", GameActivity.BET_REQUEST);
+        intent.putExtra("requestCode", Constants.BET_REQUEST);
         intent.putStringArrayListExtra("playerNames", playerNames);
         intent.putExtra("firstPlayerIndex", 0);
 
@@ -88,7 +90,7 @@ public class AddGameInputActivityEspressoTest {
 
         Intent intent = new Intent(ApplicationProvider.getApplicationContext(), AddGameInputActivity.class);
         intent.putExtra("nrOfHands", 4);
-        intent.putExtra("requestCode", GameActivity.BET_REQUEST);
+        intent.putExtra("requestCode", Constants.BET_REQUEST);
         intent.putStringArrayListExtra("playerNames", playerNames);
         intent.putExtra("firstPlayerIndex", 1);
 
@@ -143,7 +145,7 @@ public class AddGameInputActivityEspressoTest {
 
         Intent intent = new Intent(ApplicationProvider.getApplicationContext(), AddGameInputActivity.class);
         intent.putExtra("nrOfHands", 4);
-        intent.putExtra("requestCode", GameActivity.RESULT_REQUEST);
+        intent.putExtra("requestCode", Constants.RESULT_REQUEST);
         intent.putStringArrayListExtra("playerNames", playerNames);
         intent.putExtra("firstPlayerIndex", 0);
 
@@ -195,7 +197,7 @@ public class AddGameInputActivityEspressoTest {
 
         Intent intent = new Intent(ApplicationProvider.getApplicationContext(), AddGameInputActivity.class);
         intent.putExtra("nrOfHands", 4);
-        intent.putExtra("requestCode", GameActivity.RESULT_REQUEST);
+        intent.putExtra("requestCode", Constants.RESULT_REQUEST);
         intent.putStringArrayListExtra("playerNames", playerNames);
         intent.putExtra("firstPlayerIndex", 3);
 

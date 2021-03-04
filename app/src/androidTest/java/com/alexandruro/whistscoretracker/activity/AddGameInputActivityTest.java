@@ -6,6 +6,8 @@ import android.content.Intent;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
 
+import com.alexandruro.whistscoretracker.config.Constants;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ public class AddGameInputActivityTest {
 
         Intent intent = new Intent(ApplicationProvider.getApplicationContext(), AddGameInputActivity.class);
         intent.putExtra("nrOfHands", 4);
-        intent.putExtra("requestCode", GameActivity.BET_REQUEST);
+        intent.putExtra("requestCode", Constants.BET_REQUEST);
         intent.putStringArrayListExtra("playerNames", playerNames);
         intent.putExtra("firstPlayerIndex", 0);
 
@@ -42,7 +44,7 @@ public class AddGameInputActivityTest {
 
         Intent intent = new Intent(ApplicationProvider.getApplicationContext(), AddGameInputActivity.class);
         intent.putExtra("nrOfHands", 4);
-        intent.putExtra("requestCode", GameActivity.BET_REQUEST);
+        intent.putExtra("requestCode", Constants.BET_REQUEST);
         intent.putStringArrayListExtra("playerNames", playerNames);
         intent.putExtra("firstPlayerIndex", 1);
 
@@ -63,7 +65,7 @@ public class AddGameInputActivityTest {
 
         Intent intent = new Intent(ApplicationProvider.getApplicationContext(), AddGameInputActivity.class);
         intent.putExtra("nrOfHands", 4);
-        intent.putExtra("requestCode", GameActivity.RESULT_REQUEST);
+        intent.putExtra("requestCode", Constants.RESULT_REQUEST);
         intent.putStringArrayListExtra("playerNames", playerNames);
         intent.putExtra("firstPlayerIndex", 0);
 
@@ -84,7 +86,7 @@ public class AddGameInputActivityTest {
 
         Intent intent = new Intent(ApplicationProvider.getApplicationContext(), AddGameInputActivity.class);
         intent.putExtra("nrOfHands", 4);
-        intent.putExtra("requestCode", GameActivity.RESULT_REQUEST);
+        intent.putExtra("requestCode", Constants.RESULT_REQUEST);
         intent.putStringArrayListExtra("playerNames", playerNames);
         intent.putExtra("firstPlayerIndex", 2);
 

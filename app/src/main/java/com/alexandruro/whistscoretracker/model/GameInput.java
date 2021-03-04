@@ -1,7 +1,7 @@
 package com.alexandruro.whistscoretracker.model;
 
 
-import com.alexandruro.whistscoretracker.activity.GameActivity;
+import com.alexandruro.whistscoretracker.config.Constants;
 import com.alexandruro.whistscoretracker.exception.ApplicationBugException;
 
 import java.io.Serializable;
@@ -81,8 +81,8 @@ public class GameInput implements Serializable {
      * @return Whether the input is valid
      */
     public boolean isValidInput(int input) {
-        boolean invalidBet = requestCode == GameActivity.BET_REQUEST && input == handsLeft && index == playerNames.size()-1;
-        boolean invalidResult = requestCode == GameActivity.RESULT_REQUEST && ((input != handsLeft && index == playerNames.size()-1) || input>handsLeft);
+        boolean invalidBet = requestCode == Constants.BET_REQUEST && input == handsLeft && index == playerNames.size()-1;
+        boolean invalidResult = requestCode == Constants.RESULT_REQUEST && ((input != handsLeft && index == playerNames.size()-1) || input>handsLeft);
         return input<=nrOfHands && !invalidBet && !invalidResult;
     }
 

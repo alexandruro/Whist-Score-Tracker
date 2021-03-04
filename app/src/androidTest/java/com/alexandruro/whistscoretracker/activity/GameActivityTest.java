@@ -9,6 +9,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.matcher.ViewMatchers;
 
 import com.alexandruro.whistscoretracker.R;
+import com.alexandruro.whistscoretracker.config.Constants;
 import com.alexandruro.whistscoretracker.model.Game;
 import com.alexandruro.whistscoretracker.util.RecyclerViewItemCountAssertion;
 
@@ -59,7 +60,7 @@ public class GameActivityTest  {
 
         Intent betIntent = new Intent(ApplicationProvider.getApplicationContext(), GameActivity.class);
         betIntent.putExtra("inputs", new int[] {1, 0, 0, 1});
-        scenario.onActivity(activity -> activity.onActivityResult(GameActivity.BET_REQUEST, Activity.RESULT_OK, betIntent));
+        scenario.onActivity(activity -> activity.onActivityResult(Constants.BET_REQUEST, Activity.RESULT_OK, betIntent));
         onView(withId(R.id.tableBody)).check(new RecyclerViewItemCountAssertion(1));
 
         // If a device is low on resources, the system might destroy an activity, requiring your app to recreate that activity when the user returns to your app.
@@ -84,7 +85,7 @@ public class GameActivityTest  {
     public void testUndoCancel() {
         Intent betIntent = new Intent(ApplicationProvider.getApplicationContext(), GameActivity.class);
         betIntent.putExtra("inputs", new int[] {1, 0, 0, 1});
-        scenario.onActivity(activity -> activity.onActivityResult(GameActivity.BET_REQUEST, Activity.RESULT_OK, betIntent));
+        scenario.onActivity(activity -> activity.onActivityResult(Constants.BET_REQUEST, Activity.RESULT_OK, betIntent));
 
         onView(withId(R.id.action_undo))
                 .check(matches(ViewMatchers.isDisplayed()))
@@ -100,7 +101,7 @@ public class GameActivityTest  {
     public void testUndoBet() {
         Intent betIntent = new Intent(ApplicationProvider.getApplicationContext(), GameActivity.class);
         betIntent.putExtra("inputs", new int[] {1, 0, 0, 1});
-        scenario.onActivity(activity -> activity.onActivityResult(GameActivity.BET_REQUEST, Activity.RESULT_OK, betIntent));
+        scenario.onActivity(activity -> activity.onActivityResult(Constants.BET_REQUEST, Activity.RESULT_OK, betIntent));
 
         onView(withId(R.id.action_undo))
                 .check(matches(ViewMatchers.isDisplayed()))
@@ -111,7 +112,7 @@ public class GameActivityTest  {
 
         onView(withId(R.id.tableBody)).check(new RecyclerViewItemCountAssertion(0));
 
-        scenario.onActivity(activity -> activity.onActivityResult(GameActivity.BET_REQUEST, Activity.RESULT_OK, betIntent));
+        scenario.onActivity(activity -> activity.onActivityResult(Constants.BET_REQUEST, Activity.RESULT_OK, betIntent));
         onView(withId(R.id.tableBody)).check(new RecyclerViewItemCountAssertion(1));
     }
 
@@ -119,10 +120,10 @@ public class GameActivityTest  {
     public void testUndoResult() {
         Intent betIntent = new Intent(ApplicationProvider.getApplicationContext(), GameActivity.class);
         betIntent.putExtra("inputs", new int[] {1, 0, 0, 1});
-        scenario.onActivity(activity -> activity.onActivityResult(GameActivity.BET_REQUEST, Activity.RESULT_OK, betIntent));
+        scenario.onActivity(activity -> activity.onActivityResult(Constants.BET_REQUEST, Activity.RESULT_OK, betIntent));
         Intent resultIntent = new Intent(ApplicationProvider.getApplicationContext(), GameActivity.class);
         resultIntent.putExtra("inputs", new int[] {1, 0, 0, 0});
-        scenario.onActivity(activity -> activity.onActivityResult(GameActivity.RESULT_REQUEST, Activity.RESULT_OK, resultIntent));
+        scenario.onActivity(activity -> activity.onActivityResult(Constants.RESULT_REQUEST, Activity.RESULT_OK, resultIntent));
 
         onView(withId(R.id.action_undo))
                 .check(matches(ViewMatchers.isDisplayed()))
@@ -133,7 +134,7 @@ public class GameActivityTest  {
 
         onView(withId(R.id.tableBody)).check(new RecyclerViewItemCountAssertion(1));
 
-        scenario.onActivity(activity -> activity.onActivityResult(GameActivity.RESULT_REQUEST, Activity.RESULT_OK, resultIntent));
+        scenario.onActivity(activity -> activity.onActivityResult(Constants.RESULT_REQUEST, Activity.RESULT_OK, resultIntent));
         onView(withId(R.id.tableBody)).check(new RecyclerViewItemCountAssertion(1));
     }
 
@@ -141,7 +142,7 @@ public class GameActivityTest  {
     public void testRestartCancel() throws InterruptedException {
         Intent betIntent = new Intent(ApplicationProvider.getApplicationContext(), GameActivity.class);
         betIntent.putExtra("inputs", new int[] {1, 0, 0, 1});
-        scenario.onActivity(activity -> activity.onActivityResult(GameActivity.BET_REQUEST, Activity.RESULT_OK, betIntent));
+        scenario.onActivity(activity -> activity.onActivityResult(Constants.BET_REQUEST, Activity.RESULT_OK, betIntent));
 
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
 
@@ -159,7 +160,7 @@ public class GameActivityTest  {
     public void testRestart() {
         Intent betIntent = new Intent(ApplicationProvider.getApplicationContext(), GameActivity.class);
         betIntent.putExtra("inputs", new int[] {1, 0, 0, 1});
-        scenario.onActivity(activity -> activity.onActivityResult(GameActivity.BET_REQUEST, Activity.RESULT_OK, betIntent));
+        scenario.onActivity(activity -> activity.onActivityResult(Constants.BET_REQUEST, Activity.RESULT_OK, betIntent));
 
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
 
