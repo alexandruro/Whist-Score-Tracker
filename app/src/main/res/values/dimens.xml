@@ -3,6 +3,10 @@
     <dimen name="appbar_elevation">4dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
+    <!-- Main Menu -->
+    <dimen name="menu_card_corner_radius">12dp</dimen>
+    <dimen name="menu_card_elevation">4dp</dimen>
+
     <!-- Game table -->
     <dimen name="table_number_column_width">40dp</dimen>
     <dimen name="table_scroll_bottom_padding">22dp</dimen>
