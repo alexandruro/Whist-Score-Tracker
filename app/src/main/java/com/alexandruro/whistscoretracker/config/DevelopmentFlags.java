@@ -10,5 +10,5 @@ public abstract class DevelopmentFlags {
     public static final boolean PREPOPULATE_PLAYER_NAMES = false;
 
     // Add some results to the game table when starting a new game
-    public static final boolean PREPOPULATE_GAME_TABLE = PREPOPULATE_PLAYER_NAMES && true;
+    public static final boolean PREPOPULATE_GAME_TABLE = PREPOPULATE_PLAYER_NAMES && false;
 }

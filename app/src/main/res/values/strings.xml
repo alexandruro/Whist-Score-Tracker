@@ -2,7 +2,7 @@
     <string name="app_name">Whist Score Tracker</string>
 
     <string name="title_activity_menu">Whist Score Tracker</string>
-    <string name="title_new_game">New Game options</string>
+    <string name="title_new_game">New game setup</string>
 
     <string name="main_menu_load">Load Game</string>
     <string name="main_menu_new">New Game</string>
@@ -54,4 +54,5 @@
     <string name="finished_games">Finished games</string>
     <string name="load_more">Load more...</string>
     <string name="continue_game"><![CDATA[Continue ->]]></string>
+    <string name="game_options">Game options</string>
 </resources>
