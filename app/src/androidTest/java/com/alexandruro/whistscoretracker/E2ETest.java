@@ -3193,8 +3193,7 @@ public class E2ETest {
         appCompatButton8.perform(scrollTo(), click());
 
         ViewInteraction button206 = onView(
-                allOf(withId(R.id.buttonNewGame), withText("NEW GAME"),
-                        withParent(withParent(withId(android.R.id.content))),
+                allOf(withId(R.id.buttonNewGame), withText("New Game"),
                         isDisplayed()));
         button206.check(matches(isDisplayed()));
     }
