@@ -232,28 +232,28 @@ public class E2ETest {
         ViewInteraction textView7 = onView(
                 allOf(withText("One"),
                         withParent(allOf(withId(R.id.header),
-                                withParent(IsInstanceOf.<View>instanceOf(android.widget.TableRow.class)))),
+                                withParent(IsInstanceOf.instanceOf(android.widget.TableRow.class)))),
                         isDisplayed()));
         textView7.check(matches(withText("One")));
 
         ViewInteraction textView8 = onView(
                 allOf(withText("Two"),
                         withParent(allOf(withId(R.id.header),
-                                withParent(IsInstanceOf.<View>instanceOf(android.widget.TableRow.class)))),
+                                withParent(IsInstanceOf.instanceOf(android.widget.TableRow.class)))),
                         isDisplayed()));
         textView8.check(matches(withText("Two")));
 
         ViewInteraction textView9 = onView(
                 allOf(withText("Three"),
                         withParent(allOf(withId(R.id.header),
-                                withParent(IsInstanceOf.<View>instanceOf(android.widget.TableRow.class)))),
+                                withParent(IsInstanceOf.instanceOf(android.widget.TableRow.class)))),
                         isDisplayed()));
         textView9.check(matches(isDisplayed()));
 
         ViewInteraction textView10 = onView(
                 allOf(withText("Four"),
                         withParent(allOf(withId(R.id.header),
-                                withParent(IsInstanceOf.<View>instanceOf(android.widget.TableRow.class)))),
+                                withParent(IsInstanceOf.instanceOf(android.widget.TableRow.class)))),
                         isDisplayed()));
         textView10.check(matches(isDisplayed()));
 
