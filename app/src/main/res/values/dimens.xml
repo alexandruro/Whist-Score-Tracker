@@ -11,11 +11,12 @@
     <dimen name="table_number_column_width">40dp</dimen>
     <dimen name="table_scroll_bottom_padding">22dp</dimen>
     <dimen name="table_edge_left_right">6dp</dimen>
-    <dimen name="table_margin_up_down">64dp</dimen>
+    <dimen name="table_margin_up">64dp</dimen>
+    <dimen name="table_margin_down">72dp</dimen>
+    <dimen name="table_corner_radius">12dp</dimen>
 
     <!-- Bottom sheet -->
     <dimen name="sheet_text">16sp</dimen>
-    <dimen name="sheet_title_height">56dp</dimen>
     <dimen name="sheet_item_height">48dp</dimen>
     <dimen name="sheet_icon">24dp</dimen>
     <dimen name="sheet_icon_text_padding">32dp</dimen>

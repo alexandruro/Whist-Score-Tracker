@@ -9,6 +9,6 @@
     <color name="colorActivityBackground">#f8f8f8</color>
     <color name="colorTableHeader">#F8F8F8</color>
 
-    <color name="colorPositiveResult">#26bc0c</color>
-    <color name="colorNegativeResult">#c9173e</color>
+    <color name="colorPositiveResult">#2E7D32</color>
+    <color name="colorNegativeResult">#C62828</color>
 </resources>

@@ -15,68 +15,78 @@
         android:theme="@style/AppTheme.AppBarOverlay"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    <TableLayout
-        android:id="@+id/tableLayout"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/table_corner_radius"
+        app:cardElevation="@dimen/menu_card_elevation"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="@dimen/table_margin_up_down"
+        android:layout_marginBottom="@dimen/table_margin_down"
         android:layout_marginLeft="@dimen/table_edge_left_right"
         android:layout_marginRight="@dimen/table_edge_left_right"
-        android:layout_marginTop="@dimen/table_margin_up_down"
-        android:background="@color/colorTextBright"
-        android:elevation="2dp"
-        android:stretchColumns="1">
+        android:layout_marginTop="@dimen/table_margin_up"
+        >
 
-        <TableRow
-            android:background="@color/colorTableHeader"
-            android:elevation="2dp"
-            android:layout_width="match_parent">
-
-            <TextView
-                android:layout_width="@dimen/table_number_column_width"
-                android:layout_column="0"
-                android:text="#"
-                android:textAlignment="center"
-                android:textSize="25sp"
-                android:layout_height="wrap_content"
-                android:width="@dimen/table_number_column_width"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/header"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="#000"
-                android:dividerHeight="2dp"
-                android:listSelector="#600"/>
-
-        </TableRow>
-
-        <ScrollView
-            android:id="@+id/tableScroll"
+        <TableLayout
+            android:id="@+id/tableLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/colorTextBright"
+            android:stretchColumns="1">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/tableBody"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/table_scroll_bottom_padding">
+            <TableRow
+                android:background="@color/colorTableHeader"
+                android:elevation="6dp"
+                android:layout_width="match_parent">
 
-            </androidx.recyclerview.widget.RecyclerView>
+                <TextView
+                    android:layout_width="@dimen/table_number_column_width"
+                    android:layout_column="0"
+                    android:text="#"
+                    android:textAlignment="center"
+                    android:textSize="25sp"
+                    android:layout_height="wrap_content"
+                    android:width="@dimen/table_number_column_width"/>
 
-        </ScrollView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/header"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="#000"
+                    android:dividerHeight="2dp"
+                    android:listSelector="#600"/>
 
-    </TableLayout>
+            </TableRow>
 
+            <ScrollView
+                android:id="@+id/tableScroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tableBody"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/table_scroll_bottom_padding"
+                    android:clipToPadding="false"
+                    android:background="@color/colorTableHeader"
+                    android:elevation="2dp">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+            </ScrollView>
+
+        </TableLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
     <LinearLayout
         android:id="@+id/bottom_sheet"
+        style="?attr/bottomSheetStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorTextBright"
         android:clipToPadding="true"
-        android:elevation="4dp"
+        android:elevation="8dp"
         android:orientation="vertical"
         android:paddingLeft="@dimen/edge_left_right"
         android:paddingRight="@dimen/edge_left_right"
@@ -84,13 +94,22 @@
         app:behavior_peekHeight="@dimen/sheet_peek"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="6dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/bottom_sheet_handle"
+            />
+
         <TextView
             android:id="@+id/bottomSheetTitle"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/sheet_title_height"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:text="@string/round_info"
-            android:textSize="@dimen/sheet_text" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_marginBottom="16dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -100,7 +119,8 @@
                 android:layout_width="@dimen/sheet_icon"
                 android:layout_height="@dimen/sheet_icon"
                 android:layout_gravity="center_vertical"
-                app:srcCompat="@drawable/ic_hands_24dp" />
+                app:srcCompat="@drawable/ic_hands_24dp"
+                app:tint="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/currentRound"
@@ -120,7 +140,8 @@
                 android:layout_width="@dimen/sheet_icon"
                 android:layout_height="@dimen/sheet_icon"
                 android:layout_gravity="center_vertical"
-                app:srcCompat="@drawable/ic_first_24dp" />
+                app:srcCompat="@drawable/ic_first_24dp"
+                app:tint="@color/colorPrimary"/>
 
             <TextView
                 android:id="@+id/firstPlayer"
@@ -140,7 +161,8 @@
                 android:layout_width="@dimen/sheet_icon"
                 android:layout_height="@dimen/sheet_icon"
                 android:layout_gravity="center_vertical"
-                app:srcCompat="@drawable/ic_dealer_24dp" />
+                app:srcCompat="@drawable/ic_dealer_24dp"
+                app:tint="@color/colorPrimary"/>
 
             <TextView
                 android:id="@+id/dealer"
@@ -159,6 +181,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
+        app:elevation="10dp"
         android:onClick="addScore"
         app:fabSize="normal"
         app:layout_anchor="@+id/bottom_sheet"
