@@ -28,8 +28,8 @@
     <string name="first_player">First player: %s</string>
     <string name="dealer">Dealer: %s</string>
 
-    <string name="choose_results">Choose your results!</string>
-    <string name="place_bets">Place your bets!</string>
+    <string name="choose_results">Add your results</string>
+    <string name="place_bets">Place your bets</string>
     <string name="game_table">Game Table</string>
     <string name="undo_prompt">Undo last input?</string>
     <string name="undo">Undo</string>

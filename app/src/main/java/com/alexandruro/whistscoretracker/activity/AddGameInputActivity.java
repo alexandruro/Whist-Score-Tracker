@@ -1,6 +1,7 @@
 package com.alexandruro.whistscoretracker.activity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -10,13 +11,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.TextViewCompat;
 
 import com.alexandruro.whistscoretracker.R;
 import com.alexandruro.whistscoretracker.config.Constants;
 import com.alexandruro.whistscoretracker.model.GameInput;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 
+import static android.view.View.TEXT_ALIGNMENT_CENTER;
 import static android.widget.GridLayout.spec;
 
 /**
@@ -107,10 +111,24 @@ public class AddGameInputActivity extends AppCompatActivity {
             prompt.setText(R.string.choose_results);
         else
             prompt.setText(R.string.place_bets);
+        int gridNrOfColumns;
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            gridNrOfColumns = 3;
+        }
+        else {
+            gridNrOfColumns = 9;
+        }
         for(int i=0;i<=8;i++){
-            final Button button = new Button(this);
+            final Button button = new MaterialButton(this, null, R.attr.numpadButtonStyle);
+            // Needs both of these
+            button.setMinimumWidth(0);
+            button.setMinWidth(0);
             button.setText(String.valueOf(i));
-            GridLayout.LayoutParams params = new GridLayout.LayoutParams(spec(i/3),spec(i%3));
+            GridLayout.LayoutParams params = new GridLayout.LayoutParams(spec(i/gridNrOfColumns, GridLayout.FILL, 1),spec(i%gridNrOfColumns, GridLayout.FILL, 1));
+            button.setTextAlignment(TEXT_ALIGNMENT_CENTER);
+            TextViewCompat.setAutoSizeTextTypeWithDefaults(button, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+            params.leftMargin = 30;
+            params.rightMargin = 30;
             final int value = i;
             button.setOnClickListener(view -> advance(value));
             grid.addView(button, params);
