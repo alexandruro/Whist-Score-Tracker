@@ -1,6 +1,7 @@
 package com.alexandruro.whistscoretracker.adapter;
 
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -57,20 +58,30 @@ public class TableBodyAdapter extends RecyclerView.Adapter<TableBodyAdapter.Scor
                 TextView betTextView = (TextView) holder.view.getChildAt(getViewIndexOfBet(i));
                 betTextView.setText(String.valueOf(bet));
 
+                TextView scoreTextView = (TextView) holder.view.getChildAt(getViewIndexOfScore(i));
                 if (position < game.getCurrentRound() - 1 || game.isOver()) {
                     int score = game.getScoreTable().get(i).getScore(position + 1);
-                    ((TextView) holder.view.getChildAt(getViewIndexOfScore(i))).setText(String.valueOf(score));
-                    if (game.getScoreTable().get(i).lastResult(position + 1))
+                    scoreTextView.setText(String.valueOf(score));
+                    if (game.getScoreTable().get(i).isPositiveResult(position + 1)) {
                         betTextView.setTextColor(ContextCompat.getColor(betTextView.getContext(), R.color.colorPositiveResult));
+                        if(game.getScoreTable().get(i).isPrizeRound(position+1)) {
+                            scoreTextView.setTextColor(ContextCompat.getColor(betTextView.getContext(), R.color.colorPositiveResult));
+                        }
+                    }
                     else {
                         betTextView.setTextColor(ContextCompat.getColor(betTextView.getContext(), R.color.colorNegativeResult));
                         betTextView.setPaintFlags(betTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        if(game.getScoreTable().get(i).isPrizeRound(position+1)) {
+                            scoreTextView.setTextColor(ContextCompat.getColor(betTextView.getContext(), R.color.colorNegativeResult));
+                        }
                     }
                 } else {
                     // if there is no score remove it and the formatting on the bet
-                    ((TextView) holder.view.getChildAt(getViewIndexOfScore(i))).setText("");
+                    scoreTextView.setText("");
                     betTextView.setTextColor(ContextCompat.getColor(betTextView.getContext(), android.R.color.tab_indicator_text));
                     betTextView.setPaintFlags(betTextView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+                    scoreTextView.setTextColor(ContextCompat.getColor(betTextView.getContext(), android.R.color.tab_indicator_text));
+                    scoreTextView.setTypeface(null, Typeface.NORMAL);
                 }
             }
         }

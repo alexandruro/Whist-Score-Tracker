@@ -174,11 +174,25 @@ public class PlayerRecord implements Comparable<PlayerRecord> {
      * @param roundNumber The round number (starting with 1)
      * @return whether the result of the round is positive
      */
-    public boolean lastResult(int roundNumber) {
+    public boolean isPositiveResult(int roundNumber) {
         if(roundNumber == 1) {
             return scores.get(0) > 0;
         }
         return scores.get(roundNumber -1) > scores.get(roundNumber -2);
+    }
+
+    /**
+     * Return true if the player was awarded a prize (positive or negative) in the given round, false otherwise
+     * @param roundNumber The round number (starting with 1)
+     * @return whether there was a prize in the round
+     */
+    public boolean isPrizeRound(int roundNumber) {
+        if(roundNumber == 1) {
+            return false;
+        }
+        return (scores.get(roundNumber-1)>scores.get(roundNumber-2)+bets.get(roundNumber-1)+5) ||
+                (scores.get(roundNumber-1)<scores.get(roundNumber-2)-Math.abs(bets.get(roundNumber-1)-results.get(roundNumber-1)));
+
     }
 
     /**
