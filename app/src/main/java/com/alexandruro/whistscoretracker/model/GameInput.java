@@ -37,10 +37,10 @@ public class GameInput implements Serializable {
         this.requestCode = requestCode;
         this.firstPlayerIndex = firstPlayerIndex;
 
-        this.inputs = new ArrayList<>();
         this.nrOfPlayers = playerNames.size();
-        this.inputs.add(new PlayerInput(playerNames.get((index+nrOfPlayers-firstPlayerIndex)%nrOfPlayers)));
         this.index = 0;
+        this.inputs = new ArrayList<>();
+        this.inputs.add(new PlayerInput(getNextPlayerName()));
         this.handsLeft = nrOfHands;
     }
 
@@ -49,7 +49,7 @@ public class GameInput implements Serializable {
         handsLeft -= input;
         if(index < playerNames.size()-1) {
             index++;
-            inputs.add(new PlayerInput(playerNames.get((index+nrOfPlayers-firstPlayerIndex)%nrOfPlayers)));
+            inputs.add(new PlayerInput(getNextPlayerName()));
         }
         else {
             done = true;
