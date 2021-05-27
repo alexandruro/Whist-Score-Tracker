@@ -5,6 +5,7 @@ import com.alexandruro.whistscoretracker.config.Constants;
 import com.alexandruro.whistscoretracker.exception.ApplicationBugException;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public class GameInput implements Serializable {
     private final int requestCode;
     private final int firstPlayerIndex;
     private final int nrOfPlayers;
-    private int[] inputs;
+    private final List<PlayerInput> inputs;
     private int index;
     private int handsLeft;
 
@@ -36,17 +37,19 @@ public class GameInput implements Serializable {
         this.requestCode = requestCode;
         this.firstPlayerIndex = firstPlayerIndex;
 
-        this.inputs = new int[playerNames.size()];
-        this.index = 0;
+        this.inputs = new ArrayList<>();
         this.nrOfPlayers = playerNames.size();
+        this.inputs.add(new PlayerInput(playerNames.get((index+nrOfPlayers-firstPlayerIndex)%nrOfPlayers)));
+        this.index = 0;
         this.handsLeft = nrOfHands;
     }
 
     public void addInput(int input) {
-        inputs[index] = input;
+        inputs.get(index).setInput(input);
         handsLeft -= input;
         if(index < playerNames.size()-1) {
             index++;
+            inputs.add(new PlayerInput(playerNames.get((index+nrOfPlayers-firstPlayerIndex)%nrOfPlayers)));
         }
         else {
             done = true;
@@ -58,20 +61,26 @@ public class GameInput implements Serializable {
             throw new ApplicationBugException("Tried to undo input with index=0. This should not happen.");
         }
 
+        handsLeft += inputs.get(index).getInput();
+        inputs.remove(index);
         index--;
-        handsLeft += inputs[index];
+        inputs.get(index).unsetInput();
     }
 
-    public int[] getInputs() {
+    public int[] getInputsArray() {
         if(!done) {
             throw new ApplicationBugException("Returning the set of inputs before finishing adding them.");
         }
         // Shift inputs array
         int[] results = new int[nrOfPlayers];
         for(int i=0; i<nrOfPlayers; i++) {
-            results[i] = inputs[(i+nrOfPlayers-firstPlayerIndex)%nrOfPlayers];
+            results[i] = inputs.get((i+nrOfPlayers-firstPlayerIndex)%nrOfPlayers).getInput();
         }
         return results;
+    }
+
+    public List<PlayerInput> getPlayerInputs() {
+        return inputs;
     }
 
     /**
@@ -100,5 +109,13 @@ public class GameInput implements Serializable {
      */
     public int getIndex() {
         return index;
+    }
+
+    public int getNrOfHands() {
+        return nrOfHands;
+    }
+
+    public int getInputTotal() {
+        return Math.abs(nrOfHands - handsLeft);
     }
 }

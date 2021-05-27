@@ -149,10 +149,7 @@ public class E2ETest {
         ViewInteraction button = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button.perform(click());
@@ -160,10 +157,7 @@ public class E2ETest {
         ViewInteraction button2 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button2.perform(click());
@@ -171,10 +165,7 @@ public class E2ETest {
         ViewInteraction button3 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button3.perform(click());
@@ -182,10 +173,7 @@ public class E2ETest {
         ViewInteraction button4 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button4.perform(click());
@@ -300,10 +288,7 @@ public class E2ETest {
         ViewInteraction button5 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button5.perform(click());
@@ -311,10 +296,7 @@ public class E2ETest {
         ViewInteraction button6 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button6.perform(click());
@@ -322,10 +304,7 @@ public class E2ETest {
         ViewInteraction button7 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button7.perform(click());
@@ -333,10 +312,7 @@ public class E2ETest {
         ViewInteraction button8 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button8.perform(click());
@@ -355,10 +331,7 @@ public class E2ETest {
         ViewInteraction button9 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button9.perform(click());
@@ -366,10 +339,7 @@ public class E2ETest {
         ViewInteraction button10 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button10.perform(click());
@@ -377,10 +347,7 @@ public class E2ETest {
         ViewInteraction button11 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button11.perform(click());
@@ -388,10 +355,7 @@ public class E2ETest {
         ViewInteraction button12 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button12.perform(click());
@@ -410,10 +374,7 @@ public class E2ETest {
         ViewInteraction button13 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button13.perform(click());
@@ -421,10 +382,7 @@ public class E2ETest {
         ViewInteraction button14 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button14.perform(click());
@@ -432,10 +390,7 @@ public class E2ETest {
         ViewInteraction button15 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button15.perform(click());
@@ -443,10 +398,7 @@ public class E2ETest {
         ViewInteraction button16 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button16.perform(click());
@@ -465,10 +417,7 @@ public class E2ETest {
         ViewInteraction button17 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button17.perform(click());
@@ -476,10 +425,7 @@ public class E2ETest {
         ViewInteraction button18 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button18.perform(click());
@@ -487,10 +433,7 @@ public class E2ETest {
         ViewInteraction button19 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button19.perform(click());
@@ -498,10 +441,7 @@ public class E2ETest {
         ViewInteraction button20 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button20.perform(click());
@@ -520,10 +460,7 @@ public class E2ETest {
         ViewInteraction button21 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button21.perform(click());
@@ -531,10 +468,7 @@ public class E2ETest {
         ViewInteraction button22 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button22.perform(click());
@@ -542,10 +476,7 @@ public class E2ETest {
         ViewInteraction button23 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button23.perform(click());
@@ -553,10 +484,7 @@ public class E2ETest {
         ViewInteraction button24 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button24.perform(click());
@@ -575,10 +503,7 @@ public class E2ETest {
         ViewInteraction button25 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button25.perform(click());
@@ -586,10 +511,7 @@ public class E2ETest {
         ViewInteraction button26 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button26.perform(click());
@@ -597,10 +519,7 @@ public class E2ETest {
         ViewInteraction button27 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button27.perform(click());
@@ -608,10 +527,7 @@ public class E2ETest {
         ViewInteraction button28 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button28.perform(click());
@@ -649,10 +565,7 @@ public class E2ETest {
         ViewInteraction button29 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button29.perform(click());
@@ -660,10 +573,7 @@ public class E2ETest {
         ViewInteraction button30 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button30.perform(click());
@@ -671,10 +581,7 @@ public class E2ETest {
         ViewInteraction button31 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button31.perform(click());
@@ -682,10 +589,7 @@ public class E2ETest {
         ViewInteraction button32 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button32.perform(click());
@@ -704,10 +608,7 @@ public class E2ETest {
         ViewInteraction button33 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button33.perform(click());
@@ -715,10 +616,7 @@ public class E2ETest {
         ViewInteraction button34 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button34.perform(click());
@@ -726,10 +624,7 @@ public class E2ETest {
         ViewInteraction button35 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button35.perform(click());
@@ -737,10 +632,7 @@ public class E2ETest {
         ViewInteraction button36 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button36.perform(click());
@@ -759,10 +651,7 @@ public class E2ETest {
         ViewInteraction button37 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button37.perform(click());
@@ -770,10 +659,7 @@ public class E2ETest {
         ViewInteraction button38 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button38.perform(click());
@@ -781,10 +667,7 @@ public class E2ETest {
         ViewInteraction button39 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button39.perform(click());
@@ -792,10 +675,7 @@ public class E2ETest {
         ViewInteraction button40 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button40.perform(click());
@@ -823,10 +703,7 @@ public class E2ETest {
         ViewInteraction button41 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button41.perform(click());
@@ -834,10 +711,7 @@ public class E2ETest {
         ViewInteraction button42 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button42.perform(click());
@@ -845,10 +719,7 @@ public class E2ETest {
         ViewInteraction button43 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button43.perform(click());
@@ -856,10 +727,7 @@ public class E2ETest {
         ViewInteraction button44 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button44.perform(click());
@@ -878,10 +746,7 @@ public class E2ETest {
         ViewInteraction button45 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button45.perform(click());
@@ -889,10 +754,7 @@ public class E2ETest {
         ViewInteraction button46 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button46.perform(click());
@@ -900,10 +762,7 @@ public class E2ETest {
         ViewInteraction button47 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button47.perform(click());
@@ -911,10 +770,7 @@ public class E2ETest {
         ViewInteraction button48 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button48.perform(click());
@@ -942,10 +798,7 @@ public class E2ETest {
         ViewInteraction button49 = onView(
                 allOf(withText("3"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 3),
                         isDisplayed()));
         button49.perform(click());
@@ -953,10 +806,7 @@ public class E2ETest {
         ViewInteraction button50 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button50.perform(click());
@@ -964,10 +814,7 @@ public class E2ETest {
         ViewInteraction button51 = onView(
                 allOf(withText("3"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 3),
                         isDisplayed()));
         button51.perform(click());
@@ -975,10 +822,7 @@ public class E2ETest {
         ViewInteraction button52 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button52.perform(click());
@@ -997,10 +841,7 @@ public class E2ETest {
         ViewInteraction button53 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button53.perform(click());
@@ -1008,10 +849,7 @@ public class E2ETest {
         ViewInteraction button54 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button54.perform(click());
@@ -1019,10 +857,7 @@ public class E2ETest {
         ViewInteraction button55 = onView(
                 allOf(withText("3"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 3),
                         isDisplayed()));
         button55.perform(click());
@@ -1030,10 +865,7 @@ public class E2ETest {
         ViewInteraction button56 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button56.perform(click());
@@ -1061,10 +893,7 @@ public class E2ETest {
         ViewInteraction button57 = onView(
                 allOf(withText("4"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 4),
                         isDisplayed()));
         button57.perform(click());
@@ -1072,10 +901,7 @@ public class E2ETest {
         ViewInteraction button58 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button58.perform(click());
@@ -1083,10 +909,7 @@ public class E2ETest {
         ViewInteraction button59 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button59.perform(click());
@@ -1094,10 +917,7 @@ public class E2ETest {
         ViewInteraction button60 = onView(
                 allOf(withText("4"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 4),
                         isDisplayed()));
         button60.perform(click());
@@ -1116,10 +936,7 @@ public class E2ETest {
         ViewInteraction button61 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button61.perform(click());
@@ -1127,10 +944,7 @@ public class E2ETest {
         ViewInteraction button62 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button62.perform(click());
@@ -1138,10 +952,7 @@ public class E2ETest {
         ViewInteraction button63 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button63.perform(click());
@@ -1149,10 +960,7 @@ public class E2ETest {
         ViewInteraction button64 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button64.perform(click());
@@ -1175,10 +983,7 @@ public class E2ETest {
         ViewInteraction button65 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button65.perform(click());
@@ -1186,10 +991,7 @@ public class E2ETest {
         ViewInteraction button66 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button66.perform(click());
@@ -1197,10 +999,7 @@ public class E2ETest {
         ViewInteraction button67 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button67.perform(click());
@@ -1208,10 +1007,7 @@ public class E2ETest {
         ViewInteraction button68 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button68.perform(click());
@@ -1230,10 +1026,7 @@ public class E2ETest {
         ViewInteraction button69 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button69.perform(click());
@@ -1241,10 +1034,7 @@ public class E2ETest {
         ViewInteraction button70 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button70.perform(click());
@@ -1252,10 +1042,7 @@ public class E2ETest {
         ViewInteraction button71 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button71.perform(click());
@@ -1263,10 +1050,7 @@ public class E2ETest {
         ViewInteraction button72 = onView(
                 allOf(withText("3"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 3),
                         isDisplayed()));
         button72.perform(click());
@@ -1289,10 +1073,7 @@ public class E2ETest {
         ViewInteraction button73 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button73.perform(click());
@@ -1300,10 +1081,7 @@ public class E2ETest {
         ViewInteraction button74 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button74.perform(click());
@@ -1311,10 +1089,7 @@ public class E2ETest {
         ViewInteraction button75 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button75.perform(click());
@@ -1322,10 +1097,7 @@ public class E2ETest {
         ViewInteraction button76 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button76.perform(click());
@@ -1344,10 +1116,7 @@ public class E2ETest {
         ViewInteraction button77 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button77.perform(click());
@@ -1355,10 +1124,7 @@ public class E2ETest {
         ViewInteraction button78 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button78.perform(click());
@@ -1366,10 +1132,7 @@ public class E2ETest {
         ViewInteraction button79 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button79.perform(click());
@@ -1388,10 +1151,7 @@ public class E2ETest {
         ViewInteraction button80 = onView(
                 allOf(withText("4"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 4),
                         isDisplayed()));
         button80.perform(click());
@@ -1399,10 +1159,7 @@ public class E2ETest {
         ViewInteraction button81 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button81.perform(click());
@@ -1430,10 +1187,7 @@ public class E2ETest {
         ViewInteraction button82 = onView(
                 allOf(withText("7"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 7),
                         isDisplayed()));
         button82.perform(click());
@@ -1441,10 +1195,7 @@ public class E2ETest {
         ViewInteraction button83 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button83.perform(click());
@@ -1452,10 +1203,7 @@ public class E2ETest {
         ViewInteraction button84 = onView(
                 allOf(withText("5"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 5),
                         isDisplayed()));
         button84.perform(click());
@@ -1463,10 +1211,7 @@ public class E2ETest {
         ViewInteraction button85 = onView(
                 allOf(withText("3"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 3),
                         isDisplayed()));
         button85.perform(click());
@@ -1485,10 +1230,7 @@ public class E2ETest {
         ViewInteraction button86 = onView(
                 allOf(withText("3"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 3),
                         isDisplayed()));
         button86.perform(click());
@@ -1496,10 +1238,7 @@ public class E2ETest {
         ViewInteraction button87 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button87.perform(click());
@@ -1507,10 +1246,7 @@ public class E2ETest {
         ViewInteraction button88 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button88.perform(click());
@@ -1518,10 +1254,7 @@ public class E2ETest {
         ViewInteraction button89 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button89.perform(click());
@@ -1540,10 +1273,7 @@ public class E2ETest {
         ViewInteraction button90 = onView(
                 allOf(withText("7"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 7),
                         isDisplayed()));
         button90.perform(click());
@@ -1551,10 +1281,7 @@ public class E2ETest {
         ViewInteraction button91 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button91.perform(click());
@@ -1562,10 +1289,7 @@ public class E2ETest {
         ViewInteraction button92 = onView(
                 allOf(withText("3"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 3),
                         isDisplayed()));
         button92.perform(click());
@@ -1573,10 +1297,7 @@ public class E2ETest {
         ViewInteraction button93 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button93.perform(click());
@@ -1595,10 +1316,7 @@ public class E2ETest {
         ViewInteraction button94 = onView(
                 allOf(withText("7"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 7),
                         isDisplayed()));
         button94.perform(click());
@@ -1606,10 +1324,7 @@ public class E2ETest {
         ViewInteraction button95 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button95.perform(click());
@@ -1617,10 +1332,7 @@ public class E2ETest {
         ViewInteraction button96 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button96.perform(click());
@@ -1628,10 +1340,7 @@ public class E2ETest {
         ViewInteraction button97 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button97.perform(click());
@@ -1650,10 +1359,7 @@ public class E2ETest {
         ViewInteraction button98 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button98.perform(click());
@@ -1661,10 +1367,7 @@ public class E2ETest {
         ViewInteraction button99 = onView(
                 allOf(withText("4"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 4),
                         isDisplayed()));
         button99.perform(click());
@@ -1672,10 +1375,7 @@ public class E2ETest {
         ViewInteraction button100 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button100.perform(click());
@@ -1683,10 +1383,7 @@ public class E2ETest {
         ViewInteraction button101 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button101.perform(click());
@@ -1720,10 +1417,7 @@ public class E2ETest {
         ViewInteraction button102 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button102.perform(click());
@@ -1731,10 +1425,7 @@ public class E2ETest {
         ViewInteraction button103 = onView(
                 allOf(withText("4"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 4),
                         isDisplayed()));
         button103.perform(click());
@@ -1742,10 +1433,7 @@ public class E2ETest {
         ViewInteraction button104 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button104.perform(click());
@@ -1753,10 +1441,7 @@ public class E2ETest {
         ViewInteraction button105 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button105.perform(click());
@@ -1775,10 +1460,7 @@ public class E2ETest {
         ViewInteraction button106 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button106.perform(click());
@@ -1786,10 +1468,7 @@ public class E2ETest {
         ViewInteraction button107 = onView(
                 allOf(withText("5"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 5),
                         isDisplayed()));
         button107.perform(click());
@@ -1797,10 +1476,7 @@ public class E2ETest {
         ViewInteraction button108 = onView(
                 allOf(withText("3"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 3),
                         isDisplayed()));
         button108.perform(click());
@@ -1808,10 +1484,7 @@ public class E2ETest {
         ViewInteraction button109 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button109.perform(click());
@@ -1830,10 +1503,7 @@ public class E2ETest {
         ViewInteraction button110 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button110.perform(click());
@@ -1841,10 +1511,7 @@ public class E2ETest {
         ViewInteraction button111 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button111.perform(click());
@@ -1852,10 +1519,7 @@ public class E2ETest {
         ViewInteraction button112 = onView(
                 allOf(withText("7"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 7),
                         isDisplayed()));
         button112.perform(click());
@@ -1863,10 +1527,7 @@ public class E2ETest {
         ViewInteraction button113 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button113.perform(click());
@@ -1885,10 +1546,7 @@ public class E2ETest {
         ViewInteraction button114 = onView(
                 allOf(withText("4"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 4),
                         isDisplayed()));
         button114.perform(click());
@@ -1896,10 +1554,7 @@ public class E2ETest {
         ViewInteraction button115 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button115.perform(click());
@@ -1907,10 +1562,7 @@ public class E2ETest {
         ViewInteraction button116 = onView(
                 allOf(withText("3"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 3),
                         isDisplayed()));
         button116.perform(click());
@@ -1918,10 +1570,7 @@ public class E2ETest {
         ViewInteraction button117 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button117.perform(click());
@@ -1940,10 +1589,7 @@ public class E2ETest {
         ViewInteraction button118 = onView(
                 allOf(withText("5"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 5),
                         isDisplayed()));
         button118.perform(click());
@@ -1951,10 +1597,7 @@ public class E2ETest {
         ViewInteraction button119 = onView(
                 allOf(withText("3"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 3),
                         isDisplayed()));
         button119.perform(click());
@@ -1962,10 +1605,7 @@ public class E2ETest {
         ViewInteraction button120 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button120.perform(click());
@@ -1973,10 +1613,7 @@ public class E2ETest {
         ViewInteraction button121 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button121.perform(click());
@@ -1995,10 +1632,7 @@ public class E2ETest {
         ViewInteraction button122 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button122.perform(click());
@@ -2006,10 +1640,7 @@ public class E2ETest {
         ViewInteraction button123 = onView(
                 allOf(withText("3"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 3),
                         isDisplayed()));
         button123.perform(click());
@@ -2017,10 +1648,7 @@ public class E2ETest {
         ViewInteraction button124 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button124.perform(click());
@@ -2028,10 +1656,7 @@ public class E2ETest {
         ViewInteraction button125 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button125.perform(click());
@@ -2050,10 +1675,7 @@ public class E2ETest {
         ViewInteraction button126 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button126.perform(click());
@@ -2061,10 +1683,7 @@ public class E2ETest {
         ViewInteraction button127 = onView(
                 allOf(withText("3"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 3),
                         isDisplayed()));
         button127.perform(click());
@@ -2072,10 +1691,7 @@ public class E2ETest {
         ViewInteraction button128 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button128.perform(click());
@@ -2083,10 +1699,7 @@ public class E2ETest {
         ViewInteraction button129 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button129.perform(click());
@@ -2105,10 +1718,7 @@ public class E2ETest {
         ViewInteraction button130 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button130.perform(click());
@@ -2116,10 +1726,7 @@ public class E2ETest {
         ViewInteraction button131 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button131.perform(click());
@@ -2127,10 +1734,7 @@ public class E2ETest {
         ViewInteraction button132 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button132.perform(click());
@@ -2138,10 +1742,7 @@ public class E2ETest {
         ViewInteraction button133 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button133.perform(click());
@@ -2160,10 +1761,7 @@ public class E2ETest {
         ViewInteraction button134 = onView(
                 allOf(withText("3"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 3),
                         isDisplayed()));
         button134.perform(click());
@@ -2171,10 +1769,7 @@ public class E2ETest {
         ViewInteraction button135 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button135.perform(click());
@@ -2182,10 +1777,7 @@ public class E2ETest {
         ViewInteraction button136 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button136.perform(click());
@@ -2193,10 +1785,7 @@ public class E2ETest {
         ViewInteraction button137 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button137.perform(click());
@@ -2215,10 +1804,7 @@ public class E2ETest {
         ViewInteraction button138 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button138.perform(click());
@@ -2226,10 +1812,7 @@ public class E2ETest {
         ViewInteraction button139 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button139.perform(click());
@@ -2237,10 +1820,7 @@ public class E2ETest {
         ViewInteraction button140 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button140.perform(click());
@@ -2248,10 +1828,7 @@ public class E2ETest {
         ViewInteraction button141 = onView(
                 allOf(withText("5"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 5),
                         isDisplayed()));
         button141.perform(click());
@@ -2270,10 +1847,7 @@ public class E2ETest {
         ViewInteraction button142 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button142.perform(click());
@@ -2281,10 +1855,7 @@ public class E2ETest {
         ViewInteraction button143 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button143.perform(click());
@@ -2292,10 +1863,7 @@ public class E2ETest {
         ViewInteraction button144 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button144.perform(click());
@@ -2303,10 +1871,7 @@ public class E2ETest {
         ViewInteraction button145 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button145.perform(click());
@@ -2325,10 +1890,7 @@ public class E2ETest {
         ViewInteraction button146 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button146.perform(click());
@@ -2336,10 +1898,7 @@ public class E2ETest {
         ViewInteraction button147 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button147.perform(click());
@@ -2347,10 +1906,7 @@ public class E2ETest {
         ViewInteraction button148 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button148.perform(click());
@@ -2358,10 +1914,7 @@ public class E2ETest {
         ViewInteraction button149 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button149.perform(click());
@@ -2380,10 +1933,7 @@ public class E2ETest {
         ViewInteraction button150 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button150.perform(click());
@@ -2391,10 +1941,7 @@ public class E2ETest {
         ViewInteraction button151 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button151.perform(click());
@@ -2402,10 +1949,7 @@ public class E2ETest {
         ViewInteraction button152 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button152.perform(click());
@@ -2413,10 +1957,7 @@ public class E2ETest {
         ViewInteraction button153 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button153.perform(click());
@@ -2435,10 +1976,7 @@ public class E2ETest {
         ViewInteraction button154 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button154.perform(click());
@@ -2446,10 +1984,7 @@ public class E2ETest {
         ViewInteraction button155 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button155.perform(click());
@@ -2457,10 +1992,7 @@ public class E2ETest {
         ViewInteraction button156 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button156.perform(click());
@@ -2468,10 +2000,7 @@ public class E2ETest {
         ViewInteraction button157 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button157.perform(click());
@@ -2490,10 +2019,7 @@ public class E2ETest {
         ViewInteraction button158 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button158.perform(click());
@@ -2501,10 +2027,7 @@ public class E2ETest {
         ViewInteraction button159 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button159.perform(click());
@@ -2512,10 +2035,7 @@ public class E2ETest {
         ViewInteraction button160 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button160.perform(click());
@@ -2523,10 +2043,7 @@ public class E2ETest {
         ViewInteraction button161 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button161.perform(click());
@@ -2545,10 +2062,7 @@ public class E2ETest {
         ViewInteraction button162 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button162.perform(click());
@@ -2556,10 +2070,7 @@ public class E2ETest {
         ViewInteraction button163 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button163.perform(click());
@@ -2567,10 +2078,7 @@ public class E2ETest {
         ViewInteraction button164 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button164.perform(click());
@@ -2578,10 +2086,7 @@ public class E2ETest {
         ViewInteraction button165 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button165.perform(click());
@@ -2600,10 +2105,7 @@ public class E2ETest {
         ViewInteraction button166 = onView(
                 allOf(withText("2"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 2),
                         isDisplayed()));
         button166.perform(click());
@@ -2611,10 +2113,7 @@ public class E2ETest {
         ViewInteraction button167 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button167.perform(click());
@@ -2622,10 +2121,7 @@ public class E2ETest {
         ViewInteraction button168 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button168.perform(click());
@@ -2633,10 +2129,7 @@ public class E2ETest {
         ViewInteraction button169 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button169.perform(click());
@@ -2655,10 +2148,7 @@ public class E2ETest {
         ViewInteraction button170 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button170.perform(click());
@@ -2666,10 +2156,7 @@ public class E2ETest {
         ViewInteraction button171 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button171.perform(click());
@@ -2677,10 +2164,7 @@ public class E2ETest {
         ViewInteraction button172 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button172.perform(click());
@@ -2688,10 +2172,7 @@ public class E2ETest {
         ViewInteraction button173 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button173.perform(click());
@@ -2710,10 +2191,7 @@ public class E2ETest {
         ViewInteraction button174 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button174.perform(click());
@@ -2721,10 +2199,7 @@ public class E2ETest {
         ViewInteraction button175 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button175.perform(click());
@@ -2732,10 +2207,7 @@ public class E2ETest {
         ViewInteraction button176 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button176.perform(click());
@@ -2743,10 +2215,7 @@ public class E2ETest {
         ViewInteraction button177 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button177.perform(click());
@@ -2772,10 +2241,7 @@ public class E2ETest {
         ViewInteraction button178 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button178.perform(click());
@@ -2783,10 +2249,7 @@ public class E2ETest {
         ViewInteraction button179 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button179.perform(click());
@@ -2794,10 +2257,7 @@ public class E2ETest {
         ViewInteraction button180 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button180.perform(click());
@@ -2805,10 +2265,7 @@ public class E2ETest {
         ViewInteraction button181 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button181.perform(click());
@@ -2827,10 +2284,7 @@ public class E2ETest {
         ViewInteraction button182 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button182.perform(click());
@@ -2838,10 +2292,7 @@ public class E2ETest {
         ViewInteraction button183 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button183.perform(click());
@@ -2849,10 +2300,7 @@ public class E2ETest {
         ViewInteraction button184 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button184.perform(click());
@@ -2860,10 +2308,7 @@ public class E2ETest {
         ViewInteraction button185 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button185.perform(click());
@@ -2882,10 +2327,7 @@ public class E2ETest {
         ViewInteraction button186 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button186.perform(click());
@@ -2893,10 +2335,7 @@ public class E2ETest {
         ViewInteraction button187 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button187.perform(click());
@@ -2904,10 +2343,7 @@ public class E2ETest {
         ViewInteraction button188 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button188.perform(click());
@@ -2915,10 +2351,7 @@ public class E2ETest {
         ViewInteraction button189 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button189.perform(click());
@@ -2937,10 +2370,7 @@ public class E2ETest {
         ViewInteraction button190 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button190.perform(click());
@@ -2948,10 +2378,7 @@ public class E2ETest {
         ViewInteraction button191 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button191.perform(click());
@@ -2959,10 +2386,7 @@ public class E2ETest {
         ViewInteraction button192 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button192.perform(click());
@@ -2970,10 +2394,7 @@ public class E2ETest {
         ViewInteraction button193 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button193.perform(click());
@@ -2992,10 +2413,7 @@ public class E2ETest {
         ViewInteraction button194 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button194.perform(click());
@@ -3003,10 +2421,7 @@ public class E2ETest {
         ViewInteraction button195 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button195.perform(click());
@@ -3014,10 +2429,7 @@ public class E2ETest {
         ViewInteraction button196 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button196.perform(click());
@@ -3025,10 +2437,7 @@ public class E2ETest {
         ViewInteraction button197 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button197.perform(click());
@@ -3047,10 +2456,7 @@ public class E2ETest {
         ViewInteraction button198 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button198.perform(click());
@@ -3058,10 +2464,7 @@ public class E2ETest {
         ViewInteraction button199 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button199.perform(click());
@@ -3069,10 +2472,7 @@ public class E2ETest {
         ViewInteraction button200 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button200.perform(click());
@@ -3080,10 +2480,7 @@ public class E2ETest {
         ViewInteraction button201 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button201.perform(click());
@@ -3142,10 +2539,7 @@ public class E2ETest {
         ViewInteraction button202 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button202.perform(click());
@@ -3153,10 +2547,7 @@ public class E2ETest {
         ViewInteraction button203 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button203.perform(click());
@@ -3164,10 +2555,7 @@ public class E2ETest {
         ViewInteraction button204 = onView(
                 allOf(withText("0"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 0),
                         isDisplayed()));
         button204.perform(click());
@@ -3175,10 +2563,7 @@ public class E2ETest {
         ViewInteraction button205 = onView(
                 allOf(withText("1"),
                         childAtPosition(
-                                allOf(withId(R.id.grid),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.RelativeLayout")),
-                                                2)),
+                                withId(R.id.grid),
                                 1),
                         isDisplayed()));
         button205.perform(click());

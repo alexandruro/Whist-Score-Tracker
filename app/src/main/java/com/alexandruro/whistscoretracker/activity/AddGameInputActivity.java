@@ -1,26 +1,31 @@
 package com.alexandruro.whistscoretracker.activity;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.TextViewCompat;
 
 import com.alexandruro.whistscoretracker.R;
+import com.alexandruro.whistscoretracker.adapter.PlayerInputListAdapter;
 import com.alexandruro.whistscoretracker.config.Constants;
 import com.alexandruro.whistscoretracker.model.GameInput;
+import com.alexandruro.whistscoretracker.utils.Utils;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 
-import static android.view.View.TEXT_ALIGNMENT_CENTER;
+import static android.view.View.FOCUS_DOWN;
 import static android.widget.GridLayout.spec;
 
 /**
@@ -33,13 +38,17 @@ public class AddGameInputActivity extends AppCompatActivity {
 
     private GameInput gameInput;
 
+    private PlayerInputListAdapter playerInputListAdapter;
+
+    private int requestCode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_row);
 
         Intent intent = getIntent();
-        int requestCode = intent.getIntExtra(Constants.INTENT_REQUEST_CODE, -1);
+        requestCode = intent.getIntExtra(Constants.INTENT_REQUEST_CODE, -1);
 
         // Create / retrieve GameInput object
         if(savedInstanceState == null) {
@@ -54,7 +63,7 @@ public class AddGameInputActivity extends AppCompatActivity {
             gameInput = (GameInput) savedInstanceState.getSerializable(GAME_INPUT_BUNDLE_KEY);
         }
 
-        initialiseUI(requestCode);
+        initialiseUI();
         refreshUI();
     }
 
@@ -86,12 +95,13 @@ public class AddGameInputActivity extends AppCompatActivity {
      * @param input The number of hands in the bet/result
      */
     public void advance(int input) {
+        Log.d(TAG, "advance: " + input);
         gameInput.addInput(input);
         if(!gameInput.isDone()) {
             refreshUI();
         }
         else {
-            int[] results = gameInput.getInputs();
+            int[] results = gameInput.getInputsArray();
             Intent intent = getIntent();
             intent.putExtra(Constants.INTENT_INPUTS, results);
             setResult(RESULT_OK, intent);
@@ -101,34 +111,35 @@ public class AddGameInputActivity extends AppCompatActivity {
 
     /**
      * Initialise the UI at the beginning of the activity lifecycle
-     * @param requestCode The request code from the intent
      */
-    private void initialiseUI(int requestCode) {
-        // Initialise layout elements
-        GridLayout grid = findViewById(R.id.grid);
+    private void initialiseUI() {
+        // Prompt
         TextView prompt = findViewById(R.id.prompt);
         if (requestCode == Constants.RESULT_REQUEST)
             prompt.setText(R.string.choose_results);
         else
             prompt.setText(R.string.place_bets);
-        int gridNrOfColumns;
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            gridNrOfColumns = 3;
-        }
-        else {
-            gridNrOfColumns = 9;
-        }
+
+        // Player input list
+        playerInputListAdapter = new PlayerInputListAdapter(this, gameInput.getPlayerInputs());
+        ListView playerInputList = findViewById(R.id.playerInputList);
+        playerInputList.setAdapter(playerInputListAdapter);
+        ((TextView)findViewById(R.id.textViewNrOfHands)).setText(getResources().getString(R.string.out_of_number, gameInput.getNrOfHands()));
+
+        // Grid
+        GridLayout grid = findViewById(R.id.grid);
+        int gridNrOfColumns = getResources().getInteger(R.integer.integerNumpadColumns);
         for(int i=0;i<=8;i++){
             final Button button = new MaterialButton(this, null, R.attr.numpadButtonStyle);
             // Needs both of these
             button.setMinimumWidth(0);
             button.setMinWidth(0);
-            button.setText(String.valueOf(i));
+            button.setPadding(0,0,0,0);
+            button.setText(String.valueOf(i), TextView.BufferType.SPANNABLE);
             GridLayout.LayoutParams params = new GridLayout.LayoutParams(spec(i/gridNrOfColumns, GridLayout.FILL, 1),spec(i%gridNrOfColumns, GridLayout.FILL, 1));
-            button.setTextAlignment(TEXT_ALIGNMENT_CENTER);
+            params.width = 0;
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             TextViewCompat.setAutoSizeTextTypeWithDefaults(button, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
-            params.leftMargin = 30;
-            params.rightMargin = 30;
             final int value = i;
             button.setOnClickListener(view -> advance(value));
             grid.addView(button, params);
@@ -147,18 +158,25 @@ public class AddGameInputActivity extends AppCompatActivity {
      * Refreshes the UI (changes player name and enables/disables buttons)
      */
     private void refreshUI() {
-        resetPlayerName();
         GridLayout grid = findViewById(R.id.grid);
-        for(int i=0;i<=8;i++) {
+        for (int i = 0; i <= 8; i++) {
             grid.getChildAt(i).setEnabled(gameInput.isValidInput(i));
         }
-    }
-
-    /**
-     * Changes the player name to the current one
-     */
-    private void resetPlayerName() {
-        TextView playerName = findViewById(R.id.playerName);
-        playerName.setText(gameInput.getNextPlayerName());
+        playerInputListAdapter.notifyDataSetChanged();
+        Utils.justifyListViewHeightBasedOnChildren(findViewById(R.id.playerInputList));
+        ScrollView playersCardScrollView = findViewById(R.id.playersCardScrollView);
+        playersCardScrollView.post(() ->
+                playersCardScrollView.fullScroll(FOCUS_DOWN)); // make sure the last update is visible
+        TextView totalInput = findViewById(R.id.textViewTotalInput);
+        totalInput.setText(String.valueOf(gameInput.getInputTotal()));
+        if(requestCode == Constants.BET_REQUEST) {
+            if (gameInput.getInputTotal() < gameInput.getNrOfHands()) {
+                totalInput.setTextColor(ContextCompat.getColor(totalInput.getContext(), R.color.colorPositiveResult));
+            } else if (gameInput.getInputTotal() > gameInput.getNrOfHands()) {
+                totalInput.setTextColor(ContextCompat.getColor(totalInput.getContext(), R.color.colorNegativeResult));
+            } else {
+                totalInput.setTextColor(ContextCompat.getColor(totalInput.getContext(), android.R.color.tab_indicator_text));
+            }
+        }
     }
 }
