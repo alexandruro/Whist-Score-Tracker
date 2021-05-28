@@ -3,9 +3,7 @@ package com.alexandruro.whistscoretracker.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -13,20 +11,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
-import androidx.core.widget.TextViewCompat;
 
 import com.alexandruro.whistscoretracker.R;
 import com.alexandruro.whistscoretracker.adapter.PlayerInputListAdapter;
 import com.alexandruro.whistscoretracker.config.Constants;
 import com.alexandruro.whistscoretracker.model.GameInput;
 import com.alexandruro.whistscoretracker.utils.Utils;
-import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 
 import static android.view.View.FOCUS_DOWN;
-import static android.widget.GridLayout.spec;
 
 /**
  * Activity used for adding bets and results to the game table
@@ -127,22 +123,11 @@ public class AddGameInputActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.textViewNrOfHands)).setText(getResources().getString(R.string.out_of_number, gameInput.getNrOfHands()));
 
         // Grid
-        GridLayout grid = findViewById(R.id.grid);
-        int gridNrOfColumns = getResources().getInteger(R.integer.integerNumpadColumns);
+        ConstraintLayout grid = findViewById(R.id.grid);
         for(int i=0;i<=8;i++){
-            final Button button = new MaterialButton(this, null, R.attr.numpadButtonStyle);
-            // Needs both of these
-            button.setMinimumWidth(0);
-            button.setMinWidth(0);
-            button.setPadding(0,0,0,0);
-            button.setText(String.valueOf(i), TextView.BufferType.SPANNABLE);
-            GridLayout.LayoutParams params = new GridLayout.LayoutParams(spec(i/gridNrOfColumns, GridLayout.FILL, 1),spec(i%gridNrOfColumns, GridLayout.FILL, 1));
-            params.width = 0;
-            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            TextViewCompat.setAutoSizeTextTypeWithDefaults(button, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+            Button button = (Button) grid.getChildAt(i);
             final int value = i;
             button.setOnClickListener(view -> advance(value));
-            grid.addView(button, params);
         }
     }
 
@@ -158,7 +143,7 @@ public class AddGameInputActivity extends AppCompatActivity {
      * Refreshes the UI (changes player name and enables/disables buttons)
      */
     private void refreshUI() {
-        GridLayout grid = findViewById(R.id.grid);
+        ConstraintLayout grid = findViewById(R.id.grid);
         for (int i = 0; i <= 8; i++) {
             grid.getChildAt(i).setEnabled(gameInput.isValidInput(i));
         }

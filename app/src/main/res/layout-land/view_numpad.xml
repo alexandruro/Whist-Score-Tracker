@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="@layout/activity_add_row">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/inputCard"
+        style="@style/RoundedTopCardViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/colorPrimaryDark"
+        app:cardElevation="@dimen/menu_card_elevation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_max="350dp"
+        app:layout_constraintHeight_min="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/playersCard">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/grid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/button0"
+                style="@style/NumpadButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="0"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/button1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_chainStyle="packed"/>
+
+            <Button
+                android:id="@+id/button1"
+                style="@style/NumpadButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="1"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintLeft_toRightOf="@id/button0"
+                app:layout_constraintRight_toLeftOf="@id/button2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button2"
+                style="@style/NumpadButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="2"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintLeft_toRightOf="@id/button1"
+                app:layout_constraintRight_toLeftOf="@id/button3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button3"
+                style="@style/NumpadButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="3"
+                android:minWidth="0dp"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintLeft_toRightOf="@id/button2"
+                app:layout_constraintRight_toLeftOf="@id/button4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button4"
+                style="@style/NumpadButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="4"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintLeft_toRightOf="@id/button3"
+                app:layout_constraintRight_toLeftOf="@id/button5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button5"
+                style="@style/NumpadButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="5"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintLeft_toRightOf="@id/button4"
+                app:layout_constraintRight_toLeftOf="@id/button6"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button6"
+                style="@style/NumpadButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="6"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/button5"
+                app:layout_constraintRight_toLeftOf="@id/button7"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button7"
+                style="@style/NumpadButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="7"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/button6"
+                app:layout_constraintRight_toLeftOf="@id/button8"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button8"
+                style="@style/NumpadButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="8"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/button7"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</merge>

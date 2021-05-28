@@ -1,8 +1,5 @@
 package com.alexandruro.whistscoretracker.model;
 
-
-import android.util.Log;
-
 import com.alexandruro.whistscoretracker.config.Constants;
 import com.alexandruro.whistscoretracker.exception.ApplicationBugException;
 
