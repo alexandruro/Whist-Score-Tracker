@@ -1,6 +1,7 @@
 package com.alexandruro.whistscoretracker.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Represents an individual input of a player
@@ -15,11 +16,6 @@ public class PlayerInput implements Serializable {
     public PlayerInput(String playerName) {
         this.playerName = playerName;
         this.input = UNDEFINED;
-    }
-
-    public PlayerInput(String playerName, int input) {
-        this.playerName = playerName;
-        this.input = input;
     }
 
     public String getPlayerName() {
@@ -40,5 +36,19 @@ public class PlayerInput implements Serializable {
 
     public boolean isSet() {
         return input != UNDEFINED;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PlayerInput that = (PlayerInput) o;
+        return input == that.input &&
+                playerName.equals(that.playerName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(playerName, input);
     }
 }

@@ -1,12 +1,15 @@
 package com.alexandruro.whistscoretracker.model;
 
 
+import android.util.Log;
+
 import com.alexandruro.whistscoretracker.config.Constants;
 import com.alexandruro.whistscoretracker.exception.ApplicationBugException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a set of bets or results corresponding to a round
@@ -29,7 +32,7 @@ public class GameInput implements Serializable {
      * @param playerNames
      * @param nrOfHands
      * @param requestCode
-     * @param firstPlayerIndex
+     * @param firstPlayerIndex first player index, starting with 0
      */
     public GameInput(List<String> playerNames, int nrOfHands, int requestCode, int firstPlayerIndex) {
         this.playerNames = playerNames;
@@ -45,6 +48,12 @@ public class GameInput implements Serializable {
     }
 
     public void addInput(int input) {
+        if(done) {
+            throw new ApplicationBugException("Tried to add input after getting all the required inputs.");
+        }
+        if(!isValidInput(input)) {
+            throw new ApplicationBugException("Add input called with invalid input.");
+        }
         inputs.get(index).setInput(input);
         handsLeft -= input;
         if(index < playerNames.size()-1) {
@@ -61,7 +70,7 @@ public class GameInput implements Serializable {
             throw new ApplicationBugException("Tried to undo input with index=0. This should not happen.");
         }
 
-        handsLeft += inputs.get(index).getInput();
+        handsLeft += inputs.get(index-1).getInput();
         inputs.remove(index);
         index--;
         inputs.get(index).unsetInput();
@@ -95,10 +104,6 @@ public class GameInput implements Serializable {
         return input<=nrOfHands && !invalidBet && !invalidResult;
     }
 
-    public String getNextPlayerName() {
-        return playerNames.get((index+firstPlayerIndex)%nrOfPlayers);
-    }
-
     public boolean isDone() {
         return done;
     }
@@ -117,5 +122,30 @@ public class GameInput implements Serializable {
 
     public int getInputTotal() {
         return Math.abs(nrOfHands - handsLeft);
+    }
+
+    private String getNextPlayerName() {
+        return playerNames.get((index+firstPlayerIndex)%nrOfPlayers);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GameInput gameInput = (GameInput) o;
+        return nrOfHands == gameInput.nrOfHands &&
+                requestCode == gameInput.requestCode &&
+                firstPlayerIndex == gameInput.firstPlayerIndex &&
+                nrOfPlayers == gameInput.nrOfPlayers &&
+                index == gameInput.index &&
+                handsLeft == gameInput.handsLeft &&
+                done == gameInput.done &&
+                playerNames.equals(gameInput.playerNames) &&
+                inputs.equals(gameInput.inputs);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(playerNames, nrOfHands, requestCode, firstPlayerIndex, nrOfPlayers, inputs, index, handsLeft, done);
     }
 }
