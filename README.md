@@ -6,8 +6,9 @@ This is an Android application that can track a game of [whist](https://en.wikip
 
 This is still in development, so this design is not yet merged to master and the history of games is not there yet, but this is how the app will look soon:
 
-![menu 1](docs/menu1.png) ![menu 2](docs/menu2.png) ![new game](docs/new_game.png)
-![game 1](docs/game1.png) ![game 2](docs/game2.png) ![input](docs/input.png)
+| ![menu 1](docs/menu1.png) | ![menu 2](docs/menu2.png) | ![new game](docs/new_game.png) |
+| ------------------------  | ------------------------- | ------------------------------ |
+| ![game 1](docs/game1.png) | ![game 2](docs/game2.png) | ![input](docs/input.png)       |
 
 ### How to run
 
