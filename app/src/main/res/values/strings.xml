@@ -51,7 +51,7 @@
 
     <string name="about">About</string>
     <string name="about_text">Application developed by Alexandru Rosu.\n\nGraphics created by <a href="http://www.freepik.com/free-vector/flat-golden-and-silver-award-collection_844355.htm">Freepik</a>.
-        \nCover image designed by yeven_popov / Freepik.\n\nCurrent version: beta</string>
+        \nCover image designed by yeven_popov / Freepik.\n\nCurrent version: 1.0</string>
     <string name="cover_image">Cover image</string>
     <string name="unfinished_games">Unfinished games</string>
     <string name="finished_games">Finished games</string>
