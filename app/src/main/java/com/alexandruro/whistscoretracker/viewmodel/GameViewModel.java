@@ -29,8 +29,7 @@ public class GameViewModel extends ViewModel {
     private static final String TAG = "GameViewModel";
     private static final String GAME_ID_KEY = "gameId";
 
-    @Inject
-    GameRepository gameRepository;
+    private final GameRepository gameRepository;
 
     private final MutableLiveData<Game> game;
 

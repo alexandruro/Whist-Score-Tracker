@@ -166,7 +166,28 @@ public class Game {
      * @return True if the game is over, false otherwise
      */
     public boolean isOver() {
-        return currentRound > 3*nrOfPlayers + 12;
+        return currentRound > getNrOfRounds();
+    }
+
+    /**
+     * Get the total number of rounds in the game
+     */
+    public int getNrOfRounds() {
+        return 3*nrOfPlayers + 12;
+    }
+
+    /**
+     * Get the first player of the current round
+     */
+    public String getCurrentFirstPlayer() {
+        return playerNames.get((currentRound - 1) % nrOfPlayers);
+    }
+
+    /**
+     * Get the dealer of the current round
+     */
+    public String getCurrentDealer() {
+        return playerNames.get((currentRound + nrOfPlayers - 2) % nrOfPlayers);
     }
 
     /** Undo the last action (last added bets / results) */

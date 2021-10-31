@@ -311,8 +311,8 @@ public class GameActivity extends AppCompatActivity {
             int nrOfHands = game.getNrOfHands();
             String currentRoundText = getResources().getQuantityString(R.plurals.numberOfHands, nrOfHands, nrOfHands);
             ((TextView) findViewById(R.id.currentRound)).setText(currentRoundText);
-            ((TextView) findViewById(R.id.firstPlayer)).setText(getResources().getString(R.string.first_player, game.getPlayerNames().get((game.getCurrentRound() - 1) % game.getNrOfPlayers())));
-            ((TextView) findViewById(R.id.dealer)).setText(getResources().getString(R.string.dealer, game.getPlayerNames().get((game.getCurrentRound() + game.getNrOfPlayers() - 2) % game.getNrOfPlayers())));
+            ((TextView) findViewById(R.id.firstPlayer)).setText(getResources().getString(R.string.first_player, game.getCurrentFirstPlayer()));
+            ((TextView) findViewById(R.id.dealer)).setText(getResources().getString(R.string.dealer, game.getCurrentDealer()));
         }
     }
 
