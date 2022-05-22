@@ -1,161 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/menu_card_corner_radius"
-    app:cardElevation="@dimen/menu_card_elevation">
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.alexandruro.whistscoretracker.view.WrappedListView
+        android:id="@+id/listViewPlayersList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/divider"
+        tools:listitem="@android:layout/activity_list_item"/>
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView1"-->
+<!--        android:layout_width="48dp"-->
+<!--        android:layout_height="48dp"-->
+<!--        android:layout_margin="8dp"-->
+<!--        app:tint="@color/colorAccent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/listViewPlayersList"-->
+<!--        app:srcCompat="@drawable/ic_baseline_person_24" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView2"-->
+<!--        android:layout_width="48dp"-->
+<!--        android:layout_height="48dp"-->
+<!--        android:layout_margin="8dp"-->
+<!--        app:tint="@color/colorAccent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/imageView1"-->
+<!--        app:srcCompat="@drawable/ic_baseline_person_24" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView3"-->
+<!--        android:layout_width="48dp"-->
+<!--        android:layout_height="48dp"-->
+<!--        android:layout_margin="8dp"-->
+<!--        app:tint="@color/colorAccent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/imageView2"-->
+<!--        app:srcCompat="@drawable/ic_baseline_person_24" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textViewName1"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginLeft="16dp"-->
+<!--        android:gravity="center_vertical"-->
+<!--        android:text="Alex"-->
+<!--        android:textSize="24sp"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/imageView1"-->
+<!--        app:layout_constraintStart_toEndOf="@id/imageView1"-->
+<!--        app:layout_constraintTop_toTopOf="@id/imageView1" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textViewName2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginLeft="16dp"-->
+<!--        android:gravity="center_vertical"-->
+<!--        android:text="Ana"-->
+<!--        android:textSize="24sp"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/imageView2"-->
+<!--        app:layout_constraintStart_toEndOf="@id/imageView1"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/imageView1" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textViewName3"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginLeft="16dp"-->
+<!--        android:gravity="center_vertical"-->
+<!--        android:text="Alin"-->
+<!--        android:textSize="24sp"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/imageView3"-->
+<!--        app:layout_constraintStart_toEndOf="@id/imageView3"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/imageView3" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textViewScore1"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:gravity="right"-->
+<!--        android:text="24"-->
+<!--        android:textSize="24sp"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/textViewName1"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/textViewName1" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textViewScore2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:gravity="right"-->
+<!--        android:text="42"-->
+<!--        android:textSize="24sp"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/textViewName2"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/textViewName2" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textViewScore3"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:text="62"-->
+<!--        android:textSize="24sp"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/textViewName3"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textViewName2" />-->
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp">
+        android:layout_marginHorizontal="16dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintTop_toBottomOf="@+id/listViewPlayersList"
+        app:layout_constraintBottom_toTopOf="@id/textViewRound"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_margin="8dp"
-            app:tint="@color/colorAccent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_person_24" />
+    <TextView
+        android:id="@+id/textViewRound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Round 2 / 21"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintBottom_toTopOf="@id/buttonDelete"/>
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_margin="8dp"
-            app:tint="@color/colorAccent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageView1"
-            app:srcCompat="@drawable/ic_baseline_person_24" />
+    <Button
+        android:id="@+id/buttonDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete_game"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRound"
+        app:layout_constraintRight_toLeftOf="@id/buttonContinue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        />
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_margin="8dp"
-            app:tint="@color/colorAccent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageView2"
-            app:srcCompat="@drawable/ic_baseline_person_24" />
+    <Button
+        android:id="@+id/buttonContinue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/continue_game"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/buttonDelete"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRound"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <TextView
-            android:id="@+id/textViewName1"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginLeft="16dp"
-            android:gravity="center_vertical"
-            android:text="Alex"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView1"
-            app:layout_constraintStart_toEndOf="@id/imageView1"
-            app:layout_constraintTop_toTopOf="@id/imageView1" />
-
-        <TextView
-            android:id="@+id/textViewName2"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginLeft="16dp"
-            android:gravity="center_vertical"
-            android:text="Ana"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-            app:layout_constraintStart_toEndOf="@id/imageView1"
-            app:layout_constraintTop_toBottomOf="@+id/imageView1" />
-
-        <TextView
-            android:id="@+id/textViewName3"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginLeft="16dp"
-            android:gravity="center_vertical"
-            android:text="Alin"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-            app:layout_constraintStart_toEndOf="@id/imageView3"
-            app:layout_constraintTop_toTopOf="@+id/imageView3" />
-
-        <TextView
-            android:id="@+id/textViewScore1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:gravity="right"
-            android:text="24"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textViewName1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textViewName1" />
-
-        <TextView
-            android:id="@+id/textViewScore2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:gravity="right"
-            android:text="42"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textViewName2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textViewName2" />
-
-        <TextView
-            android:id="@+id/textViewScore3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="62"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textViewName3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewName2" />
-
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginHorizontal="16dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintTop_toBottomOf="@+id/textViewName3" />
-
-        <TextView
-            android:id="@+id/textViewRound"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Round 5 / 8"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider" />
-
-        <Button
-            android:id="@+id/buttonDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/delete_game"
-            android:layout_marginTop="8dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewRound"
-            app:layout_constraintRight_toLeftOf="@id/buttonContinue"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            />
-
-        <Button
-            android:id="@+id/buttonContinue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/continue_game"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/buttonDelete"
-            app:layout_constraintTop_toBottomOf="@+id/textViewRound" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
