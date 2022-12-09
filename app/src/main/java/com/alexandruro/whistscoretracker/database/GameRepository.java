@@ -49,6 +49,14 @@ public class GameRepository {
     }
 
     /**
+     * Deletes a game from the database.
+     * @param game The game
+     */
+    public void delete(Game game) {
+        new DeleteAsyncTask(gameDao).execute(game);
+    }
+
+    /**
      * Gets a list of past finished games, packaged in a LiveData object
      */
     public LiveData<List<Game>> getFinishedGames() {
@@ -80,6 +88,28 @@ public class GameRepository {
             Log.d("GameRepository", "Inserting game " + games[0].getUid() + " into database");
             gameDao.insert(games[0]);
             Log.d("GameRepository", "Inserted game " + games[0].getUid() + " into database");
+            return null;
+        }
+    }
+
+
+    /**
+     * Async task to delete a game from the database.
+     * Only works with one game. If given multiple games, it will delete the first one.
+     */
+    private static class DeleteAsyncTask extends AsyncTask<Game, Void, Void> {
+
+        private final GameDao gameDao;
+
+        DeleteAsyncTask(GameDao dao) {
+            gameDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Game... games) {
+            Log.d("GameRepository", "Deleting game " + games[0].getUid() + " from database");
+            gameDao.delete(games[0]);
+            Log.d("GameRepository", "Deleted game " + games[0].getUid() + " from database");
             return null;
         }
     }

@@ -17,6 +17,7 @@ import androidx.transition.TransitionManager;
 import androidx.transition.TransitionSet;
 
 import com.alexandruro.whistscoretracker.R;
+import com.alexandruro.whistscoretracker.activity.GameListAdapterCallback;
 import com.alexandruro.whistscoretracker.model.Game;
 import com.google.android.material.transition.MaterialArcMotion;
 
@@ -27,9 +28,11 @@ import java.util.List;
  */
 public class UnfinishedGamesAdapter extends RecyclerView.Adapter<UnfinishedGamesAdapter.ViewHolder> {
 
+    private final GameListAdapterCallback callback;
     private final List<Game> gameList;
 
-    public UnfinishedGamesAdapter(List<Game> gameList) {
+    public UnfinishedGamesAdapter(GameListAdapterCallback callback, List<Game> gameList) {
+        this.callback = callback;
         this.gameList = gameList;
     }
 
@@ -93,6 +96,9 @@ public class UnfinishedGamesAdapter extends RecyclerView.Adapter<UnfinishedGames
 
                 ((TextView) card.findViewById(R.id.textViewRound)).setText(card.getContext().getResources().getString(R.string.game_current_round, game.getCurrentRound(), game.getNrOfRounds()));
                 ((ListView) card.findViewById(R.id.listViewPlayersList)).setAdapter(new GenericPlayerListAdapter(card.getContext(), game.getScoreTable()));
+
+                card.findViewById(R.id.buttonContinue).setOnClickListener(view -> callback.onContinueGame(game));
+                card.findViewById(R.id.buttonDelete).setOnClickListener(view -> callback.onDeleteGame(game));
             }
 
             @Override

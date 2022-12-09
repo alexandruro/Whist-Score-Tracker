@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alexandruro.whistscoretracker.R;
 import com.alexandruro.whistscoretracker.adapter.UnfinishedGamesAdapter;
+import com.alexandruro.whistscoretracker.config.Constants;
+import com.alexandruro.whistscoretracker.model.Game;
 import com.alexandruro.whistscoretracker.viewmodel.MainMenuViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -20,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * Main menu activity
  */
 @AndroidEntryPoint
-public class MainMenuActivity extends AppCompatActivity {
+public class MainMenuActivity extends AppCompatActivity implements GameListAdapterCallback {
 
     private static final String TAG = "MainMenuActivity";
 
@@ -43,7 +45,7 @@ public class MainMenuActivity extends AppCompatActivity {
         viewModel.getUnfinishedGames().observe(this, unfinishedGames -> {
             Log.d(TAG, "observeViewModel: " + unfinishedGames.size() + " unfinished games");
 
-            UnfinishedGamesAdapter unfinishedGamesAdapter = new UnfinishedGamesAdapter(unfinishedGames);
+            UnfinishedGamesAdapter unfinishedGamesAdapter = new UnfinishedGamesAdapter(this, unfinishedGames);
             RecyclerView recyclerView = findViewById(R.id.recyclerViewUnfinishedGames);
             recyclerView.setAdapter(unfinishedGamesAdapter);
             RecyclerView.LayoutManager recyclerViewLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
@@ -88,4 +90,15 @@ public class MainMenuActivity extends AppCompatActivity {
         System.exit(0);
     }
 
+    @Override
+    public void onContinueGame(Game game) {
+        Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra(Constants.INTENT_GAME_ID, game.getUid());
+        startActivity(intent);
+    }
+
+    @Override
+    public void onDeleteGame(Game game) {
+        viewModel.deleteGame(game);
+    }
 }

@@ -18,11 +18,15 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 @HiltViewModel
 public class MainMenuViewModel extends ViewModel {
 
+    private final GameRepository gameRepository;
+
     private final LiveData<List<Game>> finishedGames;
+
     private final LiveData<List<Game>> unfinishedGames;
 
     @Inject
     public MainMenuViewModel(GameRepository gameRepository) {
+        this.gameRepository = gameRepository;
         this.finishedGames = gameRepository.getFinishedGames();
         this.unfinishedGames = gameRepository.getUnfinishedGames();
     }
@@ -33,5 +37,9 @@ public class MainMenuViewModel extends ViewModel {
 
     public LiveData<List<Game>> getUnfinishedGames() {
         return unfinishedGames;
+    }
+
+    public void deleteGame(Game game) {
+        gameRepository.delete(game);
     }
 }

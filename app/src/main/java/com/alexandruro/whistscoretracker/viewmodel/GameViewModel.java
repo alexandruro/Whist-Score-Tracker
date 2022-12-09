@@ -27,7 +27,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class GameViewModel extends ViewModel {
 
     private static final String TAG = "GameViewModel";
-    private static final String GAME_ID_KEY = "gameId";
 
     private final GameRepository gameRepository;
 
@@ -40,7 +39,8 @@ public class GameViewModel extends ViewModel {
         game = new MutableLiveData<>();
         this.gameRepository = gameRepository;
         this.savedStateHandle = savedStateHandle;
-        if(savedStateHandle.contains(GAME_ID_KEY)) {
+        if(savedStateHandle.contains(Constants.INTENT_GAME_ID)) {
+            // game id is coming from either the main menu activity or the saved state of this view model
             retrievePersistedGame();
         }
         else {
@@ -139,7 +139,7 @@ public class GameViewModel extends ViewModel {
             }
         }
         String gameId = game.getValue().getUid();
-        savedStateHandle.set(GAME_ID_KEY, gameId);
+        savedStateHandle.set(Constants.INTENT_GAME_ID, gameId);
         Log.d(TAG, "initialiseNewGame: saved gameId");
     }
 
@@ -147,7 +147,7 @@ public class GameViewModel extends ViewModel {
      * Retrieve the persisted game from the repository
      */
     private void retrievePersistedGame() {
-        String gameId = savedStateHandle.get(GAME_ID_KEY);
+        String gameId = savedStateHandle.get(Constants.INTENT_GAME_ID);
         Log.d(TAG, "GameViewModel: Found saved game id: " + gameId);
 
         try {

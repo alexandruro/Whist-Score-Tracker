@@ -10,6 +10,9 @@ public class Constants {
 
 
     // Intent extras
+    // MainMenuActivity -> GameActivity
+    public static final String INTENT_GAME_ID = "gameId";
+
     // NewGameActivity -> GameActivity
     public static final String INTENT_PRIZE = "prize";
     public static final String INTENT_TYPE = "type";
