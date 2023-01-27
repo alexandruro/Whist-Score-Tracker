@@ -21,10 +21,10 @@ public interface GameDao {
     @Query("SELECT * FROM game")
     List<Game> getAll();
 
-    @Query("SELECT * FROM game WHERE gameStatus='GAME_OVER'")
+    @Query("SELECT * FROM game WHERE gameStatus='GAME_OVER' ORDER by updatedTime desc")
     LiveData<List<Game>> getAllFinished();
 
-    @Query("SELECT * FROM game WHERE gameStatus!='GAME_OVER'")
+    @Query("SELECT * FROM game WHERE gameStatus!='GAME_OVER' ORDER by updatedTime desc")
     LiveData<List<Game>> getAllUnfinished();
 
     @Query("SELECT * FROM game WHERE uid = :gameId")

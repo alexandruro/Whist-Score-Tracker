@@ -2,6 +2,7 @@ package com.alexandruro.whistscoretracker.database;
 
 import android.content.Context;
 
+import androidx.room.AutoMigration;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
@@ -12,7 +13,11 @@ import com.alexandruro.whistscoretracker.model.Game;
 /**
  * The main database of the application
  */
-@Database(entities = {Game.class}, version = 1)
+@Database(
+        version = 2,
+        entities = {Game.class},
+        autoMigrations = {@AutoMigration(from = 1, to = 2)}
+)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 

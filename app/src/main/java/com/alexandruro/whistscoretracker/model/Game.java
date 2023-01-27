@@ -33,6 +33,8 @@ public class Game {
     private Status gameStatus;
     private int currentRound;
 
+    private Long updatedTime;
+
     // Initialised from the others, so not stored in the database
     @Ignore private final int nrOfPlayers;
     @Ignore private final int prize;
@@ -181,6 +183,14 @@ public class Game {
      */
     public String getCurrentFirstPlayer() {
         return playerNames.get((currentRound - 1) % nrOfPlayers);
+    }
+
+    public Long getUpdatedTime() {
+        return updatedTime;
+    }
+
+    public void setUpdatedTime(Long updatedTime) {
+        this.updatedTime = updatedTime;
     }
 
     /**

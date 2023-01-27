@@ -85,9 +85,11 @@ public class GameRepository {
 
         @Override
         protected Void doInBackground(Game... games) {
-            Log.d("GameRepository", "Inserting game " + games[0].getUid() + " into database");
-            gameDao.insert(games[0]);
-            Log.d("GameRepository", "Inserted game " + games[0].getUid() + " into database");
+            Game game = games[0];
+            Log.d("GameRepository", "Inserting game " + game.getUid() + " into database");
+            game.setUpdatedTime(System.currentTimeMillis());
+            gameDao.insert(game);
+            Log.d("GameRepository", "Inserted game " + game.getUid() + " into database");
             return null;
         }
     }

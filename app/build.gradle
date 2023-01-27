@@ -10,15 +10,20 @@ apply plugin: 'dagger.hilt.android.plugin'
 
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 33
     buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.alexandruro.whistscoretracker"
         minSdkVersion 24
-        targetSdkVersion 29
+        targetSdkVersion 33
         versionCode 2
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
     buildTypes {
         debug {
@@ -49,7 +54,7 @@ android {
 }
 
 dependencies {
-    def room_version = "2.2.6"
+    def room_version = "2.5.0"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.2.0'
