@@ -60,7 +60,7 @@ public class UnfinishedGamesAdapter extends RecyclerView.Adapter<UnfinishedGames
         // make sure recycler view does not try to handle card click
         recyclerViewPlayers.suppressLayout(true);
 
-        card.setOnClickListener(v -> expandCard(game, card, recyclerViewPlayers));
+        card.setOnClickListener(v -> expandCard(game, card, recyclerViewPlayers, position));
     }
 
     @Override
@@ -68,7 +68,7 @@ public class UnfinishedGamesAdapter extends RecyclerView.Adapter<UnfinishedGames
         return gameList.size();
     }
 
-    private void expandCard(Game game, View card, RecyclerView recyclerViewPlayers) {
+    private void expandCard(Game game, View card, RecyclerView recyclerViewPlayers, int position) {
         // disable layout suppressing so the animation can play
         recyclerViewPlayers.suppressLayout(false);
 
@@ -99,6 +99,8 @@ public class UnfinishedGamesAdapter extends RecyclerView.Adapter<UnfinishedGames
 
                 card.findViewById(R.id.buttonContinue).setOnClickListener(view -> callback.onContinueGame(game));
                 card.findViewById(R.id.buttonDelete).setOnClickListener(view -> callback.onDeleteGame(game));
+
+                callback.onClickGame(position);
             }
 
             @Override

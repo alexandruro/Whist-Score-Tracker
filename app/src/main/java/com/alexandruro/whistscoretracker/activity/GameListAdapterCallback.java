@@ -10,4 +10,6 @@ public interface GameListAdapterCallback {
     void onContinueGame(Game game);
 
     void onDeleteGame(Game game);
+
+    void onClickGame(int position);
 }

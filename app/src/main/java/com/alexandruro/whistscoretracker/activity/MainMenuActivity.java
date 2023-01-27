@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +16,7 @@ import com.alexandruro.whistscoretracker.adapter.UnfinishedGamesAdapter;
 import com.alexandruro.whistscoretracker.config.Constants;
 import com.alexandruro.whistscoretracker.model.Game;
 import com.alexandruro.whistscoretracker.viewmodel.MainMenuViewModel;
+import com.google.android.material.appbar.AppBarLayout;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -100,5 +102,17 @@ public class MainMenuActivity extends AppCompatActivity implements GameListAdapt
     @Override
     public void onDeleteGame(Game game) {
         viewModel.deleteGame(game);
+    }
+
+    @Override
+    public void onClickGame(int position) {
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewUnfinishedGames);
+        NestedScrollView nestedScrollView = (NestedScrollView) recyclerView.getParent().getParent();
+        AppBarLayout toolbarLayout = (AppBarLayout) findViewById(R.id.toolbar).getParent().getParent();
+        toolbarLayout.setExpanded(false);
+        recyclerView.post(() -> {
+            float y = recyclerView.getY() + recyclerView.getChildAt(position).getY();
+            nestedScrollView.smoothScrollTo(0, (int) y);
+        });
     }
 }
