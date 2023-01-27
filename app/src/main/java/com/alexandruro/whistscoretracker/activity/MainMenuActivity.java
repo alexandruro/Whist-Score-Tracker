@@ -65,31 +65,12 @@ public class MainMenuActivity extends AppCompatActivity implements GameListAdapt
     }
 
     /**
-     * Continues a previously initiated game
-     * @param view The view that calls the method
-     */
-    public void continueGame(View view) {
-        Intent intent = new Intent(this, GameActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        startActivity(intent);
-    }
-
-    /**
      * Redirects the user to the "About" screen
      * @param view The view that calls the method
      */
     public void about(View view) {
         Intent intent = new Intent(this, AboutActivity.class);
         startActivity(intent);
-    }
-
-    /**
-     * Exits the app
-     * @param view The view that calls the method
-     */
-    public void quit(View view) {
-        finish();
-        System.exit(0);
     }
 
     @Override
