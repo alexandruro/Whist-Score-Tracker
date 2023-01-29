@@ -1,6 +1,8 @@
 package com.alexandruro.whistscoretracker.adapter;
 
 import android.content.Context;
+
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 
 import com.alexandruro.whistscoretracker.model.PlayerRecord;
@@ -26,5 +28,9 @@ public class EndPlayerListAdapter extends PlayerListAdapter {
             return android.R.color.transparent;
         });
         sort(Collections.reverseOrder());
+    }
+
+    protected @LayoutRes int getLayout() {
+        return R.layout.player_list_item;
     }
 }

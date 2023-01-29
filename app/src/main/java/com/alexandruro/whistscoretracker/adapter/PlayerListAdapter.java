@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 
 import com.alexandruro.whistscoretracker.R;
@@ -36,7 +37,7 @@ public abstract class PlayerListAdapter extends ArrayAdapter<PlayerRecord> {
         View listItemView = convertView;
         if(listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.end_player_list_item, parent, false);
+                    getLayout(), parent, false);
         }
 
         ((TextView)listItemView.findViewById(R.id.playerName)).setText(getItem(position).getName());
@@ -45,4 +46,6 @@ public abstract class PlayerListAdapter extends ArrayAdapter<PlayerRecord> {
 
         return listItemView;
     }
+
+    protected abstract @LayoutRes int getLayout();
 }

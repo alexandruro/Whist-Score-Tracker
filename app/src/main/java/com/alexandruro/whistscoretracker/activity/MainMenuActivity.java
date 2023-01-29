@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alexandruro.whistscoretracker.R;
+import com.alexandruro.whistscoretracker.adapter.FinishedGamesAdapter;
 import com.alexandruro.whistscoretracker.adapter.UnfinishedGamesAdapter;
 import com.alexandruro.whistscoretracker.config.Constants;
 import com.alexandruro.whistscoretracker.model.Game;
@@ -50,6 +51,16 @@ public class MainMenuActivity extends AppCompatActivity implements GameListAdapt
             UnfinishedGamesAdapter unfinishedGamesAdapter = new UnfinishedGamesAdapter(this, unfinishedGames);
             RecyclerView recyclerView = findViewById(R.id.recyclerViewUnfinishedGames);
             recyclerView.setAdapter(unfinishedGamesAdapter);
+            RecyclerView.LayoutManager recyclerViewLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+            recyclerView.setLayoutManager(recyclerViewLayoutManager);
+        });
+
+        viewModel.getFinishedGames().observe(this, finishedGames -> {
+            Log.d(TAG, "observeViewModel: " + finishedGames.size() + " finished games");
+
+            FinishedGamesAdapter finishedGamesAdapter = new FinishedGamesAdapter(finishedGames);
+            RecyclerView recyclerView = findViewById(R.id.recyclerViewFinishedGames);
+            recyclerView.setAdapter(finishedGamesAdapter);
             RecyclerView.LayoutManager recyclerViewLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
             recyclerView.setLayoutManager(recyclerViewLayoutManager);
         });

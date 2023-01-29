@@ -2,6 +2,7 @@ package com.alexandruro.whistscoretracker.adapter;
 
 import android.content.Context;
 
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 
 import com.alexandruro.whistscoretracker.R;
@@ -15,5 +16,9 @@ public class GenericPlayerListAdapter extends PlayerListAdapter {
 
     GenericPlayerListAdapter(@NonNull Context context, @NonNull List<PlayerRecord> objects) {
         super(context, objects, position -> PLAYER_ICON);
+    }
+
+    protected @LayoutRes int getLayout() {
+        return R.layout.player_list_item;
     }
 }
