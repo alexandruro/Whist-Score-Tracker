@@ -12,10 +12,10 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:animateLayoutChanges="true"
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
             android:paddingBottom="16dp"
             tools:context="com.alexandruro.whistscoretracker.activity.MainMenuActivity">
 
@@ -72,11 +72,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewUnfinishedGames"
-                android:overScrollMode="never"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/textViewUnfinishedGames" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_empty_unfinished"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerViewUnfinishedGames"
+                android:layout_margin="16dp"
+                app:cardBackgroundColor="@color/colorActivityBackground"
+                app:cardCornerRadius="@dimen/menu_card_corner_radius"
+                app:cardElevation="0dp">
+
+                <include layout="@layout/view_unfinished_game_empty" />
+
+            </androidx.cardview.widget.CardView>
 
             <View
                 android:id="@+id/divider2"
@@ -86,7 +101,8 @@
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recyclerViewUnfinishedGames" />
+                app:layout_constraintTop_toBottomOf="@id/card_empty_unfinished"
+                app:layout_constraintBottom_toTopOf="@id/textViewFinishedGames"/>
 
             <TextView
                 android:id="@+id/textViewFinishedGames"
@@ -106,22 +122,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewFinishedGames"
                 android:overScrollMode="never"
-                />
-
-<!--            <Button
-                android:id="@+id/button2"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/load_more"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardViewFinishedGame1" />-->
+                app:layout_constraintTop_toBottomOf="@+id/textViewFinishedGames" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_empty_finished"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerViewFinishedGames"
+                app:cardCornerRadius="@dimen/menu_card_corner_radius"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/colorActivityBackground">
+
+                <include layout="@layout/view_finished_game_empty"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <!--            <Button
+                            android:id="@+id/button2"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="@string/load_more"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/cardViewFinishedGame1" />-->
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

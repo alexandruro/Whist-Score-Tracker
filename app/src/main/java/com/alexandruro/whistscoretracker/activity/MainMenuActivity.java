@@ -47,22 +47,37 @@ public class MainMenuActivity extends AppCompatActivity implements GameListAdapt
         viewModel = new ViewModelProvider(this).get(MainMenuViewModel.class);
         viewModel.getUnfinishedGames().observe(this, unfinishedGames -> {
             Log.d(TAG, "observeViewModel: " + unfinishedGames.size() + " unfinished games");
-
-            UnfinishedGamesAdapter unfinishedGamesAdapter = new UnfinishedGamesAdapter(this, unfinishedGames);
             RecyclerView recyclerView = findViewById(R.id.recyclerViewUnfinishedGames);
-            recyclerView.setAdapter(unfinishedGamesAdapter);
-            RecyclerView.LayoutManager recyclerViewLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-            recyclerView.setLayoutManager(recyclerViewLayoutManager);
+            if (unfinishedGames.isEmpty()) {
+                findViewById(R.id.card_empty_unfinished).setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
+            }
+            else {
+                recyclerView.setVisibility(View.VISIBLE);
+                findViewById(R.id.card_empty_unfinished).setVisibility(View.GONE);
+                UnfinishedGamesAdapter unfinishedGamesAdapter = new UnfinishedGamesAdapter(this, unfinishedGames);
+                recyclerView.setAdapter(unfinishedGamesAdapter);
+                RecyclerView.LayoutManager recyclerViewLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+                recyclerView.setLayoutManager(recyclerViewLayoutManager);
+            }
         });
 
         viewModel.getFinishedGames().observe(this, finishedGames -> {
             Log.d(TAG, "observeViewModel: " + finishedGames.size() + " finished games");
-
-            FinishedGamesAdapter finishedGamesAdapter = new FinishedGamesAdapter(finishedGames);
             RecyclerView recyclerView = findViewById(R.id.recyclerViewFinishedGames);
-            recyclerView.setAdapter(finishedGamesAdapter);
-            RecyclerView.LayoutManager recyclerViewLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-            recyclerView.setLayoutManager(recyclerViewLayoutManager);
+
+            if (finishedGames.isEmpty()) {
+                findViewById(R.id.card_empty_finished).setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
+            }
+            else {
+                findViewById(R.id.card_empty_finished).setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
+                FinishedGamesAdapter finishedGamesAdapter = new FinishedGamesAdapter(finishedGames);
+                recyclerView.setAdapter(finishedGamesAdapter);
+                RecyclerView.LayoutManager recyclerViewLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+                recyclerView.setLayoutManager(recyclerViewLayoutManager);
+            }
         });
     }
 
