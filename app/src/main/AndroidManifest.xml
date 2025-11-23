@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.alexandruro.whistscoretracker">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!-- WRITE_EXTERNAL_STORAGE is not needed on Android 10 (API level 29) or higher.
          This is needed to generate coverage in Firebase.-->
@@ -28,7 +27,8 @@
         <activity
             android:name=".activity.GameActivity"
             android:launchMode="singleTask"
-            android:parentActivityName=".activity.MainMenuActivity">
+            android:parentActivityName=".activity.MainMenuActivity"
+            android:exported="false">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
@@ -37,19 +37,22 @@
         </activity>
         <activity
             android:name=".activity.NewGameActivity"
-            android:parentActivityName=".activity.MainMenuActivity">
+            android:parentActivityName=".activity.MainMenuActivity"
+            android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.alexandruro.whistscoretracker.activity.MainMenuActivity" />
         </activity>
         <activity
             android:name=".activity.AddGameInputActivity"
-            android:parentActivityName=".activity.GameActivity">
+            android:parentActivityName=".activity.GameActivity"
+            android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.alexandruro.whistscoretracker.activity.GameActivity" />
         </activity>
-        <activity android:name=".activity.AboutActivity" />
+        <activity android:name=".activity.AboutActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>
