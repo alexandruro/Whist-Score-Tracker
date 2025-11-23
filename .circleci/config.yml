@@ -31,7 +31,7 @@ jobs:
     parameters:
       system-image:
         type: string
-        default: system-images;android-33;google_apis;x86_64
+        default: system-images;android-29;google_apis;x86
     executor:
       name: android/android_machine
       resource_class: large
@@ -95,10 +95,10 @@ workflows:
             parameters:
               system-image:
 #                - system-images;android-35;google_apis;x86_64
-                - system-images;android-33;google_apis;x86_64
+#                - system-images;android-33;google_apis;x86_64
 #                - system-images;android-32;google_apis;x86_64
 #                - system-images;android-30;google_apis;x86
-#                - system-images;android-29;google_apis;x86
+                - system-images;android-29;google_apis;x86
           name: android-test-<<matrix.system-image>>
           filters:
             branches:
