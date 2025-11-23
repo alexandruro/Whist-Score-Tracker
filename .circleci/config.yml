@@ -12,6 +12,8 @@ jobs:
     steps:
       - checkout
       - android/restore_gradle_cache
+      - android/change-java-version:
+          java-version: 17
       - android/run_tests:
           test_command: ./gradlew testDebug
       - android/save_gradle_cache
@@ -36,6 +38,8 @@ jobs:
       tag: 2024.11.1
     steps:
       - checkout
+      - android/change-java-version:
+          java-version: 17
       - android/start_emulator_and_run_tests:
           test_command: ./gradlew :app:connectedDebugAndroidTest
           system_image: << parameters.system-image >>
@@ -56,6 +60,8 @@ jobs:
     steps:
       - checkout
       - android/restore_gradle_cache
+      - android/change-java-version:
+          java-version: 17
       - run:
           name: Assemble release build
           command: |
