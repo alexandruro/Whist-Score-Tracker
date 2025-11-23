@@ -12,6 +12,8 @@ jobs:
     steps:
       - checkout
       - android/restore_gradle_cache
+      - android/change_java_version:
+          java-version: 17
       - android/run_tests:
           test_command: ./gradlew testDebug
       - android/save_gradle_cache
