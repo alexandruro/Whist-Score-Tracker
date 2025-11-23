@@ -12,6 +12,8 @@ jobs:
     steps:
       - checkout
       - android/restore_gradle_cache
+      - android/change_java_version:
+          java_version: 17
       - android/run_tests:
           test_command: ./gradlew testDebug
       - android/save_gradle_cache
@@ -29,13 +31,15 @@ jobs:
     parameters:
       system-image:
         type: string
-        default: system-images;android-35;google_apis;x86_64
+        default: system-images;android-33;google_apis;x86_64
     executor:
       name: android/android_machine
       resource_class: large
       tag: 2024.11.1
     steps:
       - checkout
+      - android/change_java_version:
+          java_version: 17
       - android/start_emulator_and_run_tests:
           test_command: ./gradlew :app:connectedDebugAndroidTest
           system_image: << parameters.system-image >>
@@ -56,6 +60,8 @@ jobs:
     steps:
       - checkout
       - android/restore_gradle_cache
+      - android/change_java_version:
+          java_version: 17
       - run:
           name: Assemble release build
           command: |
@@ -79,11 +85,7 @@ workflows:
   test-and-build:
     jobs:
       - unit-test
-      - android/run_ui_tests:
-          executor:
-            name: android/android_machine
-            resource_class: large
-            tag: 2024.11.1
+      - android-test:
           filters:
             branches:
               ignore: main # regular commits
